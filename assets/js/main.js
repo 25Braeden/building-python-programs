@@ -1,59 +1,46 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Dynamic content sizing
-  function adjustLayout() {
-      const sidebar = document.getElementById('sidebar');
-      const mainContent = document.querySelector('main');
-      
-      // Set minimum widths based on content
-      sidebar.style.minWidth = '300px';
-      mainContent.style.minWidth = '600px';
+  // Sidebar toggle functionality
+  const sidebar = document.getElementById('sidebar');
+  const toggleButton = document.createElement('button');
+  toggleButton.className = 'sidebar-toggle';
+  toggleButton.innerHTML = '☰';
+  toggleButton.setAttribute('aria-label', 'Toggle navigation');
+  document.body.appendChild(toggleButton);
+
+  // Toggle sidebar
+  function toggleSidebar() {
+      document.body.classList.toggle('sidebar-collapsed');
+      // Save state
+      localStorage.setItem('sidebarCollapsed', document.body.classList.contains('sidebar-collapsed'));
   }
 
-  // Responsive font sizing
-  function scaleFonts() {
-      const baseWidth = 1920; // Reference screen width
-      const currentWidth = window.innerWidth;
-      const scaleFactor = currentWidth / baseWidth;
-      
-      document.body.style.fontSize = `${Math.max(1, scaleFactor) * 100}%`;
+  toggleButton.addEventListener('click', toggleSidebar);
+
+  // Restore sidebar state
+  if (localStorage.getItem('sidebarCollapsed') === 'true') {
+      document.body.classList.add('sidebar-collapsed');
   }
 
   // Handle navigation
-  function handleNavigation(event) {
-      event.preventDefault();
-      const target = event.target.closest('a');
-      if (!target) return;
-
-      // Update active class
-      document.querySelectorAll('.chapters li a').forEach(link => {
-          link.classList.remove('active');
+  document.querySelectorAll('#sidebar a').forEach(link => {
+      link.addEventListener('click', function(e) {
+          e.preventDefault();
+          // Update active state
+          document.querySelectorAll('#sidebar a').forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+          // Load content
+          fetch(this.href)
+              .then(response => response.text())
+              .then(html => {
+                  const parser = new DOMParser();
+                  const doc = parser.parseFromString(html, 'text/html');
+                  document.querySelector('main').innerHTML = doc.querySelector('main').innerHTML;
+                  window.history.pushState({}, '', this.href);
+              });
       });
-      target.classList.add('active');
-
-      // Load content dynamically
-      fetch(target.href)
-          .then(response => response.text())
-          .then(html => {
-              const parser = new DOMParser();
-              const doc = parser.parseFromString(html, 'text/html');
-              document.querySelector('main').innerHTML = doc.querySelector('main').innerHTML;
-              window.history.pushState({}, '', target.href);
-          });
-  }
-
-  // Event listeners
-  window.addEventListener('resize', () => {
-      adjustLayout();
-      scaleFonts();
   });
-  
-  document.querySelector('#sidebar').addEventListener('click', handleNavigation);
 
-  // Initial setup
-  adjustLayout();
-  scaleFonts();
-  
-  // Handle browser navigation (back/forward)
+  // Handle browser navigation
   window.addEventListener('popstate', () => {
       fetch(window.location.href)
           .then(response => response.text())
