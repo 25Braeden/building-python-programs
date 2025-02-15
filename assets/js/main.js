@@ -18,20 +18,22 @@ document.addEventListener('DOMContentLoaded', function() {
   setTheme(savedTheme);
 
   // ========== Sidebar Functionality ==========
-  const sidebar = document.getElementById('sidebar');
   const toggleButton = document.createElement('button');
   toggleButton.className = 'sidebar-toggle';
   toggleButton.innerHTML = '☰';
   toggleButton.setAttribute('aria-label', 'Toggle navigation');
   document.body.appendChild(toggleButton);
 
-  function toggleSidebar() {
+  // Make toggle function globally accessible for HTML onclick
+  window.toggleSidebar = function() {
       document.body.classList.toggle('sidebar-collapsed');
       localStorage.setItem('sidebarCollapsed', 
           document.body.classList.contains('sidebar-collapsed'));
   }
 
+  // Add event listeners for both toggle buttons
   toggleButton.addEventListener('click', toggleSidebar);
+  document.querySelector('.sidebar-close').addEventListener('click', toggleSidebar);
 
   // Restore sidebar state
   if (localStorage.getItem('sidebarCollapsed') === 'true') {
@@ -68,11 +70,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
           // Update UI states
           setActiveLink();
-          document.body.classList.remove('sidebar-collapsed'); // Auto-open sidebar on nav
+          document.body.classList.remove('sidebar-collapsed');
 
       } catch (error) {
           console.error('Navigation failed:', error);
-          window.location.href = target.href; // Fallback to normal navigation
+          window.location.href = target.href;
       }
   }
 

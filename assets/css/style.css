@@ -35,33 +35,84 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* ======= Updated Sidebar Styles ======= */
 #sidebar {
   width: var(--sidebar-width);
   background: var(--rust-primary);
   color: #ffffff;
   position: fixed;
-  left: 0;  /* Add this */
-  top: 0;   /* Add this */
+  left: 0;
+  top: 0;
   height: 100vh;
   overflow-y: auto;
-  transition: transform 0.3s ease;
   z-index: 1000;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  transition: left 0.3s ease-in-out;
+}
+
+/* Collapsed state */
+body.sidebar-collapsed #sidebar {
+  left: calc(-1 * var(--sidebar-width));
 }
 
 .sidebar-header {
   background: var(--rust-secondary);
   border-bottom: 1px solid var(--rust-primary);
+  position: relative;
+  padding-right: 3rem;
 }
 
+/* Close button */
+.sidebar-close {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  opacity: 0.7;
+  padding: 0;
+}
+
+.sidebar-close:hover {
+  opacity: 1;
+}
+
+/* Toggle button adjustments */
+.sidebar-toggle {
+  position: fixed;
+  left: calc(var(--sidebar-width) + 20px);
+  top: 20px;
+  transition: left 0.3s ease-in-out;
+  display: block; /* Changed from none */
+  background: var(--rust-accent);
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+body.sidebar-collapsed .sidebar-toggle {
+  left: 20px;
+}
+
+/* Hover peek effect */
+body.sidebar-collapsed #sidebar:hover {
+  left: 0;
+  transition: left 0.2s ease-out;
+  box-shadow: 2px 0 15px rgba(0,0,0,0.2);
+}
+
+/* ======= Rest of Your Existing Styles ======= */
 .sidebar-header h1 {
   font-size: 1.4rem;
   margin: 0;
   font-weight: 500;
-  color: #ffffff;
-}
-
-.chapters li a {
   color: var(--text-color);
 }
 
@@ -88,15 +139,15 @@ main {
   padding: 3rem 4rem;
   max-width: 800px;
   transition: margin 0.3s ease;
-  position: relative; /* Add this */
-  z-index: 1; /* Add this */
-  background: var(--bg-color); /* Add this */
+  position: relative;
+  z-index: 1;
+  background: var(--bg-color);
 }
 
 .book-title {
   font-size: 2.5rem;
   font-weight: 300;
-  color: var(--rust-primary);
+  color: var(--text-color);
   margin-bottom: 2rem;
   border-bottom: 2px solid var(--rust-accent);
   padding-bottom: 1rem;
@@ -139,7 +190,7 @@ pre code {
 }
 
 .button:hover {
-background: #d54300;
+  background: #d54300;
 }
 
 .navigation-buttons {
@@ -148,21 +199,6 @@ background: #d54300;
   margin-top: 3rem;
   padding-top: 2rem;
   border-top: 1px solid #e8e8e8;
-}
-
-/* Toggle button */
-.sidebar-toggle {
-  position: fixed;
-  left: 20px;
-  top: 20px;
-  background: var(--rust-accent);
-  border: none;
-  color: white;
-  padding: 0.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  z-index: 1001;
-  display: none;
 }
 
 .theme-toggle {
@@ -188,16 +224,17 @@ background: #d54300;
 
 @media (max-width: 1200px) {
   .sidebar-toggle {
-      display: block;
+      left: 20px !important;
   }
   
   #sidebar {
-      transform: translateX(calc(-1 * var(--sidebar-width)));
-      transition: transform 0.3s ease;
+      left: -100%;
+      width: 80%;
+      transition: left 0.3s ease;
   }
   
   body.sidebar-visible #sidebar {
-      transform: translateX(0);
+      left: 0;
   }
   
   main {
@@ -205,9 +242,7 @@ background: #d54300;
       padding: 2rem;
   }
   
-  /* Add mobile overlay */
   #sidebar {
-      background: var(--rust-primary);
       box-shadow: 2px 0 12px rgba(0,0,0,0.2);
   }
 }
