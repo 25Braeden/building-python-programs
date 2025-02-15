@@ -87,6 +87,11 @@ main {
   padding-bottom: 1rem;
 }
 
+article {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 pre {
   background: var(--rust-code-bg);
   padding: 1.5rem;
@@ -104,6 +109,11 @@ code {
   border-radius: 3px;
 }
 
+pre code {
+  background: transparent;
+  padding: 0;
+}
+
 .button {
   display: inline-flex;
   align-items: center;
@@ -116,8 +126,14 @@ code {
   transition: background 0.2s ease;
 }
 
+.button.disabled {
+  background: #cccccc;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
 .button:hover {
-  background: #d54300;
+background: #d54300;
 }
 
 .navigation-buttons {
