@@ -1,4 +1,5 @@
 :root {
+  /* Light theme (default) */
   --rust-primary: #262625;
   --rust-secondary: #3b3b39;
   --rust-accent: #f74c00;
@@ -6,15 +7,32 @@
   --rust-text: #403f3c;
   --rust-link: #4a8fd4;
   --sidebar-width: 300px;
+  --bg-color: #ffffff;
+  --text-color: #403f3c;
+  --code-text: #36454f;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --rust-primary: #1a1a34;
+  --rust-secondary: #2a2a4a;
+  --rust-accent: #ff8c00;
+  --rust-code-bg: #2d2d4d;
+  --rust-text: #d8d8d8;
+  --rust-link: #6ab0f3;
+  --bg-color: #1a1a34;
+  --text-color: #d8d8d8;
+  --code-text: #c0c0c0;
 }
 
 body {
   font-family: "Fira Sans", "Helvetica Neue", Arial, sans-serif;
   line-height: 1.6;
-  color: var(--rust-text);
-  background: white;
+  color: var(--text-color);
+  background: var(--bg-color);
   margin: 0;
   font-size: 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #sidebar {
@@ -22,6 +40,8 @@ body {
   background: var(--rust-primary);
   color: #ffffff;
   position: fixed;
+  left: 0;  /* Add this */
+  top: 0;   /* Add this */
   height: 100vh;
   overflow-y: auto;
   transition: transform 0.3s ease;
@@ -30,9 +50,8 @@ body {
 }
 
 .sidebar-header {
-  padding: 1.5rem;
   background: var(--rust-secondary);
-  border-bottom: 1px solid #3b3b39;
+  border-bottom: 1px solid var(--rust-primary);
 }
 
 .sidebar-header h1 {
@@ -42,10 +61,8 @@ body {
   color: #ffffff;
 }
 
-.chapters {
-  list-style: none;
-  padding: 1rem 0;
-  margin: 0;
+.chapters li a {
+  color: var(--text-color);
 }
 
 .chapters li a {
@@ -59,16 +76,11 @@ body {
 }
 
 .chapters li a:hover {
-  background: #2d2d2b;
-  color: white;
-  border-left-color: var(--rust-accent);
+  background: var(--rust-secondary);
 }
 
 .chapters li a.active {
-  background: #353533;
-  color: white;
-  border-left-color: var(--rust-accent);
-  font-weight: 500;
+  background: var(--rust-secondary);
 }
 
 main {
@@ -76,6 +88,9 @@ main {
   padding: 3rem 4rem;
   max-width: 800px;
   transition: margin 0.3s ease;
+  position: relative; /* Add this */
+  z-index: 1; /* Add this */
+  background: var(--bg-color); /* Add this */
 }
 
 .book-title {
@@ -94,21 +109,12 @@ article {
 
 pre {
   background: var(--rust-code-bg);
-  padding: 1.5rem;
-  border-radius: 4px;
-  overflow-x: auto;
-  font-family: "Fira Mono", Consolas, monospace;
-  font-size: 0.9em;
-  margin: 1.5rem 0;
 }
 
 code {
-  font-family: "Fira Mono", Consolas, monospace;
   background: var(--rust-code-bg);
-  padding: 0.2em 0.4em;
-  border-radius: 3px;
+  color: var(--code-text);
 }
-
 pre code {
   background: transparent;
   padding: 0;
@@ -144,15 +150,6 @@ background: #d54300;
   border-top: 1px solid #e8e8e8;
 }
 
-/* Collapsed state */
-body.sidebar-collapsed #sidebar {
-  transform: translateX(calc(-1 * var(--sidebar-width)));
-}
-
-body.sidebar-collapsed main {
-  margin-left: 0;
-}
-
 /* Toggle button */
 .sidebar-toggle {
   position: fixed;
@@ -168,6 +165,27 @@ body.sidebar-collapsed main {
   display: none;
 }
 
+.theme-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--rust-accent);
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
 @media (max-width: 1200px) {
   .sidebar-toggle {
       display: block;
@@ -175,6 +193,7 @@ body.sidebar-collapsed main {
   
   #sidebar {
       transform: translateX(calc(-1 * var(--sidebar-width)));
+      transition: transform 0.3s ease;
   }
   
   body.sidebar-visible #sidebar {
@@ -182,7 +201,13 @@ body.sidebar-collapsed main {
   }
   
   main {
-      margin-left: 0;
+      margin-left: 0 !important;
       padding: 2rem;
+  }
+  
+  /* Add mobile overlay */
+  #sidebar {
+      background: var(--rust-primary);
+      box-shadow: 2px 0 12px rgba(0,0,0,0.2);
   }
 }
