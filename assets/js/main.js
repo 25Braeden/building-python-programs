@@ -109,6 +109,9 @@ document.addEventListener('DOMContentLoaded', function() {
           updateNavigation();
           document.body.classList.remove('sidebar-collapsed');
 
+          // Highlight code blocks after content loads (added 50ms delay for safety)
+          setTimeout(() => Prism.highlightAll(), 50);
+
       } catch (error) {
           console.error('Navigation failed:', error);
           window.location.href = target.href;
@@ -127,6 +130,10 @@ document.addEventListener('DOMContentLoaded', function() {
           document.querySelector('main').innerHTML = doc.querySelector('main').innerHTML;
           setActiveLink();
           updateNavigation();
+
+          // Highlight code blocks after popstate
+          setTimeout(() => Prism.highlightAll(), 50);
+
       } catch (error) {
           window.location.reload();
       }
@@ -142,4 +149,5 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initial setup
   setActiveLink();
   updateNavigation();
+  Prism.highlightAll(); // Initial highlight when page first loads
 });

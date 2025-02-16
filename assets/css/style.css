@@ -27,6 +27,58 @@
   --sidebar-text: var(--text-color);
 }
 
+pre[class*="language-"] {
+  background: var(--rust-code-bg) !important;
+  border: 1px solid color-mix(in srgb, var(--rust-code-bg) 90%, black);
+  margin: 1.5rem 0;
+}
+
+code[class*="language-"] {
+  font-family: 'Fira Mono', monospace;
+  font-size: 0.9em;
+}
+
+.token {
+  color: var(--code-text) !important;
+}
+
+/* Add variable highlighting */
+.token.variable {
+  color: var(--rust-accent) !important; /* Use your accent color */
+  font-style: italic;
+}
+
+/* Syntax highlighting */
+.token.keyword {
+  color: var(--rust-accent) !important; /* Orange for keywords */
+}
+
+.token.builtin {
+  color: #6ab0f3 !important; /* Blue for built-ins */
+}
+
+.token.variable {
+  color: #403f3c !important; /* Light gray variables (dark theme) */
+  font-style: italic;
+}
+
+[data-theme="dark"] .token.variable {
+  color: #d8d8d8 !important; /* Dark gray variables (light theme) */
+}
+
+/* Keep existing Prism colors for others */
+.token.comment {
+  color: #999 !important;
+}
+
+.token.string {
+  color: #b5bd68 !important;
+}
+
+.token.number {
+  color: #cc99cd !important;
+}
+
 body {
   font-family: "Fira Sans", "Helvetica Neue", Arial, sans-serif;
   line-height: 1.6;
@@ -159,14 +211,6 @@ article {
   hyphens: auto;
 }
 
-pre {
-  background: var(--rust-code-bg);
-}
-
-code {
-  background: var(--rust-code-bg);
-  color: var(--code-text);
-}
 pre code {
   background: transparent;
   padding: 0;
