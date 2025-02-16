@@ -129,7 +129,7 @@ body.sidebar-collapsed #sidebar:hover {
 }
 
 main {
-  margin-left: var(--sidebar-width);
+  margin: 0 auto;
   padding: 3rem 2rem;
   max-width: 800px;
   transition: margin 0.3s ease;
@@ -144,7 +144,7 @@ main {
 
 .book-title {
   text-align: center;
-  margin: 2rem 0 3rem; /* This is good */
+  margin: 2rem 0 3rem;
   font-size: 2.5rem;
   font-weight: 300;
   color: var(--text-color);
