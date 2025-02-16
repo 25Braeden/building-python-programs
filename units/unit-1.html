@@ -117,28 +117,17 @@ else:
         pattern:
           /(\b(?:as|async|await|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|nonlocal|pass|print|raise|return|try|while|with|yield)\b|\s*)[a-zA-Z_]\w*/,
         lookbehind: true,
+        alias: 'italic' // Ensure variables are italicized
       };
     </script>
     <script>
-      // Enhanced Python syntax highlighting
-      Prism.languages.python = Prism.languages.extend("python", {
-        keyword:
-          /\b(?:and|as|assert|async|await|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|nonlocal|not|or|pass|print|raise|return|try|while|with|yield)\b/,
-        builtin:
-          /\b(?:__import__|abs|all|any|apply|ascii|basestring|bin|bool|buffer|bytearray|bytes|callable|chr|classmethod|cmp|coerce|compile|complex|delattr|dict|dir|divmod|enumerate|eval|execfile|file|filter|float|format|frozenset|getattr|globals|hasattr|hash|help|hex|id|input|int|intern|isinstance|issubclass|iter|len|list|locals|long|map|max|memoryview|min|next|object|oct|open|ord|pow|property|range|raw_input|reduce|reload|repr|reversed|round|set|setattr|slice|sorted|staticmethod|str|sum|super|tuple|type|unichr|unicode|vars|xrange|zip)\b/,
-        variable: {
-          pattern:
-            /(\b(?!\d)(?:(?!__)\w)+(?=\s*=\s*[^\n=])|\b(?=[a-zA-Z_]\w*\s*(?:\(|\=))/,
-          lookbehind: true,
-        },
+      // Remove existing variable definition and replace with:
+      Prism.languages.insertBefore('python', 'keyword', {
+          'variable': {
+              pattern: /\b(?!(?:__)\b)(?!\b(?:and|as|assert|async|await|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|nonlocal|not|or|pass|print|raise|return|try|while|with|yield)\b)[a-zA-Z_]\w*\b/
+          }
       });
-
-      // Add operator highlighting
-      Prism.languages.insertBefore("python", "keyword", {
-        operator: /[-+%=]=?|!=|<=?|>=?|&{1,2}|\|?\||\?|\*\*?|\/\/?|\^|~/,
-        punctuation: /[{}[\];(),.:]/,
-      });
-    </script>
+      </script>
     <script src="../assets/js/main.js"></script>
   </body>
 </html>
