@@ -24,28 +24,66 @@ document.addEventListener('DOMContentLoaded', function() {
   toggleButton.setAttribute('aria-label', 'Toggle navigation');
   document.body.appendChild(toggleButton);
 
-  // Make toggle function globally accessible for HTML onclick
   window.toggleSidebar = function() {
       document.body.classList.toggle('sidebar-collapsed');
       localStorage.setItem('sidebarCollapsed', 
           document.body.classList.contains('sidebar-collapsed'));
   }
 
-  // Add event listeners for both toggle buttons
   toggleButton.addEventListener('click', toggleSidebar);
-  document.querySelector('.sidebar-close').addEventListener('click', toggleSidebar);
 
-  // Restore sidebar state
   if (localStorage.getItem('sidebarCollapsed') === 'true') {
       document.body.classList.add('sidebar-collapsed');
   }
 
   // ========== Navigation System ==========
+  const navigationOrder = [
+      'index.html',
+      'units/unit-0.html',
+      'units/unit-0.html#about-this-book',
+      'units/unit-0.html#how-to-use',
+      'units/unit-1.html',
+      'units/unit-1.html#integers',
+      'units/unit-1.html#floats',
+      'units/unit-1.html#strings',
+      'units/unit-1.html#booleans'
+  ];
+
+  function updateNavigation() {
+      const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+      const currentHash = window.location.hash || '';
+      const currentPage = `${currentPath}${currentHash}`;
+      
+      const currentIndex = navigationOrder.findIndex(item => 
+          item === currentPage || item === currentPath + currentHash
+      );
+
+      const prevButton = document.querySelector('.prev-button');
+      const nextButton = document.querySelector('.next-button');
+
+      prevButton.classList.toggle('disabled', currentIndex <= 0);
+      nextButton.classList.toggle('disabled', currentIndex >= navigationOrder.length - 1);
+
+      prevButton.href = currentIndex > 0 ? navigationOrder[currentIndex - 1] : '#';
+      nextButton.href = currentIndex < navigationOrder.length - 1 ? navigationOrder[currentIndex + 1] : '#';
+  }
+
   function setActiveLink() {
       const currentPath = window.location.pathname;
+      const currentHash = window.location.hash;
+      
       document.querySelectorAll('#sidebar a').forEach(link => {
-          const linkPath = new URL(link.href).pathname;
-          link.classList.toggle('active', linkPath === currentPath);
+          const linkUrl = new URL(link.href);
+          const isActive = (
+              linkUrl.pathname === currentPath &&
+              linkUrl.hash === currentHash
+          );
+          
+          link.classList.toggle('active', isActive);
+          
+          if (isActive && link.closest('.subsections')) {
+              link.closest('.chapter').classList.add('active');
+          }
       });
   }
 
@@ -64,12 +102,11 @@ document.addEventListener('DOMContentLoaded', function() {
           const parser = new DOMParser();
           const doc = parser.parseFromString(html, 'text/html');
 
-          // Update content
           document.querySelector('main').innerHTML = doc.querySelector('main').innerHTML;
-          window.history.pushState({}, '', url.pathname);
-
-          // Update UI states
+          window.history.pushState({}, '', url.href);
+          
           setActiveLink();
+          updateNavigation();
           document.body.classList.remove('sidebar-collapsed');
 
       } catch (error) {
@@ -78,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   }
 
-  // ========== Event Listeners ==========
+  // Event listeners
   document.querySelector('#sidebar').addEventListener('click', handleNavigation);
   
   window.addEventListener('popstate', async () => {
@@ -89,6 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const doc = parser.parseFromString(html, 'text/html');
           document.querySelector('main').innerHTML = doc.querySelector('main').innerHTML;
           setActiveLink();
+          updateNavigation();
       } catch (error) {
           window.location.reload();
       }
@@ -96,11 +134,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   document.addEventListener('click', function(e) {
       const target = e.target.closest('.prev-button, .next-button');
-      if (!target) return;
+      if (!target || target.classList.contains('disabled')) return;
       e.preventDefault();
       handleNavigation(e);
   });
 
-  // ========== Initial Setup ==========
+  // Initial setup
   setActiveLink();
+  updateNavigation();
 });

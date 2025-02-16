@@ -13,26 +13,69 @@
             <h1>Building Python Programs</h1>
         </div>
         <ul class="chapters">
-            <li><a href="../index.html">Introduction</a></li>
-            <li><a href="unit-0.html" class="active">Unit 0: Getting Started</a></li>
+            <li class="chapter">
+                <a href="../index.html">Introduction</a>
+            </li>
+            <li class="chapter active">
+                <a href="unit-0.html">Unit 0: Getting Started</a>
+                <ul class="subsections">
+                    <li><a href="unit-0.html#about-this-book" class="active">0.1 About This Book</a></li>
+                    <li><a href="unit-0.html#how-to-use">0.2 How to Use This Site</a></li>
+                    <li><a href="unit-0.html#installation">0.3 Installation Guide</a></li>
+                </ul>
+            </li>
         </ul>
     </nav>
 
     <main>
         <article>
-            <h1 class="book-title">Unit 0: Getting Started</h1>  <!-- Added class here -->
-            <p>Let's begin our Python journey...</p>
+            <h1 class="book-title">Unit 0: Getting Started</h1>
             
-            <h2>Installation</h2>
-            <pre><code class="language-bash">$ python3 --version
-$ pip install package-name</code></pre>
+            <section id="about-this-book">
+                <h2>0.1 About This Book</h2>
+                <p>Welcome to <em>Building Python Programs</em>, a comprehensive guide designed to help you...</p>
+                <ul>
+                    <li>Learn Python fundamentals through practical examples</li>
+                    <li>Build real-world applications step-by-step</li>
+                    <li>Develop problem-solving skills with coding exercises</li>
+                </ul>
+            </section>
+
+            <section id="how-to-use">
+                <h2>0.2 How to Use This Site</h2>
+                <p>This interactive textbook features:</p>
+                <pre><code class="language-markdown">- Progressive learning path
+- Interactive code examples
+- Chapter navigation buttons
+- Dark/light theme toggle</code></pre>
+            </section>
+
+            <section id="installation">
+                <h2>0.3 Installation Guide</h2>
+                <p>To get started with Python development:</p>
+                <pre><code class="language-bash"># Check Python version
+$ python3 --version
+
+# Install packages
+$ pip install package-name
+
+# Start virtual environment
+$ python3 -m venv myenv</code></pre>
+            </section>
 
             <div class="navigation-buttons">
-                <a href="../index.html" class="button prev-button">← Previous</a>  <!-- Fixed href -->
-                <a href="#" class="button next-button disabled">Next →</a>  <!-- Added disabled class -->
+                <a href="../index.html" class="button prev-button">← Previous</a>
+                <a href="unit-0.html#how-to-use" class="button next-button">Next →</a>
             </div>
         </article>
     </main>
+
+    <!-- Add theme toggle button -->
+    <button class="theme-toggle" aria-label="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 18c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-10v4m0 4h.01M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.3 11.3l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.3-11.3l1.4-1.4"/>
+        </svg>
+    </button>
 
     <script src="../assets/js/main.js"></script>
 </body>
