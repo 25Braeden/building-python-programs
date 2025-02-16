@@ -105,13 +105,16 @@ body.sidebar-collapsed #sidebar:hover {
   padding: 0 1rem;
 }
 
+.chapters li {
+  display: flex;
+  align-items: center;
+}
+
 .chapters li a {
   justify-content: flex-start;
   color: var(--sidebar-text);
   text-decoration: none;
   padding: 0.8rem 1rem;
-  display: flex;
-  align-items: center;
   font-size: 0.95rem;
   transition: all 0.2s ease;
   border-left: 4px solid transparent;
