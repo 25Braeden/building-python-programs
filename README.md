@@ -1,6 +1,3 @@
-I'll provide the complete README content as raw markdown that you can save directly as a `.md` file:
-
-```markdown
 # Building Python Programs
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -117,13 +114,3 @@ Distributed under the MIT License. See `LICENSE` for more information.
 - Prism.js syntax highlighting library
 - Google Fonts for Fira typeface
 - Inspired by "The Rust Programming Language" book
-```
-
-To use this properly:
-
-1. Save this as `README.md` in your project root
-2. Create an empty `LICENSE` file if needed
-3. Add a screenshot at `assets/screenshots/screenshot.png`
-4. Update the GitHub URL in the installation section
-
-The markdown formatting will render correctly on GitHub/GitLab and in any proper markdown viewer. Let me know if you need any adjustments!
