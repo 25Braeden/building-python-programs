@@ -9,6 +9,19 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- Use CodeMirror 5 (compatible with your initialization code) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/material-darker.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
   </head>
   <body>
     <nav id="sidebar">
@@ -63,24 +76,25 @@
           </div>
         </div>
       </article>
-      <div class="terminal-container">
-        <div class="terminal-header">
-          <span>Python Terminal</span>
-          <button class="terminal-toggle">▲</button>
+
+      <div class="editor-container">
+        <div class="editor-header">
+          <div class="editor-buttons"></div>
+          <button id="split-toggle">Split View</button>
+          <button id="run-button">Run</button>
+          <button id="clear-button">Clear</button>
         </div>
-        <div class="terminal-content">
-          <div id="terminal-output"></div>
-          <div class="terminal-input-line">
-            <span class="prompt">&gt;&gt;&gt;</span>
-            <input type="text" id="terminal-input" autocomplete="off"/>
-          </div>
-        </div>
+        <div id="code-editor"></div>
+        <div id="terminal-output"></div>
       </div>
     </main>
 
+    <!-- Pyodide for client‑side Python -->
     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    <!-- CodeMirror 5 libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
     <script src="assets/js/python-interpreter.js"></script>
     <script src="assets/js/main.js"></script>
   </body>
 </html>
-
