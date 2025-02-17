@@ -1,5 +1,3 @@
-/* main.js */
-
 let editor;  // Monaco Editor instance
 let pyodide; // Pyodide instance
 
@@ -11,13 +9,23 @@ require(["vs/editor/editor.main"], function () {
     language: "python",
     theme: "vs-dark"
   });
+  window.editor = editor;
 });
+
+// Use ResizeObserver on the code area to trigger editor layout when resized
+const codeArea = document.getElementById("code-area");
+const resizeObserver = new ResizeObserver(entries => {
+  for (let entry of entries) {
+    if (window.editor) {
+      window.editor.layout();
+    }
+  }
+});
+resizeObserver.observe(codeArea);
 
 // Initialize Pyodide and redirect Python stdout/stderr
 async function initPyodide() {
   pyodide = await loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.0/full/" });
-  
-  // Redirect Python stdout/stderr to our terminal
   pyodide.runPython(`
 import sys
 from js import outputToTerminal
@@ -29,8 +37,7 @@ class Stdout:
         pass
 sys.stdout = sys.stderr = Stdout()
   `);
-  
-  outputToTerminal("Python runtime initialized!\\n");
+  outputToTerminal("Python runtime initialized!\n");
 }
 
 // Function to display text in the terminal
@@ -43,7 +50,6 @@ function outputToTerminal(text) {
 // Run code when the run button is clicked
 document.getElementById("runBtn").addEventListener("click", async () => {
   const code = editor.getValue();
-  // Clear the terminal before running the code
   document.getElementById("terminal").innerText = "";
   try {
     await pyodide.runPythonAsync(code);
