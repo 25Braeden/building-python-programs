@@ -1,54 +1,53 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const divider = document.getElementById('divider');
-    const lessonContent = document.getElementById('lesson-content');
-    const main = document.querySelector('main');
+document.addEventListener("DOMContentLoaded", function () {
+    const divider = document.getElementById("divider");
+    const lessonContent = document.getElementById("lesson-content");
+    const codeArea = document.getElementById("code-area");
+    const main = document.querySelector("main");
   
     let isDragging = false;
-    let lessonRatio = null; // ratio of lessonContent width to main width
+    let lessonRatio = null; // Store the ratio for responsive resizing
   
-    divider.addEventListener('mousedown', function(e) {
+    divider.addEventListener("mousedown", function () {
       isDragging = true;
-      document.body.style.cursor = 'col-resize';
+      document.body.style.cursor = "col-resize";
     });
   
-    document.addEventListener('mousemove', function(e) {
+    document.addEventListener("mousemove", function (e) {
       if (!isDragging) return;
+  
       const mainRect = main.getBoundingClientRect();
       let newWidth = e.clientX - mainRect.left;
-      const minWidth = 100;
-      const maxWidth = mainRect.width - 100;
+      const minWidth = 150;
+      const maxWidth = mainRect.width - 200;
+  
       if (newWidth < minWidth) newWidth = minWidth;
       if (newWidth > maxWidth) newWidth = maxWidth;
   
-      lessonContent.style.width = newWidth + 'px';
+      lessonContent.style.flex = `0 0 ${newWidth}px`; // Make lesson-content fixed width
       lessonRatio = newWidth / mainRect.width;
   
-      // Update editor layout if available
       if (window.editor) {
         window.editor.layout();
       }
     });
   
-    document.addEventListener('mouseup', function() {
+    document.addEventListener("mouseup", function () {
       if (isDragging) {
         isDragging = false;
-        document.body.style.cursor = 'default';
+        document.body.style.cursor = "default";
         if (window.editor) {
           window.editor.layout();
         }
       }
     });
   
-    // On window resize, recalculate lesson content width from stored ratio and update editor layout
-    window.addEventListener('resize', function() {
-      const mainRect = main.getBoundingClientRect();
-      if (lessonRatio !== null) {
-        const newWidth = mainRect.width * lessonRatio;
-        lessonContent.style.width = newWidth + 'px';
-      }
+    // ResizeObserver ensures the editor adapts when `code-area` resizes
+    const resizeObserver = new ResizeObserver(() => {
       if (window.editor) {
         window.editor.layout();
       }
     });
+  
+    resizeObserver.observe(codeArea);
   });
   

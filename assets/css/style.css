@@ -13,7 +13,9 @@
   --sidebar-text: #ffffff;
   --code-output-bg: #f5f5f5;
   --code-output-text: #333;
-  --toggle--spacing: 70px;
+  --sidebar-width: 300px;
+  --collapsed-sidebar-width: 0px;
+  --toggle-spacing: 70px;
 }
 
 /* Dark theme */
@@ -60,11 +62,12 @@ header {
   height: 100vh;
   overflow-y: auto;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-  transition: left 0.3s ease-in-out;
+  transition: width 0.3s ease-in-out;
 }
 
 body.sidebar-collapsed #sidebar {
-  left: calc(-1 * var(--sidebar-width));
+  width: var(--collapsed-sidebar-width);
+  overflow: hidden;
 }
 
 .sidebar-header {
@@ -93,7 +96,7 @@ body.sidebar-collapsed #sidebar {
   border-left: 4px solid var(--rust-accent);
 }
 
-/* Toggle Buttons */
+/* Sidebar & Theme Toggle Buttons */
 .sidebar-toggle,
 .theme-toggle {
   position: fixed;
@@ -113,20 +116,21 @@ body.sidebar-collapsed #sidebar {
   transition: left 0.3s ease-in-out, transform 0.2s ease;
 }
 
+/* Sidebar Toggle - dynamically positions next to sidebar */
 .sidebar-toggle {
-  left: calc(var(--sidebar-width) + 20px);
+  left: calc(var(--sidebar-width) + 10px);
 }
 
 body.sidebar-collapsed .sidebar-toggle {
-  left: 20px;
+  left: calc(var(--collapsed-sidebar-width) + 10px);
 }
 
 .theme-toggle {
-  left: calc(var(--sidebar-width) + var(--toggle--spacing) + 10px);
+  left: calc(var(--sidebar-width) + var(--toggle-spacing));
 }
 
 body.sidebar-collapsed .theme-toggle {
-  left: calc(10px + var(--toggle--spacing));
+  left: calc(var(--collapsed-sidebar-width) + 70px);
 }
 
 .theme-toggle svg {
@@ -137,37 +141,45 @@ body.sidebar-collapsed .theme-toggle {
 
 /* Main area: split into lesson content (left) and code area (right) */
 main {
-  margin-left: var(--sidebar-width);
-  padding: 1rem;
   display: flex;
   flex-direction: row;
-  min-height: calc(100vh - 70px);
+  height: 100vh;
+  margin-left: calc(var(--sidebar-width) + var(--toggle-spacing) + 50px);
+  transition: margin-left 0.3s ease-in-out;
 }
 
-/* Lesson content (left column) */
+body.sidebar-collapsed main {
+  margin-left: calc(var(--collapsed-sidebar-width) + var(--toggle-spacing) + 50px);
+}
+
 #lesson-content {
-  flex: none;
-  width: 50%; /* initial width */
+  flex: 0 0 50%;
   padding: 1rem;
   border-right: 1px solid #ccc;
+  min-width: 150px;
+  max-width: 75%;
+  margin: 0 auto;
 }
 
-/* Code area (right column) now fills the vertical space */
+#divider {
+  width: 5px;
+  cursor: col-resize;
+  background: #ccc;
+  user-select: none;
+}
+
 #code-area {
-  flex: 1;  /* Ensures this area fills remaining horizontal space */
-  height: calc(100vh - 70px); /* Take up full height minus header */
-  padding: 1rem;
+  flex-grow: 1;
   display: flex;
-  flex-direction: column; /* Stack editor and terminal vertically */
-  box-sizing: border-box;
-  overflow: hidden;
+  flex-direction: column;
+  min-width: 200px;
 }
 
 /* Editor fills available space in code area */
 #editor {
-  flex: 1; /* Editor takes all available space above the terminal */
+  flex: 1;
   width: 100%;
-  min-height: 200px; /* Prevents editor from becoming too small */
+  min-height: 200px;
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
@@ -186,9 +198,9 @@ button#runBtn {
 
 /* Terminal fixed at bottom with fixed height */
 .terminal {
-  flex: 0.5; /* Allows terminal to take up space but not over-expand */
-  max-height: 40%; /* Prevents it from growing too much */
-  min-height: 100px; /* Prevents it from becoming too small */
+  flex: 0.5;
+  max-height: 40%;
+  min-height: 100px;
   background: var(--code-output-bg);
   color: var(--code-output-text);
   padding: 0.5rem;
