@@ -153,6 +153,8 @@ body.sidebar-collapsed main {
 }
 
 #lesson-content {
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.8;
   flex: 0 0 50%;
   padding: 1rem;
   border-right: 1px solid #ccc;
@@ -160,6 +162,37 @@ body.sidebar-collapsed main {
   max-width: 75%;
   margin: 0 auto;
 }
+
+/* Headings inside the lesson content get a book-like style */
+#lesson-content h1,
+#lesson-content h2,
+#lesson-content h3,
+#lesson-content h4,
+#lesson-content h5,
+#lesson-content h6 {
+  font-family: "Source Serif Pro", Georgia, serif;
+  color: var(--fg);
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+/* Specific sizes and weights for different heading levels */
+#lesson-content h1 {
+  font-size: 2.2em;
+  font-weight: 700;
+}
+
+#lesson-content h2 {
+  font-size: 1.8em;
+  font-weight: 600;
+}
+
+#lesson-content h3 {
+  font-size: 1.6em;
+  font-weight: 600;
+}
+
 
 #divider {
   width: 5px;
