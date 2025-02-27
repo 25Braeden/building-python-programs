@@ -252,13 +252,12 @@
   
   /* Terminal Styling */
   .terminal {
-    flex: 0.5;
-    max-height: 40%;
-    min-height: 100px;
+    flex: 1;  /* Takes up all available space */
     background: var(--code-output-bg);
     color: var(--code-output-text);
     padding: 0.5rem;
     overflow-y: auto;
     font-family: monospace;
     box-sizing: border-box;
-  }  
+  }
+  

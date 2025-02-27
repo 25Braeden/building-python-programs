@@ -107,6 +107,7 @@ def py_input(prompt=""):
 builtins.input = py_input
       `);
       outputToTerminal("Python runtime initialized!\r\n");
+      showPrompt();
       console.log("Pyodide initialized and IO overridden");
     } catch (e) {
       console.error("Error initializing Pyodide:", e);
