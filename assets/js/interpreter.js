@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
   require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs' } });
   require(['vs/editor/editor.main'], function () {
     var editorInstance = monaco.editor.create(document.getElementById('editor'), {
-      value: "# Write your Python code here\nprint('Hello, Python!')",
+      value: "# Your python code here\nprint(\"Hello, World!\")",
       language: 'python',
       theme: 'vs-dark'
     });
@@ -42,18 +42,27 @@ document.addEventListener('DOMContentLoaded', function() {
     outputToTerminal("\r\n>>> ");
   }
 
-  // --- Terminal Input Handling ---
+  // --- Global Input Handling via Async Promise ---
+  // This function returns a Promise that resolves when the user enters input.
+  function getTerminalInput() {
+    return new Promise((resolve) => {
+      window.inputResolve = resolve;
+    });
+  }
+  window.getTerminalInput = getTerminalInput; // Expose to Python via js
+
+  // --- Terminal Key Handling ---
+  // When Enter is pressed, if a Promise is waiting, resolve it with the current line.
   function setupTerminalInput() {
     let currentLine = "";
-    let inputResolve = null;
     window.term.onKey(e => {
       const ev = e.domEvent;
       const printable = !ev.altKey && !ev.ctrlKey && !ev.metaKey;
       if (ev.keyCode === 13) { // Enter key
         window.term.write("\r\n");
-        if (inputResolve) {
-          inputResolve(currentLine);
-          inputResolve = null;
+        if (typeof window.inputResolve === 'function') {
+          window.inputResolve(currentLine);
+          window.inputResolve = undefined;
         } else {
           runReplCommand(currentLine);
         }
@@ -91,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log("Pyodide loaded");
       await window.pyodide.runPythonAsync(`
 import sys
-from js import outputToTerminal
+from js import outputToTerminal, getTerminalInput
 class Stdout:
     def write(self, s):
         if s:
@@ -101,9 +110,10 @@ class Stdout:
 sys.stdout = sys.stderr = Stdout()
 
 import builtins
-def py_input(prompt=""):
+# Override input() as an async function that awaits getTerminalInput()
+async def py_input(prompt=""):
     outputToTerminal(prompt)
-    return ""
+    return await getTerminalInput()
 builtins.input = py_input
       `);
       outputToTerminal("Python runtime initialized!\r\n");
@@ -119,8 +129,15 @@ builtins.input = py_input
     if (window.term && typeof window.term.clear === "function") {
       window.term.clear();
     }
+    let code = window.editor.getValue();
+    // Auto-wrap code in an async __main__ if it contains input()
+    if (code.indexOf("input(") !== -1) {
+      code = code.replace(/input\(/g, "await input(");
+      let indented = code.split("\n").map(line => "    " + line).join("\n");
+      code = "async def __main__():\n" + indented + "\n\nawait __main__()";
+    }
     try {
-      await window.pyodide.runPythonAsync(window.editor.getValue());
+      await window.pyodide.runPythonAsync(code);
     } catch (err) {
       outputToTerminal(err.message + "\r\n");
     }
