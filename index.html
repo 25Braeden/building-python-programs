@@ -5,17 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Building Python Programs - Lesson</title>
 
-    <!-- Monaco Editor Loader -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.min.js"></script>
-    <!-- Pyodide -->
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    <!-- Load xterm.js CSS and UMD bundle -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.19.0/css/xterm.css" />
+    <script src="https://cdn.jsdelivr.net/npm/xterm@4.19.0/lib/xterm.js"></script>
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600&family=Fira+Mono&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Load Monaco Editor's loader (synchronously) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.min.js"></script>
+    <script>
+      // Map 'stackframe' with an explicit .js extension.
+      require.config({
+        paths: {
+          'stackframe': 'https://cdnjs.cloudflare.com/ajax/libs/stackframe/1.0.7/stackframe.min.js'
+        }
+      });
+    </script>
+    <!-- Define a dummy module for stackframe to satisfy error-stack-parser -->
+    <script>
+      define("stackframe", [], function() { return {}; });
+    </script>
     
-    <!-- Main CSS -->
+    <!-- Google Fonts and Main CSS -->
     <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600&family=Fira+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <!-- Sidebar -->
@@ -54,32 +72,35 @@
       </svg>
     </button>
 
-    <!-- Main content: split into lesson (left) and interactive code area (right) -->
+    <!-- Main Content: Lesson on left, Code area on right -->
     <main>
-      <!-- Left: Lesson Content -->
+      <!-- Lesson Content -->
       <section id="lesson-content">
         <h2>Introduction</h2>
         <p>
-          Welcome to Building Python Programs! In this lesson, you'll learn the basics of Python – its syntax, structure, and examples.
+          Welcome to Building Python Programs! In this lesson, you'll learn the basics of Python – its syntax,
+          structure, and examples.
         </p>
         <p>
-          Follow along with the interactive editor on the right. Modify the code and click "Run Code" to see your output.
+          Modify the code in the editor above and click "Run Code" to execute. The terminal below will act as a
+          live Python shell where you can see outputs and enter commands.
         </p>
       </section>
 
       <div id="divider"></div>
 
-      <!-- Right: Interactive Code Area -->
+      <!-- Code Area: Editor, Run Button, and Terminal -->
       <section id="code-area">
-        <!-- The code area is a flex container with a dynamic editor and fixed terminal -->
         <div id="editor"></div>
         <button id="runBtn" class="button">Run Code</button>
         <div id="terminal" class="terminal"></div>
       </section>
     </main>
 
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/splitter.js"></script>
-    <script src="assets/js/interpreter.js"></script>
+    <!-- Load Pyodide and custom scripts (using defer) -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js" defer></script>
+    <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/splitter.js" defer></script>
+    <script src="assets/js/interpreter.js" defer></script>
   </body>
 </html>
