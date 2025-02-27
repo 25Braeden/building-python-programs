@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
       language: 'python',
       theme: 'vs-dark'
     });
-    window.editor = editorInstance;  // Expose globally (for splitter.js)
+    window.editor = editorInstance;  // Expose globally for splitter.js
     console.log("Monaco Editor initialized");
   });
 
@@ -35,6 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
       console.error("Terminal not initialized");
     }
   }
+  // Expose outputToTerminal so Pyodide can import it from 'js'
+  window.outputToTerminal = outputToTerminal;
 
   function showPrompt() {
     outputToTerminal("\r\n>>> ");

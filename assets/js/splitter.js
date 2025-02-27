@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const main = document.querySelector("main");
 
   let isDragging = false;
-  let lessonRatio = null; // Store the ratio for responsive resizing
 
   divider.addEventListener("mousedown", function () {
     isDragging = true;
@@ -23,12 +22,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (newWidth < minWidth) newWidth = minWidth;
     if (newWidth > maxWidth) newWidth = maxWidth;
 
-    lessonContent.style.flex = `0 0 ${newWidth}px`; // Fix lesson-content width
-    lessonRatio = newWidth / mainRect.width;
-
-    // Call layout only if the editor exists and layout() is available
+    lessonContent.style.flex = `0 0 ${newWidth}px`;
     if (window.editor && typeof window.editor.layout === "function") {
       window.editor.layout();
+    } else {
+      console.warn("Editor layout function not available", window.editor);
     }
   });
 
@@ -42,12 +40,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // ResizeObserver to adjust the editor when codeArea resizes
   const resizeObserver = new ResizeObserver(() => {
     if (window.editor && typeof window.editor.layout === "function") {
       window.editor.layout();
     }
   });
-
   resizeObserver.observe(codeArea);
 });

@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Building Python Programs - Lesson</title>
 
-    <!-- Load xterm.js CSS and JS first so Terminal is globally defined -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm/dist/xterm.css" />
-    <script src="https://cdn.jsdelivr.net/npm/xterm/dist/xterm.js"></script>
+    <!-- Load xterm.js CSS and UMD bundle -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.19.0/css/xterm.css" />
+    <script src="https://cdn.jsdelivr.net/npm/xterm@4.19.0/lib/xterm.js"></script>
 
-    <!-- Then load Monaco Editor's loader -->
+    <!-- Load Monaco Editor's loader (synchronously) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.min.js"></script>
     <script>
-      // Map 'stackframe' so error-stack-parser (used by Pyodide) can load it.
+      // Map 'stackframe' with an explicit .js so require.js can load it properly.
       require.config({
         paths: {
-          'stackframe': 'https://cdnjs.cloudflare.com/ajax/libs/stackframe/1.0.7/stackframe.min'
+          'stackframe': 'https://cdnjs.cloudflare.com/ajax/libs/stackframe/1.0.7/stackframe.min.js'
         }
       });
     </script>
@@ -68,7 +68,7 @@
       </svg>
     </button>
 
-    <!-- Main Content -->
+    <!-- Main Content: Lesson on left, Code area on right -->
     <main>
       <!-- Lesson Content -->
       <section id="lesson-content">
@@ -93,7 +93,7 @@
       </section>
     </main>
 
-    <!-- Load Pyodide and our custom scripts with defer -->
+    <!-- Load Pyodide and custom scripts with defer -->
     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js" defer></script>
     <script src="assets/js/main.js" defer></script>
     <script src="assets/js/splitter.js" defer></script>
