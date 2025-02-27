@@ -12,12 +12,16 @@
     <!-- Load Monaco Editor's loader (synchronously) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.min.js"></script>
     <script>
-      // Map 'stackframe' with an explicit .js so require.js can load it properly.
+      // Map 'stackframe' with an explicit .js extension.
       require.config({
         paths: {
           'stackframe': 'https://cdnjs.cloudflare.com/ajax/libs/stackframe/1.0.7/stackframe.min.js'
         }
       });
+    </script>
+    <!-- Define a dummy module for stackframe to satisfy error-stack-parser -->
+    <script>
+      define("stackframe", [], function() { return {}; });
     </script>
     
     <!-- Google Fonts and Main CSS -->
@@ -93,7 +97,7 @@
       </section>
     </main>
 
-    <!-- Load Pyodide and custom scripts with defer -->
+    <!-- Load Pyodide and custom scripts (using defer) -->
     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js" defer></script>
     <script src="assets/js/main.js" defer></script>
     <script src="assets/js/splitter.js" defer></script>
