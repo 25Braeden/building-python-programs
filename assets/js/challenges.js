@@ -54,6 +54,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (index > 0 && !challenges[index - 1].solved) {
           challengeDiv.classList.add("locked");
         }
+        // If the challenge is solved, add the completed class for green styling.
+        if (challenge.solved) {
+          challengeDiv.classList.add("completed");
+        }
         // Create a status indicator element
         const statusIndicator = document.createElement("span");
         statusIndicator.className = "status-indicator";

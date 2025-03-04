@@ -155,8 +155,8 @@
          ====================================================================== */
   main {
     display: flex;
-    flex-direction: row;
     height: 100vh;
+    overflow: hidden;
     margin-left: calc(var(--sidebar-width) + var(--toggle-spacing) + 60px);
     transition: margin-left 0.3s ease-in-out;
   }
@@ -169,12 +169,19 @@
          Lesson Content Styles
          ---------------------------------------------------------------------- */
   #lesson-content {
+    font-family: "Open Sans", sans-serif;
+    line-height: 1.8;
     flex: 0 0 50%;
+    padding: 1rem;
+    border-right: 1px solid #ccc;
+    min-width: 150px;
+    max-width: 75%;
+    margin: 0 auto;
     overflow-y: auto;
     height: 100vh;
-    padding: 1rem;
   }
   
+  /* Headings in lesson content */
   #lesson-content h1,
   #lesson-content h2,
   #lesson-content h3,
@@ -182,7 +189,6 @@
   #lesson-content h5,
   #lesson-content h6 {
     font-family: "Source Serif Pro", Georgia, serif;
-    color: var(--fg);
     margin-top: 1.2em;
     margin-bottom: 0.5em;
     line-height: 1.3;
@@ -218,10 +224,11 @@
          ====================================================================== */
   #code-area {
     flex-grow: 1;
-    overflow-y: auto;
-    height: 100vh;
     display: flex;
     flex-direction: column;
+    min-width: 200px;
+    overflow-y: auto;
+    height: 100vh;
   }
   
   #editor {
@@ -256,6 +263,7 @@
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE 10+ */
   }
+  
   .terminal::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera */
   }
@@ -315,7 +323,7 @@
   }
   
   /* ======================================================================
-         Challenges Styles
+         Challenges Styles (Light Mode)
          ====================================================================== */
   #challenges-container {
     margin-top: 2rem;
@@ -355,3 +363,46 @@
     font-size: 0.9em;
   }
   
+  /* ======================================================================
+         Challenges Styles (Dark Mode)
+         ====================================================================== */
+  [data-theme="dark"] #challenges-container {
+    border-top: 2px solid #444;
+  }
+  
+  [data-theme="dark"] .challenge {
+    background: #2d2d2d;
+    border: 1px solid #444;
+    color: var(--text-color);
+  }
+  
+  [data-theme="dark"] .challenge .status-indicator {
+    color: var(--text-color);
+  }
+
+  /* Additional styles for challenge status colors */
+
+  /* Completed: green */
+  .challenge.completed .status-indicator {
+    color: green;
+  }
+  .challenge.completed .challenge-message {
+    color: green;
+  }
+
+  /* Locked: red */
+  .challenge.locked .status-indicator {
+    color: red;
+  }
+  .challenge.locked .challenge-message {
+    color: red;
+  }
+
+  /* Pending (not completed and not locked): yellow */
+  .challenge:not(.completed):not(.locked) .status-indicator {
+    color: yellow;
+  }
+  .challenge:not(.completed):not(.locked) .challenge-message {
+    color: yellow;
+  }
+
