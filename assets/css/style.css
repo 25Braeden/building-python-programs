@@ -21,8 +21,8 @@
   }
   
   /* ======================================================================
-       Dark Theme Variables
-       ====================================================================== */
+         Dark Theme Variables
+         ====================================================================== */
   [data-theme="dark"] {
     --rust-primary: #1a1a34;
     --rust-secondary: #2a2a4a;
@@ -39,17 +39,15 @@
   }
   
   /* ======================================================================
-       Base Styles
-       ====================================================================== */
+         Base Styles
+         ====================================================================== */
   body {
     margin: 0;
     font-family: "Fira Sans", "Helvetica Neue", Arial, sans-serif;
     line-height: 1.6;
     background: var(--bg-color);
     color: var(--text-color);
-    transition:
-      background 0.3s ease,
-      color 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease;
   }
   
   header {
@@ -60,8 +58,8 @@
   }
   
   /* ======================================================================
-       Sidebar Styles
-       ====================================================================== */
+         Sidebar Styles
+         ====================================================================== */
   #sidebar {
     width: var(--sidebar-width);
     background: var(--rust-primary);
@@ -107,8 +105,8 @@
   }
   
   /* ======================================================================
-       Toggle Buttons (Sidebar & Theme)
-       ====================================================================== */
+         Toggle Buttons (Sidebar & Theme)
+         ====================================================================== */
   .sidebar-toggle,
   .theme-toggle {
     position: fixed;
@@ -125,9 +123,7 @@
     z-index: 1001;
     width: 50px;
     height: 50px;
-    transition:
-      left 0.3s ease-in-out,
-      transform 0.2s ease;
+    transition: left 0.3s ease-in-out, transform 0.2s ease;
   }
   
   /* Sidebar Toggle Positioning */
@@ -155,37 +151,28 @@
   }
   
   /* ======================================================================
-       Main Area Layout (Lesson Content & Code Area)
-       ====================================================================== */
+         Main Area Layout (Lesson Content & Code Area)
+         ====================================================================== */
   main {
     display: flex;
     flex-direction: row;
     height: 100vh;
-    overflow: hidden;
     margin-left: calc(var(--sidebar-width) + var(--toggle-spacing) + 60px);
     transition: margin-left 0.3s ease-in-out;
   }
   
   body.sidebar-collapsed main {
-    margin-left: calc(
-      var(--collapsed-sidebar-width) + var(--toggle-spacing) + 60px
-    );
+    margin-left: calc(var(--collapsed-sidebar-width) + var(--toggle-spacing) + 60px);
   }
   
   /* ----------------------------------------------------------------------
-       Lesson Content Styles
-       ---------------------------------------------------------------------- */
+         Lesson Content Styles
+         ---------------------------------------------------------------------- */
   #lesson-content {
-    font-family: "Open Sans", sans-serif;
-    line-height: 1.8;
     flex: 0 0 50%;
-    padding: 1rem;
-    border-right: 1px solid #ccc;
-    min-width: 150px;
-    max-width: 75%;
-    margin: 0 auto;
     overflow-y: auto;
-    height: 100%;
+    height: 100vh;
+    padding: 1rem;
   }
   
   #lesson-content h1,
@@ -217,8 +204,8 @@
   }
   
   /* ======================================================================
-       Divider (Between Lesson & Code Area)
-       ====================================================================== */
+         Divider (Between Lesson & Code Area)
+         ====================================================================== */
   #divider {
     width: 5px;
     cursor: col-resize;
@@ -227,13 +214,14 @@
   }
   
   /* ======================================================================
-       Code Area Styles
-       ====================================================================== */
+         Code Area Styles
+         ====================================================================== */
   #code-area {
     flex-grow: 1;
+    overflow-y: auto;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    min-width: 200px;
   }
   
   #editor {
@@ -273,8 +261,8 @@
   }
   
   /* ======================================================================
-       Landing Page Hero Section
-       ====================================================================== */
+         Landing Page Hero Section
+         ====================================================================== */
   .hero {
     display: flex;
     flex-direction: column;
@@ -308,10 +296,8 @@
   }
   
   /* ======================================================================
-       Landing Page Main Override
-       ====================================================================== */
-  /* The landing page uses a special class on the body ("landing") so we can override the default
-     main layout. The hero section will animate its left margin similar to the sidebar toggle. */
+         Landing Page Main Override
+         ====================================================================== */
   body.landing main {
     display: flex;
     flex-direction: column;
@@ -326,5 +312,46 @@
   
   body.landing.sidebar-collapsed main {
     margin-left: 0;
+  }
+  
+  /* ======================================================================
+         Challenges Styles
+         ====================================================================== */
+  #challenges-container {
+    margin-top: 2rem;
+    padding: 1rem;
+    border-top: 2px solid #ccc;
+  }
+  
+  .challenge {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .challenge.locked {
+    opacity: 0.5;
+  }
+  
+  .challenge .status-indicator {
+    width: 20px;
+    display: inline-block;
+    text-align: center;
+    font-size: 1.2em;
+    margin-right: 0.5rem;
+  }
+  
+  .challenge .prompt {
+    flex-grow: 1;
+  }
+  
+  .challenge .challenge-message {
+    margin-left: 1rem;
+    font-style: italic;
+    font-size: 0.9em;
   }
   
