@@ -406,3 +406,11 @@
     color: yellow;
   }
 
+  /* Pending in light mode (using a dark yellow) */
+  [data-theme="light"] .challenge:not(.completed):not(.locked) .status-indicator {
+    color: #b58900;
+  }
+  [data-theme="light"] .challenge:not(.completed):not(.locked) .challenge-message {
+    color: #b58900;
+  }
+
