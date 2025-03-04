@@ -40,10 +40,12 @@ document.addEventListener("DOMContentLoaded", function () {
   function outputToTerminal(text) {
     if (window.term) {
       window.term.write(text);
+      window.capturedOutput = (window.capturedOutput || "") + text;
     } else {
       console.error("Terminal not initialized");
     }
   }
+
   // Expose outputToTerminal so Pyodide can import it from 'js'
   window.outputToTerminal = outputToTerminal;
 
