@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,7 +6,10 @@
     <title>Building Python Programs - Lesson</title>
 
     <!-- Load xterm.js CSS and UMD bundle -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.19.0/css/xterm.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/xterm@4.19.0/css/xterm.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/xterm@4.19.0/lib/xterm.js"></script>
 
     <!-- Load Monaco Editor's loader (synchronously) -->
@@ -15,15 +18,18 @@
       // Map 'stackframe' with an explicit .js extension.
       require.config({
         paths: {
-          'stackframe': 'https://cdnjs.cloudflare.com/ajax/libs/stackframe/1.0.7/stackframe.min.js'
-        }
+          stackframe:
+            "https://cdnjs.cloudflare.com/ajax/libs/stackframe/1.0.7/stackframe.min.js",
+        },
       });
     </script>
     <!-- Define a dummy module for stackframe to satisfy error-stack-parser -->
     <script>
-      define("stackframe", [], function() { return {}; });
+      define("stackframe", [], function () {
+        return {};
+      });
     </script>
-    
+
     <!-- Google Fonts and Main CSS -->
     <link rel="stylesheet" href="assets/css/style.css" />
     <link
@@ -42,12 +48,18 @@
         <h1>Building Python Programs</h1>
       </div>
       <ul class="chapters">
-        <li class="chapter"><a href="index.html" class="active">Introduction</a></li>
+        <li class="chapter">
+          <a href="index.html" class="active">Introduction</a>
+        </li>
         <li class="chapter">
           <a href="units/unit-0.html">Unit 0: Getting Started</a>
           <ul class="subsections">
-            <li><a href="units/unit-0.html#installation">0.1 Installation</a></li>
-            <li><a href="units/unit-0.html#first-program">0.2 First Program</a></li>
+            <li>
+              <a href="units/unit-0.html#installation">0.1 Installation</a>
+            </li>
+            <li>
+              <a href="units/unit-0.html#first-program">0.2 First Program</a>
+            </li>
           </ul>
         </li>
         <li class="chapter">
@@ -78,12 +90,13 @@
       <section id="lesson-content">
         <h2>Introduction</h2>
         <p>
-          Welcome to Building Python Programs! In this lesson, you'll learn the basics of Python – its syntax,
-          structure, and examples.
+          Welcome to Building Python Programs! In this lesson, you'll learn the
+          basics of Python – its syntax, structure, and examples.
         </p>
         <p>
-          Modify the code in the editor above and click "Run Code" to execute. The terminal below will act as a
-          live Python shell where you can see outputs and enter commands.
+          Modify the code in the editor above and click "Run Code" to execute.
+          The terminal below will act as a live Python shell where you can see
+          outputs and enter commands.
         </p>
       </section>
 
@@ -98,7 +111,10 @@
     </main>
 
     <!-- Load Pyodide and custom scripts (using defer) -->
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"
+      defer
+    ></script>
     <script src="assets/js/main.js" defer></script>
     <script src="assets/js/splitter.js" defer></script>
     <script src="assets/js/interpreter.js" defer></script>
