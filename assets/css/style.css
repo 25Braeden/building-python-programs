@@ -1,46 +1,62 @@
 /* ======================================================================
-   Root Variables (Light Theme Default)
+   1. Theme Variables
    ====================================================================== */
+
+/* --- Light Theme (Default) --- */
 :root {
-  /* Light theme (default) */
+  /* Colors & Theme Elements */
   --rust-primary: #262625;
   --rust-secondary: #3b3b39;
   --rust-accent: #f74c00;
   --rust-code-bg: #f5f2f0;
   --rust-text: #403f3c;
   --rust-link: #4a8fd4;
+
+  /* Layout & Sizing */
   --sidebar-width: 300px;
+  --collapsed-sidebar-width: 0px;
+  --toggle-spacing: 70px;
+
+  /* Backgrounds & Text */
   --bg-color: #ffffff;
   --text-color: #403f3c;
   --code-text: #36454f;
   --sidebar-text: #ffffff;
+
+  /* Code Output */
   --code-output-bg: #f5f5f5;
   --code-output-text: #333;
-  --collapsed-sidebar-width: 0px;
-  --toggle-spacing: 70px;
 }
 
-/* ======================================================================
-         Dark Theme Variables
-         ====================================================================== */
+/* --- Dark Theme --- */
 [data-theme="dark"] {
+  /* Colors & Theme Elements */
   --rust-primary: #1a1a34;
   --rust-secondary: #2a2a4a;
   --rust-accent: #ff8c00;
   --rust-code-bg: #2d2d4d;
   --rust-text: #d8d8d8;
   --rust-link: #6ab0f3;
+
+  /* Backgrounds & Text */
   --bg-color: #1a1a34;
   --text-color: #d8d8d8;
   --code-text: #d8d8d8;
   --sidebar-text: var(--text-color);
+
+  /* Code Output */
   --code-output-bg: #1e1e1e;
   --code-output-text: #d4d4d4;
+
+  /* Global dark mode font smoothing */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /* ======================================================================
-         Base Styles
-         ====================================================================== */
+   2. Base Styles
+   ====================================================================== */
 body {
   margin: 0;
   font-family: "Fira Sans", "Helvetica Neue", Arial, sans-serif;
@@ -59,9 +75,31 @@ header {
   text-align: center;
 }
 
+/* Inline & Block Code Styling */
+code {
+  background-color: var(--rust-code-bg);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: "Fira Mono", monospace;
+}
+
+pre code {
+  display: block;
+  padding: 1em;
+  background-color: var(--rust-code-bg);
+  border: 1px solid #e1e1e1;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.9em;
+  line-height: 1.4;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 /* ======================================================================
-         Sidebar Styles
-         ====================================================================== */
+   3. Layout Components
+   ====================================================================== */
+
+/* --- Sidebar Styles --- */
 #sidebar {
   width: var(--sidebar-width);
   background: var(--rust-primary);
@@ -106,9 +144,7 @@ body.sidebar-collapsed #sidebar {
   border-left: 4px solid var(--rust-accent);
 }
 
-/* ======================================================================
-         Toggle Buttons (Sidebar & Theme)
-         ====================================================================== */
+/* --- Toggle Buttons (Sidebar & Theme) --- */
 .sidebar-toggle,
 .theme-toggle {
   position: fixed;
@@ -130,20 +166,18 @@ body.sidebar-collapsed #sidebar {
     transform 0.2s ease;
 }
 
-/* Sidebar Toggle Positioning */
+/* Positioning for Sidebar Toggle */
 .sidebar-toggle {
   left: calc(var(--sidebar-width) + 10px);
 }
-
 body.sidebar-collapsed .sidebar-toggle {
   left: calc(var(--collapsed-sidebar-width) + 10px);
 }
 
-/* Theme Toggle Positioning */
+/* Positioning for Theme Toggle */
 .theme-toggle {
   left: calc(var(--sidebar-width) + var(--toggle-spacing));
 }
-
 body.sidebar-collapsed .theme-toggle {
   left: calc(var(--collapsed-sidebar-width) + 70px);
 }
@@ -154,9 +188,7 @@ body.sidebar-collapsed .theme-toggle {
   fill: currentColor;
 }
 
-/* ======================================================================
-         Main Area Layout (Lesson Content & Code Area)
-         ====================================================================== */
+/* --- Main Area Layout (Lesson Content & Code Area) --- */
 main {
   display: flex;
   height: 100vh;
@@ -165,34 +197,17 @@ main {
   transition: margin-left 0.3s ease-in-out;
 }
 
-code {
-  background-color: var(--rust-code-bg);
-  padding: 0.2em 0.4em;
-  border-radius: 4px;
-  font-family: "Fira Mono", monospace;
-}
-
-pre code {
-  display: block;
-  padding: 1em;
-  background-color: var(--rust-code-bg);
-  border: 1px solid #e1e1e1;
-  border-radius: 6px;
-  overflow-x: auto;
-  font-size: 0.9em;
-  line-height: 1.4;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
 body.sidebar-collapsed main {
   margin-left: calc(
     var(--collapsed-sidebar-width) + var(--toggle-spacing) + 60px
   );
 }
 
-/* ----------------------------------------------------------------------
-         Lesson Content Styles
-         ---------------------------------------------------------------------- */
+/* ======================================================================
+   4. Content Areas
+   ====================================================================== */
+
+/* --- Lesson Content Styles --- */
 #lesson-content {
   font-family: "Open Sans", sans-serif;
   line-height: 1.8;
@@ -206,7 +221,7 @@ body.sidebar-collapsed main {
   height: 100vh;
 }
 
-/* Headings in lesson content */
+/* Headings in Lesson Content */
 #lesson-content h1,
 #lesson-content h2,
 #lesson-content h3,
@@ -223,20 +238,16 @@ body.sidebar-collapsed main {
   font-size: 2.2em;
   font-weight: 700;
 }
-
 #lesson-content h2 {
   font-size: 1.8em;
   font-weight: 600;
 }
-
 #lesson-content h3 {
   font-size: 1.6em;
   font-weight: 600;
 }
 
-/* ======================================================================
-         Divider (Between Lesson & Code Area)
-         ====================================================================== */
+/* --- Divider Between Lesson & Code Area --- */
 #divider {
   width: 5px;
   cursor: col-resize;
@@ -244,9 +255,7 @@ body.sidebar-collapsed main {
   user-select: none;
 }
 
-/* ======================================================================
-         Code Area Styles
-         ====================================================================== */
+/* --- Code Area Styles --- */
 #code-area {
   flex-grow: 1;
   display: flex;
@@ -257,7 +266,7 @@ body.sidebar-collapsed main {
 }
 
 #editor {
-  flex: 13 1 0%; /* Editor takes up about 65% of the vertical space */
+  flex: 13 1 0%; /* Approximately 65% of vertical space */
   width: 100%;
   border: 1px solid #ccc;
   box-sizing: border-box;
@@ -276,7 +285,7 @@ button#runBtn {
 }
 
 .terminal {
-  flex: 7 1 0%; /* Terminal takes up about 35% of the vertical space */
+  flex: 7 1 0%; /* Approximately 35% of vertical space */
   background: var(--code-output-bg);
   color: var(--code-output-text);
   padding: 0.5rem;
@@ -293,16 +302,14 @@ button#runBtn {
   display: none; /* Chrome, Safari, Opera */
 }
 
-/* ======================================================================
-         Landing Page Hero Section
-         ====================================================================== */
+/* --- Landing Page Hero Section --- */
 .hero {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Vertically center the content */
-  align-items: center; /* Horizontally center the content */
+  justify-content: center; /* Vertically center */
+  align-items: center; /* Horizontally center */
   text-align: center;
-  height: 100vh; /* Full viewport height */
+  height: 100vh;
   padding: 0 20px;
 }
 
@@ -310,13 +317,11 @@ button#runBtn {
   font-size: 3rem;
   margin-bottom: 1rem;
 }
-
 .hero p {
   font-size: 1.25rem;
   max-width: 600px;
   margin-bottom: 2rem;
 }
-
 .hero .cta-button {
   padding: 1rem 2rem;
   font-size: 1.25rem;
@@ -328,9 +333,7 @@ button#runBtn {
   cursor: pointer;
 }
 
-/* ======================================================================
-         Landing Page Main Override
-         ====================================================================== */
+/* --- Landing Page Main Override --- */
 body.landing main {
   display: flex;
   flex-direction: column;
@@ -348,8 +351,10 @@ body.landing.sidebar-collapsed main {
 }
 
 /* ======================================================================
-         Challenges Styles (Light Mode)
-         ====================================================================== */
+   5. Challenges Component Styles
+   ====================================================================== */
+
+/* --- Challenges Container (Light Mode) --- */
 #challenges-container {
   margin-top: 2rem;
   padding: 1rem;
@@ -388,9 +393,7 @@ body.landing.sidebar-collapsed main {
   font-size: 0.9em;
 }
 
-/* ======================================================================
-         Challenges Styles (Dark Mode)
-         ====================================================================== */
+/* --- Challenges Component (Dark Mode) --- */
 [data-theme="dark"] #challenges-container {
   border-top: 2px solid #444;
 }
@@ -405,43 +408,35 @@ body.landing.sidebar-collapsed main {
   color: var(--text-color);
 }
 
-/* Additional styles for challenge status colors */
-
-/* Completed: green */
-.challenge.completed .status-indicator {
-  color: green;
-}
+/* Status Colors */
+.challenge.completed .status-indicator,
 .challenge.completed .challenge-message {
   color: green;
 }
 
-/* Locked: red */
-.challenge.locked .status-indicator {
-  color: red;
-}
+.challenge.locked .status-indicator,
 .challenge.locked .challenge-message {
   color: red;
 }
 
-/* Pending (not completed and not locked): yellow */
-.challenge:not(.completed):not(.locked) .status-indicator {
-  color: yellow;
-}
+.challenge:not(.completed):not(.locked) .status-indicator,
 .challenge:not(.completed):not(.locked) .challenge-message {
   color: yellow;
 }
 
-/* Pending in light mode (using a dark yellow) */
-[data-theme="light"] .challenge:not(.completed):not(.locked) .status-indicator {
-  color: #b58900;
-}
+/* Light mode pending (darker yellow) */
+[data-theme="light"] .challenge:not(.completed):not(.locked) .status-indicator,
 [data-theme="light"]
   .challenge:not(.completed):not(.locked)
   .challenge-message {
   color: #b58900;
 }
 
-/* Prism Code Block Styling */
+/* ======================================================================
+   6. Prism (Syntax Highlighting) Styles
+   ====================================================================== */
+
+/* --- Prism Code Block (Default) --- */
 pre[class*="language-"] {
   background: var(--rust-code-bg);
   padding: 1em;
@@ -452,7 +447,7 @@ pre[class*="language-"] {
   margin: 1em 0;
 }
 
-/* Inline Code Styling for Prism */
+/* --- Inline Code (Default) --- */
 :not(pre) > code[class*="language-"],
 code:not(pre) {
   background: var(--rust-code-bg);
@@ -461,12 +456,10 @@ code:not(pre) {
   font-family: "Fira Mono", monospace;
 }
 
-/* === Dark Mode Overrides for Prism Code Blocks === */
+/* --- Prism Dark Mode Overrides --- */
 [data-theme="dark"] pre[class*="language-"] {
-  background: var(
-    --rust-code-bg
-  ); /* typically #2d2d4d or your custom dark background */
-  color: var(--code-text); /* overall text color (e.g., #d8d8d8) */
+  background: var(--rust-code-bg);
+  color: var(--code-text);
   border: 1px solid #444;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
   border-radius: 6px;
@@ -475,22 +468,18 @@ code:not(pre) {
   margin: 1em 0;
 }
 
-/* Override token colors for dark mode for better contrast */
-
-/* Comments and similar */
+/* Token Colors for Dark Mode */
 [data-theme="dark"] pre[class*="language-"] .token.comment,
 [data-theme="dark"] pre[class*="language-"] .token.prolog,
 [data-theme="dark"] pre[class*="language-"] .token.doctype,
 [data-theme="dark"] pre[class*="language-"] .token.cdata {
-  color: #999; /* a soft gray */
+  color: #999;
 }
 
-/* Punctuation */
 [data-theme="dark"] pre[class*="language-"] .token.punctuation {
   color: #ccc;
 }
 
-/* Property, tag, boolean, number, constant, symbol, deleted */
 [data-theme="dark"] pre[class*="language-"] .token.property,
 [data-theme="dark"] pre[class*="language-"] .token.tag,
 [data-theme="dark"] pre[class*="language-"] .token.boolean,
@@ -498,41 +487,37 @@ code:not(pre) {
 [data-theme="dark"] pre[class*="language-"] .token.constant,
 [data-theme="dark"] pre[class*="language-"] .token.symbol,
 [data-theme="dark"] pre[class*="language-"] .token.deleted {
-  color: #ff9d00; /* dark yellow/orange */
+  color: #ff9d00;
 }
 
-/* Selector, attr-name, string, char, builtin, inserted */
 [data-theme="dark"] pre[class*="language-"] .token.selector,
 [data-theme="dark"] pre[class*="language-"] .token.attr-name,
 [data-theme="dark"] pre[class*="language-"] .token.string,
 [data-theme="dark"] pre[class*="language-"] .token.char,
 [data-theme="dark"] pre[class*="language-"] .token.builtin,
 [data-theme="dark"] pre[class*="language-"] .token.inserted {
-  color: #a8ff60; /* a fresh green */
+  color: #a8ff60;
 }
 
-/* Operator, entity, url, variable */
 [data-theme="dark"] pre[class*="language-"] .token.operator,
 [data-theme="dark"] pre[class*="language-"] .token.entity,
 [data-theme="dark"] pre[class*="language-"] .token.url,
 [data-theme="dark"] pre[class*="language-"] .token.variable {
-  color: #67cdcc; /* a light cyan */
+  color: #67cdcc;
 }
 
-/* Atrule, attr-value, function, class-name */
 [data-theme="dark"] pre[class*="language-"] .token.atrule,
 [data-theme="dark"] pre[class*="language-"] .token.attr-value,
 [data-theme="dark"] pre[class*="language-"] .token.function,
 [data-theme="dark"] pre[class*="language-"] .token.class-name {
-  color: #f8c555; /* a warm gold */
+  color: #f8c555;
 }
 
-/* Keyword */
 [data-theme="dark"] pre[class*="language-"] .token.keyword {
-  color: #ff0078; /* a vibrant magenta */
+  color: #ff0078;
 }
 
-/* Inline code adjustments (if needed) */
+/* --- Inline Code Dark Mode Adjustments --- */
 [data-theme="dark"] :not(pre) > code[class*="language-"],
 [data-theme="dark"] code:not(pre) {
   background: var(--rust-code-bg);
@@ -542,24 +527,11 @@ code:not(pre) {
   font-family: "Fira Mono", monospace;
 }
 
-[data-theme="dark"] {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-/* Also for Prism code blocks and inline code in dark mode: */
-[data-theme="dark"] pre[class*="language-"],
-[data-theme="dark"] code[class*="language-"] {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
+/* --- Combined Dark Mode Code Block & Inline Code Font Settings --- */
 [data-theme="dark"] pre[class*="language-"],
 [data-theme="dark"] code[class*="language-"] {
   font-family: "Fira Mono", monospace;
-  letter-spacing: normal; /* Remove any extra spacing */
+  letter-spacing: normal;
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: auto;
   text-rendering: geometricPrecision;
