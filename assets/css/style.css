@@ -219,7 +219,28 @@ body.sidebar-collapsed main {
   margin: 0 auto;
   overflow-y: auto;
   height: 100vh;
+  -ms-overflow-style: none;
 }
+
+/* Hide scrollbar by default */
+#lesson-content::-webkit-scrollbar {
+  width: 0;
+  transition: width 0.3s;
+}
+
+/* Show scrollbar when the .scrolling class is added */
+#lesson-content.scrolling::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* For Firefox, you can set scrollbar-width */
+#lesson-content {
+  scrollbar-width: none; /* Hide by default */
+}
+#lesson-content.scrolling {
+  scrollbar-width: thin;
+}
+
 
 /* Headings in Lesson Content */
 #lesson-content h1,
@@ -426,9 +447,7 @@ body.landing.sidebar-collapsed main {
 
 /* Light mode pending (darker yellow) */
 [data-theme="light"] .challenge:not(.completed):not(.locked) .status-indicator,
-[data-theme="light"]
-  .challenge:not(.completed):not(.locked)
-  .challenge-message {
+[data-theme="light"] .challenge:not(.completed):not(.locked) .challenge-message {
   color: #b58900;
 }
 
@@ -445,15 +464,6 @@ pre[class*="language-"] {
   overflow-x: auto;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin: 1em 0;
-}
-
-/* --- Inline Code (Default) --- */
-:not(pre) > code[class*="language-"],
-code:not(pre) {
-  background: var(--rust-code-bg);
-  padding: 0.2em 0.4em;
-  border-radius: 4px;
-  font-family: "Fira Mono", monospace;
 }
 
 .token.operator {

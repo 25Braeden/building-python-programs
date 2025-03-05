@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.classList.toggle("sidebar-collapsed");
     localStorage.setItem(
       "sidebarCollapsed",
-      document.body.classList.contains("sidebar-collapsed"),
+      document.body.classList.contains("sidebar-collapsed")
     );
 
     // Dynamically update the position of the buttons
@@ -42,10 +42,10 @@ document.addEventListener("DOMContentLoaded", function () {
   function updateButtonPositions() {
     const sidebarWidth = document.body.classList.contains("sidebar-collapsed")
       ? getComputedStyle(document.documentElement).getPropertyValue(
-          "--collapsed-sidebar-width",
+          "--collapsed-sidebar-width"
         )
       : getComputedStyle(document.documentElement).getPropertyValue(
-          "--sidebar-width",
+          "--sidebar-width"
         );
 
     sidebarToggle.style.left = `calc(${sidebarWidth} + 10px)`;
@@ -54,4 +54,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Initial button positioning
   updateButtonPositions();
+
+  // ===== Hide Scrollbar Until Scrolling for Lesson Content =====
+  const lessonContent = document.getElementById("lesson-content");
+  if (lessonContent) {
+    let hideScrollbarTimeout;
+    lessonContent.addEventListener("scroll", () => {
+      lessonContent.classList.add("scrolling");
+      clearTimeout(hideScrollbarTimeout);
+      // Remove the .scrolling class after 1 second of no scrolling
+      hideScrollbarTimeout = setTimeout(() => {
+        lessonContent.classList.remove("scrolling");
+      }, 1000);
+    });
+  }
 });
