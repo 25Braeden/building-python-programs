@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         value: '# Your python code here\nprint("Hello, World!")',
         language: "python",
         theme: "vs-dark",
-      },
+      }
     );
     window.editor = editorInstance; // Expose globally for splitter.js
     console.log("Monaco Editor initialized");
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function initTerminal() {
     if (typeof Terminal === "undefined") {
       console.error(
-        "Terminal library not loaded. Ensure xterm.js is loaded properly.",
+        "Terminal library not loaded. Ensure xterm.js is loaded properly."
       );
       return;
     }
@@ -140,29 +140,38 @@ builtins.input = py_input
   }
 
   // --- Run Code Button Handler ---
-  document
-    .getElementById("runBtn")
-    .addEventListener("click", async function () {
-      if (window.term && typeof window.term.clear === "function") {
-        window.term.clear();
-      }
-      let code = window.editor.getValue();
-      // Auto-wrap code in an async __main__ if it contains input()
-      if (code.indexOf("input(") !== -1) {
-        code = code.replace(/input\(/g, "await input(");
-        let indented = code
-          .split("\n")
-          .map((line) => "    " + line)
-          .join("\n");
-        code = "async def __main__():\n" + indented + "\n\nawait __main__()";
-      }
-      try {
-        await window.pyodide.runPythonAsync(code);
-      } catch (err) {
-        outputToTerminal(err.message + "\r\n");
-      }
-      showPrompt();
-    });
+  document.getElementById("runBtn").addEventListener("click", async function () {
+    if (window.term && typeof window.term.clear === "function") {
+      window.term.clear();
+    }
+    let code = window.editor.getValue();
+
+    // Code to clear the Python global namespace
+    const clearingCode = `
+for key in list(globals().keys()):
+    if key not in (
+        '__builtins__', '__name__', '__doc__', '__package__',
+        'outputToTerminal', 'getTerminalInput', 'pyodide'
+    ):
+        del globals()[key]
+`;
+
+    // Auto-wrap code in an async __main__ if it contains input()
+    if (code.indexOf("input(") !== -1) {
+      code = code.replace(/input\(/g, "await input(");
+      let indented = code.split("\n").map((line) => "    " + line).join("\n");
+      code = "async def __main__():\n" + indented + "\n\nawait __main__()";
+    }
+    try {
+      // Clear previous state
+      await window.pyodide.runPythonAsync(clearingCode);
+      // Execute the new code
+      await window.pyodide.runPythonAsync(code);
+    } catch (err) {
+      outputToTerminal(err.message + "\r\n");
+    }
+    showPrompt();
+  });
 
   // --- Overall Initialization ---
   initTerminal();
