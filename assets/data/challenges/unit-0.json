@@ -1,0 +1,18 @@
+[
+    {
+      "id": 1,
+      "prompt": "Create a variable named 'x' and assign it the value 10.",
+      "expected": "10"
+    },
+    {
+      "id": 2,
+      "prompt": "Create a variable named 'message' and assign it the value 'Hello, Python!'.",
+      "expected": "Hello, Python!"
+    },
+    {
+      "id": 3,
+      "prompt": "Print the message variable from the previous question.",
+      "expectedOutput": "Hello, Python!"
+    }
+]
+  
