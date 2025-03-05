@@ -456,65 +456,74 @@ code:not(pre) {
   font-family: "Fira Mono", monospace;
 }
 
-/* --- Prism Dark Mode Overrides --- */
+.token.operator {
+  background: none !important;
+  border: none !important;
+  color: var(--rust-text) !important;
+  opacity: 0.9;
+}
+
+/* ======================================================================
+   7. Dark Mode Prism Overrides
+   ====================================================================== */
 [data-theme="dark"] pre[class*="language-"] {
-  background: var(--rust-code-bg);
-  color: var(--code-text);
-  border: 1px solid #444;
+  background: var(--rust-code-bg) !important;
+  border: 1px solid var(--rust-secondary) !important;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
-  border-radius: 6px;
-  padding: 1em;
-  overflow-x: auto;
-  margin: 1em 0;
 }
 
-/* Token Colors for Dark Mode */
-[data-theme="dark"] pre[class*="language-"] .token.comment,
-[data-theme="dark"] pre[class*="language-"] .token.prolog,
-[data-theme="dark"] pre[class*="language-"] .token.doctype,
-[data-theme="dark"] pre[class*="language-"] .token.cdata {
-  color: #999;
+[data-theme="dark"] code[class*="language-"],
+[data-theme="dark"] pre[class*="language-"] {
+  color: var(--code-text) !important;
+  text-shadow: none !important;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
 }
 
-[data-theme="dark"] pre[class*="language-"] .token.punctuation {
-  color: #ccc;
+/* Token adjustments */
+[data-theme="dark"] .token.comment,
+[data-theme="dark"] .token.prolog,
+[data-theme="dark"] .token.doctype,
+[data-theme="dark"] .token.cdata {
+  color: #6c8998 !important;
 }
 
-[data-theme="dark"] pre[class*="language-"] .token.property,
-[data-theme="dark"] pre[class*="language-"] .token.tag,
-[data-theme="dark"] pre[class*="language-"] .token.boolean,
-[data-theme="dark"] pre[class*="language-"] .token.number,
-[data-theme="dark"] pre[class*="language-"] .token.constant,
-[data-theme="dark"] pre[class*="language-"] .token.symbol,
-[data-theme="dark"] pre[class*="language-"] .token.deleted {
-  color: #ff9d00;
+[data-theme="dark"] .token.punctuation {
+  color: var(--code-text) !important;
+  opacity: 0.8;
 }
 
-[data-theme="dark"] pre[class*="language-"] .token.selector,
-[data-theme="dark"] pre[class*="language-"] .token.attr-name,
-[data-theme="dark"] pre[class*="language-"] .token.string,
-[data-theme="dark"] pre[class*="language-"] .token.char,
-[data-theme="dark"] pre[class*="language-"] .token.builtin,
-[data-theme="dark"] pre[class*="language-"] .token.inserted {
-  color: #a8ff60;
+[data-theme="dark"] .token.keyword {
+  color: var(--rust-accent) !important;
 }
 
-[data-theme="dark"] pre[class*="language-"] .token.operator,
-[data-theme="dark"] pre[class*="language-"] .token.entity,
-[data-theme="dark"] pre[class*="language-"] .token.url,
-[data-theme="dark"] pre[class*="language-"] .token.variable {
-  color: #67cdcc;
+[data-theme="dark"] .token.function,
+[data-theme="dark"] .token.class-name {
+  color: #ffc66d !important;
 }
 
-[data-theme="dark"] pre[class*="language-"] .token.atrule,
-[data-theme="dark"] pre[class*="language-"] .token.attr-value,
-[data-theme="dark"] pre[class*="language-"] .token.function,
-[data-theme="dark"] pre[class*="language-"] .token.class-name {
-  color: #f8c555;
+[data-theme="dark"] .token.operator {
+  color: var(--code-text) !important;
+  opacity: 0.8;
+  text-shadow: none !important;
+  background: none !important;
+  border: none !important;
 }
 
-[data-theme="dark"] pre[class*="language-"] .token.keyword {
-  color: #ff0078;
+[data-theme="dark"] .token.string {
+  color: #a8ff60 !important;
+}
+
+[data-theme="dark"] .token.number {
+  color: #ff9d00 !important;
+}
+
+[data-theme="dark"] .token.boolean {
+  color: var(--rust-accent) !important;
+}
+
+[data-theme="dark"] .token.selector {
+  color: #d7ba7d !important;
 }
 
 /* --- Inline Code Dark Mode Adjustments --- */
@@ -522,17 +531,12 @@ code:not(pre) {
 [data-theme="dark"] code:not(pre) {
   background: var(--rust-code-bg);
   color: var(--code-text);
-  padding: 0.2em 0.4em;
-  border-radius: 4px;
-  font-family: "Fira Mono", monospace;
 }
 
-/* --- Combined Dark Mode Code Block & Inline Code Font Settings --- */
-[data-theme="dark"] pre[class*="language-"],
-[data-theme="dark"] code[class*="language-"] {
-  font-family: "Fira Mono", monospace;
-  letter-spacing: normal;
-  -webkit-font-smoothing: subpixel-antialiased;
-  -moz-osx-font-smoothing: auto;
-  text-rendering: geometricPrecision;
+/* Exclude Monaco Editor from global dark mode font-smoothing adjustments */
+.monaco-editor, 
+.monaco-editor * {
+  -webkit-font-smoothing: initial !important;
+  -moz-osx-font-smoothing: initial !important;
+  text-rendering: auto !important;
 }
