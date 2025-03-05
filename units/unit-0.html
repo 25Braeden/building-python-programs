@@ -5,15 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Building Python Programs - Unit 0: Python Basics</title>
     <!-- Load xterm.js CSS and UMD bundle -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.19.0/css/xterm.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/xterm@4.19.0/css/xterm.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/xterm@4.19.0/lib/xterm.js"></script>
     <!-- Load Monaco Editor's loader -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.min.js"></script>
     <script>
       require.config({
         paths: {
-          stackframe: "https://cdnjs.cloudflare.com/ajax/libs/stackframe/1.0.7/stackframe.min.js"
-        }
+          stackframe:
+            "https://cdnjs.cloudflare.com/ajax/libs/stackframe/1.0.7/stackframe.min.js",
+        },
       });
     </script>
     <script>
@@ -31,6 +35,13 @@
       href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600&display=swap"
       rel="stylesheet"
     />
+    <!-- Prism Assets -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-python.min.js"></script>
   </head>
   <body>
     <!-- Sidebar Navigation -->
@@ -66,27 +77,30 @@
         <h2>Unit 0: Python Basics</h2>
         <h3>Introduction to Python</h3>
         <p>
-          Welcome to the Python Basics lesson! In this unit, you'll learn the fundamentals of Python programming.
+          Welcome to the Python Basics lesson! In this unit, you'll learn the
+          fundamentals of Python programming.
         </p>
         <h3>Variables</h3>
         <p>
           A variable in Python is like a container to store data. For example:
         </p>
-        <pre><code>my_number = 10
+        <pre><code class="language-python">my_number = 10
 my_string = "Hello, Python!"
 is_active = True</code></pre>
         <h3>Data Types</h3>
         <p>Basic data types include:</p>
         <ul>
-          <li><strong>Integers</strong> – e.g., <code>10</code>, <code>-5</code></li>
+          <li>
+            <strong>Integers</strong> – e.g., <code>10</code>, <code>-5</code>
+          </li>
           <li><strong>Floats</strong> – e.g., <code>3.14</code></li>
           <li><strong>Strings</strong> – e.g., <code>"Hello"</code></li>
-          <li><strong>Booleans</strong> – <code>True</code> or <code>False</code></li>
+          <li>
+            <strong>Booleans</strong> – <code>True</code> or <code>False</code>
+          </li>
         </ul>
         <h3>The Print Function</h3>
-        <p>
-          Use the <code>print()</code> function to display output:
-        </p>
+        <p>Use the <code>print()</code> function to display output:</p>
         <pre><code>print("Hello, World!")
 print(my_number)</code></pre>
         <!-- Challenges Container (at the end of lesson text) -->
@@ -102,7 +116,10 @@ print(my_number)</code></pre>
       </section>
     </main>
     <!-- External Scripts -->
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"
+      defer
+    ></script>
     <script src="../assets/js/main.js" defer></script>
     <script src="../assets/js/splitter.js" defer></script>
     <script src="../assets/js/interpreter.js" defer></script>

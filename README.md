@@ -21,11 +21,11 @@ Building Python Programs is an immersive, web-based Python programming course de
 ## Features
 
 - **Structured Curriculum**: Step-by-step units covering everything from basic syntax to advanced concepts.
-- **Interactive Code Editor**: 
+- **Interactive Code Editor**:
   - Powered by [Monaco Editor](https://microsoft.github.io/monaco-editor/) for a rich coding experience.
   - Executes Python code in-browser using [Pyodide](https://pyodide.org/) (see [interpreter.js](./assets/js/interpreter.js) :contentReference[oaicite:0]{index=0}).
 - **Real-Time Syntax Highlighting**: Enhanced code examples with [Prism.js](https://prismjs.com/) and custom Python grammar tweaks (refer to [unit.html](./assets/template.html) :contentReference[oaicite:1]{index=1}).
-- **Dynamic Theming and Layout**: 
+- **Dynamic Theming and Layout**:
   - Toggle between light and dark modes with persistent user settings (see [main.js](./assets/js/main.js) :contentReference[oaicite:2]{index=2} and [style.css](./assets/css/style.css) :contentReference[oaicite:3]{index=3}).
   - Responsive sidebar navigation with a resizable lesson/code view using a custom splitter (see [splitter.js](./assets/js/splitter.js) :contentReference[oaicite:4]{index=4}).
 
@@ -85,7 +85,7 @@ building-python-programs/
 ## Usage
 
 - **Navigation:** Use the sidebar to navigate between different course units.
-- **Interactive Code Execution:** 
+- **Interactive Code Execution:**
   - Write or modify Python code in the Monaco Editor integrated on the homepage.
   - Click the **Run Code** button to execute your code using Pyodide.
 - **Theme and Layout Controls:**
@@ -100,13 +100,13 @@ Customize the appearance by modifying CSS variables in `assets/css/style.css`. F
 
 ```css
 :root {
-  --rust-accent: #f74c00;       /* Accent color for light mode */
-  --rust-code-bg: #f5f2f0;      /* Code block background for light mode */
+  --rust-accent: #f74c00; /* Accent color for light mode */
+  --rust-code-bg: #f5f2f0; /* Code block background for light mode */
 }
 
 [data-theme="dark"] {
-  --rust-accent: #ff8c00;       /* Accent color for dark mode */
-  --rust-code-bg: #2d2d4d;      /* Code block background for dark mode */
+  --rust-accent: #ff8c00; /* Accent color for dark mode */
+  --rust-code-bg: #2d2d4d; /* Code block background for dark mode */
 }
 ```
 
