@@ -1,18 +1,17 @@
 [
-    {
-      "id": 1,
-      "prompt": "Create a variable named 'x' and assign it the value 10.",
-      "expected": "10"
-    },
-    {
-      "id": 2,
-      "prompt": "Create a variable named 'message' and assign it the value 'Hello, Python!'.",
-      "expected": "Hello, Python!"
-    },
-    {
-      "id": 3,
-      "prompt": "Print the message variable from the previous question.",
-      "expectedOutput": "Hello, Python!"
-    }
+  {
+    "id": 1,
+    "prompt": "Use the print() function to display 'Hello, World!'.",
+    "expectedOutput": "Hello, World!"
+  },
+  {
+    "id": 2,
+    "prompt": "Use the print() function to display the result of 5 + 5.",
+    "expectedOutput": "10"
+  },
+  {
+    "id": 3,
+    "prompt": "Use the print() function to display 'I am learning Python!'.",
+    "expectedOutput": "I am learning Python!"
+  }
 ]
-  
