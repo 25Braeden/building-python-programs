@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Building Python Programs - Unit 0: Python Basics</title>
+    <title>Lesson 1: Welcome to Python</title>
     <!-- Load xterm.js CSS and UMD bundle -->
     <link
       rel="stylesheet"
@@ -27,6 +27,7 @@
     </script>
     <!-- Google Fonts and Main CSS -->
     <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../assets/css/quiz.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600&family=Fira+Mono&display=swap"
       rel="stylesheet"
@@ -47,7 +48,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-python.min.js"></script>
   </head>
-  <body>
+  <body data-unit="unit-0">
     <!-- Sidebar Navigation -->
     <nav id="sidebar">
       <div class="sidebar-header">
@@ -58,10 +59,10 @@
           <a href="../index.html">Introduction</a>
         </li>
         <li class="chapter">
-          <a href="unit-0.html" class="active">Unit 0: Python Basics</a>
+          <a href="unit-0.html" class="active">Lesson 1: Welcome to Python</a>
         </li>
         <li class="chapter">
-          <a href="unit-1.html">Unit 1: Data Types</a>
+          <a href="unit-1.html">Lesson 2: More Python</a>
         </li>
       </ul>
     </nav>
@@ -78,36 +79,58 @@
     <main>
       <!-- Lesson Content (scrollable) -->
       <section id="lesson-content">
-        <h2>Unit 0: Python Basics</h2>
-        <h3>Introduction to Python</h3>
+        <h2>Lesson 1: Welcome to Python</h2>
         <p>
-          Welcome to the Python Basics lesson! In this unit, you'll learn the
-          fundamentals of Python programming.
+          Python is a powerful yet simple high-level programming language that is loved by developers and data scientists alike. It is known for its simplicity and readability, making it a great choice for beginners.
         </p>
-        <h3>Variables</h3>
+        <h3>Real-World Uses of Python</h3>
         <p>
-          A variable in Python is like a container to store data. For example:
+          Despite Python's simplicity, it's a tool that powers many exciting real-world applications! Here are some things you can eventually do with Python:
         </p>
-        <pre><code class="language-python">my_number = 10
-my_string = "Hello, Python!"
-is_active = True</code></pre>
-        <h3>Data Types</h3>
-        <p>Basic data types include:</p>
         <ul>
-          <li>
-            <strong>Integers</strong> – e.g., <code>10</code>, <code>-5</code>
-          </li>
-          <li><strong>Floats</strong> – e.g., <code>3.14</code></li>
-          <li><strong>Strings</strong> – e.g., <code>"Hello"</code></li>
-          <li>
-            <strong>Booleans</strong> – <code>True</code> or <code>False</code>
-          </li>
+          <li><strong>Create Video Games:</strong> Design and develop your own games using libraries like Pygame.</li>
+          <li><strong>Build Websites and Apps:</strong> Use frameworks like Django and Flask to create interactive websites and mobile apps.</li>
+          <li><strong>Analyze Data:</strong> Dive into data science and explore trends, patterns, and statistics.</li>
+          <li><strong>Automate Tasks:</strong> Write scripts to handle repetitive tasks and make life easier.</li>
+          <li><strong>Explore Robotics and AI:</strong> Bring machines to life with robotics and artificial intelligence projects.</li>
         </ul>
-        <h3>The Print Function</h3>
-        <p>Use the <code>print()</code> function to display output:</p>
-        <pre><code class="language-python">print("Hello, World!")
-print(my_number)</code></pre>
-        <!-- Challenges Container (at the end of lesson text) -->
+        <p>
+          As you learn more, you'll discover even more exciting possibilities. But today, we start with the basics—using <code>print()</code> to talk to your computer.
+        </p>
+        <h3>Focus on print()</h3>
+        <p>
+          In this lesson, we will learn all about the <code>print()</code> function. It's one of the most fundamental functions in Python and is used to display output on your screen.
+        </p>
+        <h3>Your First Python Program</h3>
+        <p>
+          Traditionally, the first program you write in any language prints "Hello, World!" to the screen. Try running the following code (it should already be loaded into the code editor):
+        </p>
+        <pre><code class="language-python">print("Hello, World!")</code></pre>
+        <p>
+          Look at that! You've just printed your first message.
+        </p>
+        <h3>More print() Examples</h3>
+        <p>
+          The <code>print()</code> function can do more than just display text. It can perform arithmetic and even combine text. Enter these examples into the code editor and run them:
+        </p>
+        <pre><code class="language-python">
+# Arithmetic example: adding two numbers
+print(5 + 5)  # Expected output: 10
+
+# String concatenation: joining two strings
+print("Hello, " + "Python!")  # Expected output: Hello, Python!
+
+# Combining text and numbers
+print("My age is", 25)  # Expected output: My age is 25
+        </code></pre>
+        <p>
+          Great job! Each time you run your code, you’re learning a little more about how to communicate with your computer.
+        </p>
+        <h3>Challenge Time!</h3>
+        <p>
+          Complete the following challenges to practice using <code>print()</code>:
+        </p>
+        <!-- Challenges Container -->
         <div id="challenges-container"></div>
       </section>
       <!-- Divider -->

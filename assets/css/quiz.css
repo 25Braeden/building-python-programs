@@ -1,0 +1,93 @@
+/* Quiz Container */
+.quiz-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+    border: 1px solid var(--rust-secondary);
+    border-radius: 8px;
+    background: var(--bg-color);
+    color: var(--text-color);
+  }
+  
+  /* Question Style */
+  .quiz-question {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Quiz Options */
+  .quiz-options {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .quiz-options li {
+    margin: 0.5rem 0;
+  }
+  
+  .quiz-option {
+    display: block;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--rust-secondary);
+    border-radius: 4px;
+    cursor: pointer;
+    background: var(--bg-color);
+    width: 100%;
+    text-align: left;
+    color: var(--text-color);
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  .quiz-option:hover {
+    background: var(--rust-secondary);
+    color: var(--sidebar-text);
+  }
+  
+  /* Correct/Incorrect Feedback for Options */
+  .quiz-option.correct {
+    background: lightgreen;
+  }
+  
+  .quiz-option.incorrect {
+    background: #ffcccb;
+  }
+  
+  /* Dark Mode Overrides for Correct/Incorrect Feedback */
+  [data-theme="dark"] .quiz-option.correct {
+    background: #2e7d32; /* Darker, muted green */
+  }
+  
+  [data-theme="dark"] .quiz-option.incorrect {
+    background: #c62828; /* Darker, muted red */
+  }
+  
+  /* Feedback Message */
+  .feedback {
+    margin: 1rem 0;
+    font-weight: bold;
+    color: var(--text-color);
+  }
+  
+  .next-button {
+    margin: 1.5rem auto 1rem; /* 1.5rem top margin (shorter gap from challenges) and 1rem bottom margin (extra space underneath) */
+    padding: 0.75rem 2rem;     /* Increased horizontal padding for extra width */
+    font-size: 1.1rem;
+    background: var(--rust-accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: block;
+    min-width: 220px;         /* Ensure the button is a tad wider */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  .next-button:hover {
+    background: #e65c00;
+    transform: scale(1.02);
+  }
+  
+  [data-theme="dark"] .next-button:hover {
+    background: #e68e00;
+  }
