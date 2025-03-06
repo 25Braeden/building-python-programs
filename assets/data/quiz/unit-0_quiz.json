@@ -1,0 +1,45 @@
+{
+    "questions": [
+        {
+        "question": "Which of the following is a valid Python print statement?",
+        "options": [
+            "print",
+            "()",
+            "print()",
+            "print[]"
+        ],
+        "correctAnswer": "print()"
+        },
+        {
+        "question": "What is the output of 'print(5 + 5)'?",
+        "options": [
+            "55",
+            "10",
+            "5+5",
+            "Error"
+        ],
+        "correctAnswer": "10"
+        },
+        {
+            "question": "What is the output of 'print('5', 5)'?",
+            "options": [
+                "5 5",
+                "55",
+                "Error",
+                "5, 5"
+            ],
+            "correctAnswer": "5 5"
+        },
+        {
+        "question": "Which one concatenates the strings 'Hello' and 'Python'?",
+        "options": [
+            "print('Hello' + 'Python')",
+            "print('Hello', 'Python')",
+            "print('Hello' - 'Python')",
+            "print('Hello' & 'Python')"
+        ],
+        "correctAnswer": "print('Hello' + 'Python')"
+        }
+    ]
+}
+  
