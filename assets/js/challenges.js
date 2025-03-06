@@ -2,10 +2,10 @@ document.addEventListener("DOMContentLoaded", async function () {
   const container = document.getElementById("challenges-container");
   if (!container) return;
 
-  // The unit id for the current lesson
+  // The unit id is determined by the data attribute on the body tag.
   const unitId = document.body.dataset.unit;
 
-  // Load configuration for the unit
+  // Load configuration for the unit from the config JSON.
   const configResponse = await fetch(`../assets/data/config/unit-config.json`);
   const configData = await configResponse.json();
   const NEXT_BUTTON_TARGET = configData[unitId].next;
@@ -20,7 +20,10 @@ document.addEventListener("DOMContentLoaded", async function () {
       prompt: challenge.prompt,
       check: async function () {
         try {
-          if (challenge.expectedOutput || challenge.prompt.toLowerCase().includes("print")) {
+          if (
+            challenge.expectedOutput ||
+            challenge.prompt.toLowerCase().includes("print")
+          ) {
             const output = (window.capturedOutput || "")
               .replace(/\r?\n>>> /g, "")
               .trim();
