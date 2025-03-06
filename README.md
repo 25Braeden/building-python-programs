@@ -2,22 +2,21 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Overview
+## 🚀 Overview
 Building Python Programs is a fully interactive, web-based Python course that enables learners to experiment with Python directly in the browser. It provides a structured curriculum inspired by modern coding environments like VS Code and PyCharm, allowing users to write, execute, and debug Python code seamlessly.
 
 ![Screenshot of Course Interface](./assets/images/screenshot.png)
 
-## Features
-- **Structured Curriculum**: Step-by-step units covering everything from basic syntax to advanced concepts.
-- **Interactive Python Editor**: Powered by [Monaco Editor](https://microsoft.github.io/monaco-editor/) for an enhanced coding experience.
-- **In-Browser Code Execution**: Uses [Pyodide](https://pyodide.org/) to run Python code directly in the browser.
-- **Integrated Terminal**: Provides real-time interaction via [xterm.js](https://xtermjs.org/).
-- **Real-Time Syntax Highlighting**: Enhanced with [Prism.js](https://prismjs.com/) for better readability.
-- **Dark/Light Theme Toggle**: Persistently saves user preferences.
-- **Resizable Lesson & Code Areas**: Allows dynamic adjustment using a draggable splitter.
-- **Step-by-Step Challenges**: Progressive coding exercises that guide learners through Python basics.
+## ✨ Features
+- **📖 Structured Curriculum**: Step-by-step units covering everything from basic syntax to advanced concepts.
+- **💻 Interactive Python Editor**: Powered by [Monaco Editor](https://microsoft.github.io/monaco-editor/) for an enhanced coding experience.
+- **⚡ In-Browser Code Execution**: Uses [Pyodide](https://pyodide.org/) to run Python code directly in the browser.
+- **🖥️ Integrated Terminal**: Provides real-time interaction via [xterm.js](https://xtermjs.org/).
+- **🎨 Dark/Light Theme Toggle**: Persistently saves user preferences.
+- **📏 Resizable Lesson & Code Areas**: Allows dynamic adjustment using a draggable splitter.
+- **🏆 Step-by-Step Challenges**: Progressive coding exercises that guide learners through Python basics.
 
-## Tech Stack
+## 🛠️ Tech Stack
 - **Frontend Technologies**:
   - HTML5 Semantic Markup
   - CSS3 with Custom Properties & Responsive Layout (Flexbox/Grid)
@@ -31,7 +30,7 @@ Building Python Programs is a fully interactive, web-based Python course that en
   - [Fira Sans](https://fonts.google.com/specimen/Fira+Sans)
   - [Fira Mono](https://fonts.google.com/specimen/Fira+Mono)
 
-## Directory Structure
+## 📂 Directory Structure
 ```
 building-python-programs/
 ├── assets/
@@ -51,7 +50,7 @@ building-python-programs/
 ├── README.md                  # Project documentation
 ```
 
-## Getting Started
+## 🚀 Getting Started
 ### Installation
 1. **Clone the Repository**:
    ```sh
@@ -68,7 +67,7 @@ building-python-programs/
 2. Enter Python code in the Monaco Editor.
 3. Click **Run Code** to execute and view results in the integrated terminal.
 
-## How It Works
+## 🏗️ How It Works
 ### Editor & Terminal Integration
 - `interpreter.js` initializes Monaco Editor and xterm.js.
 - Pyodide executes the Python code in-browser.
@@ -82,7 +81,7 @@ building-python-programs/
 - `challenges.js` loads JSON-based challenges.
 - It validates user code execution results dynamically.
 
-## Customization
+## 🎨 Customization
 ### Modifying Themes
 Customize the appearance by modifying CSS variables in `style.css`. For example:
 ```css
@@ -111,7 +110,7 @@ Customize the appearance by modifying CSS variables in `style.css`. For example:
    ```
    - Add coding exercises in JSON format like `unit-0.json`.
 
-## Contributing
+## 🤝 Contributing
 Contributions are welcome! To contribute:
 1. **Open an Issue:** Describe your proposed changes.
 2. **Fork the Repository.**
@@ -129,10 +128,10 @@ Contributions are welcome! To contribute:
    ```
 6. **Open a Pull Request** describing your changes for review.
 
-## License
+## 📜 License
 This project is distributed under the MIT License. See the [LICENSE](./LICENSE) file for details.
 
-## Acknowledgments
+## 💡 Acknowledgments
 - [Prism.js](https://prismjs.com/) for syntax highlighting.
 - [Monaco Editor](https://microsoft.github.io/monaco-editor/) for the interactive code editor.
 - [Pyodide](https://pyodide.org/) for running Python in the browser.
