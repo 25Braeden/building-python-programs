@@ -2,8 +2,14 @@ document.addEventListener("DOMContentLoaded", async function () {
   const container = document.getElementById("challenges-container");
   if (!container) return;
 
-  // Determine which unit is active; here we assume unit-0 as an example.
-  const unitId = "unit-0";
+  // The unit id is determined by the data attribute on the body tag.
+  const unitId = document.body.dataset.unit;
+
+  // Load configuration for the unit from the config JSON.
+  const configResponse = await fetch(`../assets/data/config/unit-config.json`);
+  const configData = await configResponse.json();
+  const NEXT_BUTTON_TARGET = configData[unitId].next;
+
   try {
     const response = await fetch(`../assets/data/challenges/${unitId}.json`);
     const challengeData = await response.json();
@@ -12,17 +18,17 @@ document.addEventListener("DOMContentLoaded", async function () {
     const challenges = challengeData.map(challenge => ({
       id: challenge.id,
       prompt: challenge.prompt,
-      // Updated check function to dynamically extract variable names when needed.
       check: async function () {
         try {
-          // If expectedOutput is provided or the prompt mentions printing, check terminal output.
-          if (challenge.expectedOutput || challenge.prompt.toLowerCase().includes("print")) {
+          if (
+            challenge.expectedOutput ||
+            challenge.prompt.toLowerCase().includes("print")
+          ) {
             const output = (window.capturedOutput || "")
               .replace(/\r?\n>>> /g, "")
               .trim();
             return output === (challenge.expectedOutput || "");
           } else {
-            // Try to extract a variable name from the prompt using a regex.
             const varRegex = /variable\s+(?:named|called)\s+['"]([^'"]+)['"]/i;
             const match = challenge.prompt.match(varRegex);
             if (match && match[1]) {
@@ -30,7 +36,6 @@ document.addEventListener("DOMContentLoaded", async function () {
               const value = await window.pyodide.globals.get(variableName);
               return value.toString() === (challenge.expected || "");
             } else {
-              // If no variable name can be extracted, fail the check.
               return false;
             }
           }
@@ -41,7 +46,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       solved: false
     }));
 
-    // Render the challenges.
     function renderChallenges() {
       container.innerHTML = "<h3>Challenges</h3>";
       challenges.forEach((challenge, index) => {
@@ -91,6 +95,23 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
       }
       renderChallenges();
+      checkAllChallengesComplete();
+    }
+
+    function checkAllChallengesComplete() {
+      if (challenges.every(challenge => challenge.solved)) {
+        let nextButton = document.getElementById("nextBtn");
+        if (!nextButton) {
+          nextButton = document.createElement("button");
+          nextButton.id = "nextBtn";
+          nextButton.textContent = "Next";
+          nextButton.classList.add("button", "next-button");
+          nextButton.addEventListener("click", function () {
+            window.location.href = NEXT_BUTTON_TARGET;
+          });
+          container.appendChild(nextButton);
+        }
+      }
     }
 
     const runBtn = document.getElementById("runBtn");
