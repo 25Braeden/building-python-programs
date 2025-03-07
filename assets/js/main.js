@@ -4,16 +4,30 @@ import { app } from "./firebase-init.js";
 
 const auth = getAuth(app);
 
+/**
+ * Computes the relative path to the login page.
+ * If the current page is inside the "/units/" folder, then go up one level.
+ * Otherwise, assume the login page is in "assets/login.html".
+ */
+function getLoginPagePath() {
+  const path = location.pathname;
+  if (path.includes("/units/")) {
+    return "../assets/login.html";
+  } else {
+    return "assets/login.html";
+  }
+}
+
 // Wait until DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
   // ===== Authentication Check =====
   onAuthStateChanged(auth, (user) => {
+    // If no user is logged in, redirect to the login page
     if (!user) {
-      // User is not logged in; redirect to login page
-      window.location.href = "login.html"; // Adjust the path as needed
+      window.location.href = getLoginPagePath();
     } else {
       console.log("User is logged in:", user.email);
-      // Optionally, update the UI with user info here.
+      // Optionally update UI with user info here
     }
   });
 
@@ -59,12 +73,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // Function to adjust button positions dynamically
   function updateButtonPositions() {
     const sidebarWidth = document.body.classList.contains("sidebar-collapsed")
-      ? getComputedStyle(document.documentElement).getPropertyValue(
-          "--collapsed-sidebar-width"
-        )
-      : getComputedStyle(document.documentElement).getPropertyValue(
-          "--sidebar-width"
-        );
+      ? getComputedStyle(document.documentElement).getPropertyValue("--collapsed-sidebar-width")
+      : getComputedStyle(document.documentElement).getPropertyValue("--sidebar-width");
 
     sidebarToggle.style.left = `calc(${sidebarWidth} + 10px)`;
     themeToggle.style.left = `calc(${sidebarWidth} + var(--toggle-spacing))`;
