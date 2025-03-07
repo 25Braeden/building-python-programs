@@ -1,0 +1,132 @@
+/* assets/css/login.css */
+
+/* Ensure consistent box-sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Use a gradient background for a modern look */
+body {
+  background: linear-gradient(135deg, #1a1a34, #262625);
+  font-family: "Fira Sans", sans-serif;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+/* Login card styling */
+.login-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  width: 90%;
+  max-width: 350px;
+  text-align: center;
+}
+
+.login-card h1 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  color: #262625;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.login-card button {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #f74c00;
+  color: #fff;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.login-card button:hover {
+  background: #e65c00;
+  transform: translateY(-2px);
+}
+
+.login-card hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 1.5rem 0;
+}
+
+.google-btn {
+  background: #4285F4;
+}
+
+.error-message {
+  color: #d9534f;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+/* Email verification overlay styles */
+.email-verification-message {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(38, 38, 37, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  color: #fff;
+  text-align: center;
+  padding: 2rem;
+}
+
+.email-verification-message .verification-content {
+  background: #333;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 100%;
+}
+
+.email-verification-message h2 {
+  margin-top: 0;
+  color: #f74c00;
+  font-size: 1.75rem;
+}
+
+.email-verification-message p {
+  margin: 1rem 0;
+  line-height: 1.4;
+}
+
+.email-verification-message .verification-buttons button {
+  padding: 0.75rem 1rem;
+  margin: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #f74c00;
+  color: #fff;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.email-verification-message .verification-buttons button:hover {
+  background: #e65c00;
+  transform: translateY(-2px);
+}

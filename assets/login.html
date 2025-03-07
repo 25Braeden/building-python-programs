@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Building Python Programs</title>
+    <!-- Base styles -->
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Login-specific styles -->
+    <link rel="stylesheet" href="css/login.css" />
+  </head>
+  <body>
+    <div class="login-card">
+      <h1>Login</h1>
+      <div id="login-container">
+        <input type="email" id="email" placeholder="Email" />
+        <input type="password" id="password" placeholder="Password" />
+        <button id="login-btn">Log In</button>
+        <button id="signup-btn">Sign Up</button>
+        <hr />
+        <button id="google-signin-btn" class="google-btn">Sign in with Google</button>
+      </div>
+      <div id="error-message" class="error-message"></div>
+    </div>
+    <!-- Load login JavaScript as an ES module -->
+    <script type="module" src="js/login.js"></script>
+  </body>
+</html>
