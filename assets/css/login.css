@@ -1,0 +1,82 @@
+/* Ensure consistent box-sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Use your primary background from your main CSS for a richer feel */
+body {
+  background-color: var(--rust-primary, #262625);
+  font-family: "Fira Sans", sans-serif;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Login Card Styling */
+.login-card {
+  /* Instead of a flat white, use a subtle gradient or your preferred background */
+  background: linear-gradient(135deg, #f5f2f0, #ffffff);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 2rem;
+  width: 320px;
+  text-align: center;
+}
+
+/* Heading */
+.login-card h1 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  color: var(--rust-accent, #f74c00);
+}
+
+/* Input fields */
+.login-card input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Buttons */
+.login-card button {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0 0 1rem; /* top/bottom margins, no extra left/right margin */
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: var(--rust-accent, #f74c00);
+  color: #fff;
+  transition: background 0.3s;
+}
+
+.login-card button:hover {
+  background-color: #e65c00;
+}
+
+/* Divider */
+.login-card hr {
+  margin: 1rem 0;
+  border: none;
+  border-bottom: 1px solid #eee;
+}
+
+/* Google Sign-In Button */
+.google-btn {
+  background-color: #4285F4;
+}
+
+/* Error message styling */
+.error-message {
+  color: #d9534f;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}

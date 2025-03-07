@@ -1,4 +1,22 @@
+// assets/js/main.js
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+import { app } from "./firebase-init.js";
+
+const auth = getAuth(app);
+
+// Wait until DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
+  // ===== Authentication Check =====
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      // User is not logged in; redirect to login page
+      window.location.href = "login.html"; // Adjust the path as needed
+    } else {
+      console.log("User is logged in:", user.email);
+      // Optionally, update the UI with user info here.
+    }
+  });
+
   // ===== Theme Functionality =====
   const themeToggle = document.querySelector(".theme-toggle");
   const sidebarToggle = document.querySelector(".sidebar-toggle");
@@ -49,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
     sidebarToggle.style.left = `calc(${sidebarWidth} + 10px)`;
-    themeToggle.style.left = `calc(${sidebarWidth} + var(--toggle-spacing))`; // Use CSS variable
+    themeToggle.style.left = `calc(${sidebarWidth} + var(--toggle-spacing))`;
   }
 
   // Initial button positioning

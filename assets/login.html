@@ -4,80 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - Building Python Programs</title>
+    <!-- Base styles -->
     <link rel="stylesheet" href="css/style.css" />
-    <!-- Initialize Firebase -->
-    <script type="module" src="js/firebase-init.js"></script>
+    <!-- Login-specific styles -->
+    <link rel="stylesheet" href="css/login.css" />
   </head>
   <body>
-    <h1>Login</h1>
-    <div id="login-container">
-      <!-- Email/Password Login -->
-      <input type="email" id="email" placeholder="Email" />
-      <input type="password" id="password" placeholder="Password" />
-      <button id="login-btn">Log In</button>
-      <button id="signup-btn">Sign Up</button>
-      <hr />
-      <!-- Google Sign-In -->
-      <button id="google-signin-btn">Sign in with Google</button>
+    <div class="login-card">
+      <h1>Login</h1>
+      <div id="login-container">
+        <input type="email" id="email" placeholder="Email" />
+        <input type="password" id="password" placeholder="Password" />
+        <button id="login-btn">Log In</button>
+        <button id="signup-btn">Sign Up</button>
+        <hr />
+        <button id="google-signin-btn" class="google-btn">Sign in with Google</button>
+      </div>
+      <div id="error-message" class="error-message"></div>
     </div>
-    <div id="error-message" style="color: red;"></div>
-
-    <script type="module">
-      // Import the required Firebase Auth functions and the initialized app
-      import {
-        getAuth,
-        signInWithEmailAndPassword,
-        createUserWithEmailAndPassword,
-        signInWithPopup,
-        GoogleAuthProvider
-      } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-      import { app } from "./js/firebase-init.js";
-      
-      const auth = getAuth(app);
-
-      // Email/Password Login
-      document.getElementById("login-btn").addEventListener("click", async () => {
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-        try {
-          const userCredential = await signInWithEmailAndPassword(auth, email, password);
-          console.log("User signed in:", userCredential.user.email);
-          // Redirect to your main content page
-          window.location.href = "index.html";
-        } catch (error) {
-          console.error("Error signing in:", error);
-          document.getElementById("error-message").textContent = error.message;
-        }
-      });
-
-      // Email/Password Sign Up
-      document.getElementById("signup-btn").addEventListener("click", async () => {
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-        try {
-          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-          console.log("User signed up:", userCredential.user.email);
-          // Redirect after successful signup
-          window.location.href = "index.html";
-        } catch (error) {
-          console.error("Error signing up:", error);
-          document.getElementById("error-message").textContent = error.message;
-        }
-      });
-
-      // Google Sign-In
-      document.getElementById("google-signin-btn").addEventListener("click", async () => {
-        const provider = new GoogleAuthProvider();
-        try {
-          const result = await signInWithPopup(auth, provider);
-          console.log("Google sign in successful:", result.user.email);
-          // Redirect after successful Google sign-in
-          window.location.href = "index.html";
-        } catch (error) {
-          console.error("Error with Google sign in:", error);
-          document.getElementById("error-message").textContent = error.message;
-        }
-      });
-    </script>
+    <!-- Load login JavaScript as an ES module -->
+    <script type="module" src="js/login.js"></script>
   </body>
 </html>
