@@ -1,3 +1,5 @@
+/* assets/css/login.css */
+
 /* Ensure consistent box-sizing */
 *,
 *::before,
@@ -14,17 +16,33 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  padding: 1rem; /* Adds some space on small screens */
 }
 
 /* Login Card Styling */
 .login-card {
-  /* Instead of a flat white, use a subtle gradient or your preferred background */
   background: linear-gradient(135deg, #f5f2f0, #ffffff);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 2rem;
-  width: 320px;
+  width: 90%;
+  max-width: 320px;
   text-align: center;
+}
+
+/* Responsive adjustments */
+@media (min-width: 480px) {
+  .login-card {
+    padding: 2.5rem;
+    max-width: 360px;
+  }
+}
+
+@media (min-width: 768px) {
+  .login-card {
+    padding: 3rem;
+    max-width: 400px;
+  }
 }
 
 /* Heading */
@@ -48,7 +66,7 @@ body {
 .login-card button {
   width: 100%;
   padding: 0.75rem;
-  margin: 0 0 1rem; /* top/bottom margins, no extra left/right margin */
+  margin: 0 0 1rem;
   border: none;
   border-radius: 4px;
   font-size: 1rem;
