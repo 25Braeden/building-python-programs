@@ -1,3 +1,11 @@
+// assets/js/challenges.js
+import { getFirestore, doc, updateDoc, arrayUnion, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+import { app } from "./firebase-init.js";
+
+const db = getFirestore(app);
+const auth = getAuth(app);
+
 document.addEventListener("DOMContentLoaded", async function () {
   const container = document.getElementById("challenges-container");
   if (!container) return;
@@ -14,10 +22,23 @@ document.addEventListener("DOMContentLoaded", async function () {
     const response = await fetch(`../assets/data/challenges/${unitId}.json`);
     const challengeData = await response.json();
 
+    // Load saved challenge progress from Firestore.
+    let savedChallenges = [];
+    const user = auth.currentUser;
+    if (user) {
+      const uid = user.uid;
+      const userDocRef = doc(db, "userProgress", uid);
+      const docSnap = await getDoc(userDocRef);
+      if (docSnap.exists() && docSnap.data().challenges && docSnap.data().challenges[unitId]) {
+        savedChallenges = docSnap.data().challenges[unitId];
+      }
+    }
+
     // Process JSON to create challenge objects.
     const challenges = challengeData.map(challenge => ({
       id: challenge.id,
       prompt: challenge.prompt,
+      solved: savedChallenges.includes(challenge.id),
       check: async function () {
         try {
           if (
@@ -42,9 +63,25 @@ document.addEventListener("DOMContentLoaded", async function () {
         } catch (e) {
           return false;
         }
-      },
-      solved: false
+      }
     }));
+
+    // Helper function to update Firestore progress for a solved challenge.
+    async function saveChallengeProgress(challengeId) {
+      const user = auth.currentUser;
+      if (!user) return;
+      const uid = user.uid;
+      const userDocRef = doc(db, "userProgress", uid);
+      // Ensure the document exists; if not, create it with an empty challenges object.
+      const docSnap = await getDoc(userDocRef);
+      if (!docSnap.exists()) {
+        await setDoc(userDocRef, { challenges: {} });
+      }
+      // Update the field for the current unit using arrayUnion (to avoid duplicates).
+      await updateDoc(userDocRef, {
+        [`challenges.${unitId}`]: arrayUnion(challengeId)
+      });
+    }
 
     function renderChallenges() {
       container.innerHTML = "<h3>Challenges</h3>";
@@ -91,6 +128,8 @@ document.addEventListener("DOMContentLoaded", async function () {
           const result = await challenges[i].check();
           if (result) {
             challenges[i].solved = true;
+            // Save challenge progress to Firestore.
+            await saveChallengeProgress(challenges[i].id);
           }
         }
       }
