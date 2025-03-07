@@ -1,7 +1,5 @@
-// assets/js/firebase-init.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
-// (If you add more Firebase services later, import them here)
 
 const firebaseConfig = {
   apiKey: "AIzaSyBIZWUaCeg3jy9pOp9oj_twlcxvBg2Gf8E",
@@ -13,10 +11,7 @@ const firebaseConfig = {
   measurementId: "G-TZ264KD7JY"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-
-// Optionally expose these objects for other modules
 export { app };
 console.log("Firebase has been initialized.");
