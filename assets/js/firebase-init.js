@@ -1,5 +1,6 @@
+// assets/js/firebase-init.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
+import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBIZWUaCeg3jy9pOp9oj_twlcxvBg2Gf8E",
@@ -12,6 +13,19 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+// Check if analytics is supported before initializing it.
+isSupported().then((supported) => {
+  if (supported) {
+    const analytics = getAnalytics(app);
+    console.log("Firebase analytics initialized.");
+  } else {
+    console.warn("Firebase analytics is not supported in this environment.");
+  }
+}).catch((err) => {
+  console.error("Error checking analytics support:", err);
+});
+
 export { app };
+
 console.log("Firebase has been initialized.");

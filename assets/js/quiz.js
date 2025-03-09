@@ -1,24 +1,29 @@
 // assets/js/quiz.js
 import { getFirestore, doc, updateDoc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { app } from "./firebase-init.js";
 
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-document.addEventListener("DOMContentLoaded", function() {
-  // Get the quiz JSON file name from the data attribute on the <html> element.
+document.addEventListener("DOMContentLoaded", function () {
   const quizFile = document.documentElement.dataset.quiz; // e.g., "unit-0_quiz.json"
-  // Use the document title as the quiz name.
+  const quizKey = quizFile.replace('.json', ''); // use "unit-0_quiz" as the key
   const quizName = document.title;
-
-  // Load quiz questions from the JSON file.
+  console.log("Quiz file from data attribute:", quizFile);
+  
+  // Fetch the quiz JSON data.
   fetch(`../assets/data/quiz/${quizFile}`)
-    .then(response => response.json())
-    .then(data => {
-      const quizData = data.questions; // JSON should be structured with a "questions" array.
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Failed to fetch quiz data.");
+      }
+      return response.json();
+    })
+    .then(async data => {
+      const quizData = data.questions;
       // Initialize each question with an attempts counter.
-      quizData.forEach(q => q.attempts = 0);
+      quizData.forEach(q => (q.attempts = 0));
       
       let currentQuestionIndex = 0;
       
@@ -27,12 +32,75 @@ document.addEventListener("DOMContentLoaded", function() {
       const quizFeedbackEl = document.getElementById("quiz-feedback");
       const nextBtn = document.getElementById("nextBtn");
       
-      // Load and display the current question.
+      // Hide the next button initially.
+      nextBtn.style.display = "none";
+      
+      // Wait for the authentication state to be ready.
+      const user = await new Promise(resolve => {
+        onAuthStateChanged(auth, (user) => resolve(user));
+      });
+      
+      if (user) {
+        const uid = user.uid;
+        const userDocRef = doc(db, "userProgress", uid);
+        const docSnap = await getDoc(userDocRef);
+        if (docSnap.exists() && docSnap.data().quizProgress && docSnap.data().quizProgress[quizKey]) {
+          const stored = docSnap.data().quizProgress[quizKey];
+          console.log("Loaded quiz progress:", stored);
+          currentQuestionIndex = stored.currentQuestionIndex;
+          // Restore attempt counts for each question.
+          if (stored.attempts && Array.isArray(stored.attempts)) {
+            quizData.forEach((q, i) => {
+              if (stored.attempts[i] !== undefined) {
+                q.attempts = stored.attempts[i];
+              }
+            });
+          }
+          if (stored.complete) {
+            // If quiz is complete, show the score report immediately.
+            displayScoreReport();
+            return;
+          }
+        }
+      } else {
+        console.warn("No authenticated user found.");
+      }
+      
+      // --- Function to save quiz progress ---
+      async function saveQuizProgress() {
+        const progress = {
+          currentQuestionIndex,
+          attempts: quizData.map(q => q.attempts),
+          complete: false
+        };
+        const user = auth.currentUser;
+        if (!user) return;
+        const uid = user.uid;
+        const userDocRef = doc(db, "userProgress", uid);
+        // Ensure the document exists with a quizProgress field.
+        await setDoc(userDocRef, { quizProgress: {} }, { merge: true });
+        await updateDoc(userDocRef, {
+          [`quizProgress.${quizKey}`]: progress
+        })
+          .then(() => {
+            console.log("Quiz progress saved:", progress);
+          })
+          .catch(err => {
+            console.error("Error saving quiz progress:", err);
+          });
+      }
+      
+      // --- Function to load a question ---
       function loadQuestion() {
+        console.log("Loading question at index:", currentQuestionIndex);
         const currentData = quizData[currentQuestionIndex];
+        if (!currentData) {
+          console.error("No question found at index:", currentQuestionIndex);
+          return;
+        }
         quizQuestionEl.textContent = currentData.question;
         quizOptionsEl.innerHTML = "";
-        quizFeedbackEl.innerHTML = ""; // clear feedback area
+        quizFeedbackEl.innerHTML = "";
         nextBtn.style.display = "none";
         
         currentData.options.forEach(option => {
@@ -46,16 +114,14 @@ document.addEventListener("DOMContentLoaded", function() {
         });
       }
       
-      // Check the selected answer, increment attempts, and provide immediate feedback.
+      // --- Function to check the answer ---
       function checkAnswer(selected, button) {
         const currentData = quizData[currentQuestionIndex];
-        // Increment the attempts counter for this question
         currentData.attempts++;
-        
+        saveQuizProgress(); // Save progress after each attempt.
         if (selected === currentData.correctAnswer) {
           button.classList.add("correct");
           quizFeedbackEl.textContent = "Correct! Look at that, great job!";
-          // Disable all options after a correct answer.
           document.querySelectorAll(".quiz-option").forEach(btn => btn.disabled = true);
           nextBtn.style.display = "block";
         } else {
@@ -64,10 +130,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       }
       
-      // When all questions are done, display a detailed score report.
+      // --- Function to display the score report ---
       function displayScoreReport() {
         let totalAttempts = 0;
-        // Start the report with the quiz name.
         let reportHTML = `<h3>Score Report for "${quizName}"</h3><ul>`;
         let reportText = `Score Report for "${quizName}"\n\n`;
         
@@ -81,77 +146,87 @@ document.addEventListener("DOMContentLoaded", function() {
         reportHTML += `<p><strong>Total Attempts:</strong> ${totalAttempts}</p>`;
         reportHTML += `<p><strong>Average Attempts per Question:</strong> ${avgAttempts}</p>`;
         reportText += `\nTotal Attempts: ${totalAttempts}\nAverage Attempts per Question: ${avgAttempts}\n`;
-      
-        // Display the score report in the feedback container.
+        
         quizFeedbackEl.innerHTML = reportHTML;
-      
-        // Save quiz grade to Firestore
         saveQuizGrade(avgAttempts);
-      
-        // Create a Download PDF button to prompt a download of the score report.
+        
         const downloadBtn = document.createElement("button");
         downloadBtn.id = "downloadPdfBtn";
         downloadBtn.textContent = "Download PDF Report";
-        downloadBtn.classList.add("next-button"); // Reuse existing styling
+        downloadBtn.classList.add("next-button");
         downloadBtn.style.display = "block";
         downloadBtn.style.marginTop = "1rem";
-      
         downloadBtn.addEventListener("click", function () {
           generatePdfScoreReport(reportText);
         });
-      
         quizFeedbackEl.appendChild(downloadBtn);
+        
+        // Mark the quiz progress as complete.
+        markQuizComplete();
       }
       
-      // Save quiz grade to Firestore under user's document.
+      // --- Function to mark quiz as complete in Firestore ---
+      async function markQuizComplete() {
+        const user = auth.currentUser;
+        if (!user) return;
+        const uid = user.uid;
+        const userDocRef = doc(db, "userProgress", uid);
+        // Ensure the document exists with a quizProgress field.
+        await setDoc(userDocRef, { quizProgress: {} }, { merge: true });
+        await updateDoc(userDocRef, {
+          [`quizProgress.${quizKey}.complete`]: true
+        })
+          .then(() => {
+            console.log("Quiz marked as complete.");
+          })
+          .catch(err => {
+            console.error("Error marking quiz complete:", err);
+          });
+      }
+      
+      // --- Function to save quiz grade (final score) ---
       async function saveQuizGrade(avgAttempts) {
         const user = auth.currentUser;
         if (!user) return;
         const uid = user.uid;
         const userDocRef = doc(db, "userProgress", uid);
-        // Ensure the document exists; if not, create it.
-        const docSnap = await getDoc(userDocRef);
-        if (!docSnap.exists()) {
-          await setDoc(userDocRef, { quizzes: {} });
-        }
-        // Update the quiz grade for this unit (for simplicity, we assume unit id "unit-0"; adjust as needed).
+        // Ensure the document exists with a quizzes field.
+        await setDoc(userDocRef, { quizzes: {} }, { merge: true });
         await updateDoc(userDocRef, {
           "quizzes.unit-0": avgAttempts
         });
       }
       
+      // --- Function to generate a PDF score report ---
       function generatePdfScoreReport(reportText) {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
-      
-        // Add a title.
         doc.setFontSize(16);
         doc.text(`Score Report for "${quizName}"`, 10, 20);
-      
-        // Split the report text into lines that fit within the page width.
         const lines = doc.splitTextToSize(reportText, 180);
         doc.setFontSize(12);
         doc.text(lines, 10, 30);
-      
-        // Trigger the PDF download.
         doc.save("score-report.pdf");
       }
       
-      // Advance to the next question or finish the quiz.
+      // --- Next button event listener ---
       nextBtn.addEventListener("click", () => {
         currentQuestionIndex++;
+        saveQuizProgress();
         if (currentQuestionIndex < quizData.length) {
           loadQuestion();
         } else {
-          // All questions completed; show score report.
-          quizFeedbackEl.innerHTML = "";
           displayScoreReport();
           nextBtn.style.display = "none";
         }
       });
       
-      // Load the first question.
-      loadQuestion();
+      // --- Start the quiz ---
+      if (currentQuestionIndex < quizData.length) {
+        loadQuestion();
+      } else {
+        displayScoreReport();
+      }
     })
     .catch(err => {
       console.error("Error loading quiz data:", err);

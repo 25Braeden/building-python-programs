@@ -1,6 +1,6 @@
 // assets/js/challenges.js
 import { getFirestore, doc, updateDoc, arrayUnion, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { app } from "./firebase-init.js";
 
 const db = getFirestore(app);
@@ -23,9 +23,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     const response = await fetch(`../assets/data/challenges/${unitId}.json`);
     const challengeData = await response.json();
 
-    // Load saved challenge progress from Firestore.
+    // Wait for the authentication state to be ready.
     let savedChallenges = [];
-    const user = auth.currentUser;
+    const user = await new Promise(resolve => {
+      onAuthStateChanged(auth, (user) => resolve(user));
+    });
+
     if (user) {
       const uid = user.uid;
       const userDocRef = doc(db, "userProgress", uid);
@@ -170,7 +173,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         setTimeout(checkChallenges, 500);
       });
     }
+    // Render challenges immediately and check if all are complete.
     renderChallenges();
+    checkAllChallengesComplete();
   } catch (error) {
     console.error("Error loading challenge data:", error);
   }
