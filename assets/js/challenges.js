@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   // The unit id is determined by the data attribute on the body tag.
   const unitId = document.body.dataset.unit;
+  console.log("Unit ID:", unitId);
 
   // Load configuration for the unit from the config JSON.
   const configResponse = await fetch(`../assets/data/config/unit-config.json`);
@@ -31,7 +32,12 @@ document.addEventListener("DOMContentLoaded", async function () {
       const docSnap = await getDoc(userDocRef);
       if (docSnap.exists() && docSnap.data().challenges && docSnap.data().challenges[unitId]) {
         savedChallenges = docSnap.data().challenges[unitId];
+        console.log("Saved challenges for unit", unitId, ":", savedChallenges);
+      } else {
+        console.log("No saved challenges found for unit", unitId);
       }
+    } else {
+      console.warn("No authenticated user found.");
     }
 
     // Process JSON to create challenge objects.
@@ -61,6 +67,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
           }
         } catch (e) {
+          console.error("Error in challenge check:", e);
           return false;
         }
       }
@@ -81,6 +88,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       await updateDoc(userDocRef, {
         [`challenges.${unitId}`]: arrayUnion(challengeId)
       });
+      console.log(`Saved challenge ${challengeId} for unit ${unitId}`);
     }
 
     function renderChallenges() {
@@ -88,6 +96,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       challenges.forEach((challenge, index) => {
         const challengeDiv = document.createElement("div");
         challengeDiv.className = "challenge";
+        // Lock challenge if the previous challenge isn't solved.
         if (index > 0 && !challenges[index - 1].solved) {
           challengeDiv.classList.add("locked");
         }
@@ -123,6 +132,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     async function checkChallenges() {
       for (let i = 0; i < challenges.length; i++) {
+        // Skip challenge if previous challenge is not solved.
         if (i > 0 && !challenges[i - 1].solved) continue;
         if (!challenges[i].solved) {
           const result = await challenges[i].check();
