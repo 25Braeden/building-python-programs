@@ -1,5 +1,14 @@
 /* ======================================================================
-   1. Theme Variables
+   Merged style.css File
+   This file combines:
+     • style.css (base site styles)
+     • login.css (login page-specific styles, now scoped to .login-page)
+     • quiz.css (quiz page-specific styles)
+   ====================================================================== */
+
+
+/* ======================================================================
+   1. Base Styles and Theme Variables (from style.css)
    ====================================================================== */
 
 /* --- Light Theme (Default) --- */
@@ -55,7 +64,7 @@
 }
 
 /* ======================================================================
-   2. Base Styles
+   Base Styles (from style.css)
    ====================================================================== */
 body {
   margin: 0;
@@ -63,9 +72,7 @@ body {
   line-height: 1.6;
   background: var(--bg-color);
   color: var(--text-color);
-  transition:
-    background 0.3s ease,
-    color 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 header {
@@ -96,7 +103,7 @@ pre code {
 }
 
 /* ======================================================================
-   3. Layout Components
+   Layout Components (from style.css)
    ====================================================================== */
 
 /* --- Sidebar Styles --- */
@@ -161,12 +168,9 @@ body.sidebar-collapsed #sidebar {
   z-index: 1001;
   width: 50px;
   height: 50px;
-  transition:
-    left 0.3s ease-in-out,
-    transform 0.2s ease;
+  transition: left 0.3s ease-in-out, transform 0.2s ease;
 }
 
-/* Positioning for Sidebar Toggle */
 .sidebar-toggle {
   left: calc(var(--sidebar-width) + 10px);
 }
@@ -174,7 +178,6 @@ body.sidebar-collapsed .sidebar-toggle {
   left: calc(var(--collapsed-sidebar-width) + 10px);
 }
 
-/* Positioning for Theme Toggle */
 .theme-toggle {
   left: calc(var(--sidebar-width) + var(--toggle-spacing));
 }
@@ -198,13 +201,11 @@ main {
 }
 
 body.sidebar-collapsed main {
-  margin-left: calc(
-    var(--collapsed-sidebar-width) + var(--toggle-spacing) + 60px
-  );
+  margin-left: calc(var(--collapsed-sidebar-width) + var(--toggle-spacing) + 60px);
 }
 
 /* ======================================================================
-   4. Content Areas
+   Content Areas (from style.css)
    ====================================================================== */
 
 /* --- Lesson Content Styles --- */
@@ -222,27 +223,22 @@ body.sidebar-collapsed main {
   -ms-overflow-style: none;
 }
 
-/* Hide scrollbar by default */
 #lesson-content::-webkit-scrollbar {
   width: 0;
   transition: width 0.3s;
 }
 
-/* Show scrollbar when the .scrolling class is added */
 #lesson-content.scrolling::-webkit-scrollbar {
   width: 8px;
 }
 
-/* For Firefox, you can set scrollbar-width */
 #lesson-content {
-  scrollbar-width: none; /* Hide by default */
+  scrollbar-width: none;
 }
 #lesson-content.scrolling {
   scrollbar-width: thin;
 }
 
-
-/* Headings in Lesson Content */
 #lesson-content h1,
 #lesson-content h2,
 #lesson-content h3,
@@ -287,7 +283,7 @@ body.sidebar-collapsed main {
 }
 
 #editor {
-  flex: 13 1 0%; /* Approximately 65% of vertical space */
+  flex: 13 1 0%;
   width: 100%;
   border: 1px solid #ccc;
   box-sizing: border-box;
@@ -306,7 +302,7 @@ button#runBtn {
 }
 
 .terminal {
-  flex: 7 1 0%; /* Approximately 35% of vertical space */
+  flex: 7 1 0%;
   background: var(--code-output-bg);
   color: var(--code-output-text);
   padding: 0.5rem;
@@ -315,20 +311,20 @@ button#runBtn {
   box-sizing: border-box;
   width: 100%;
   min-height: 0;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .terminal::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 
 /* --- Landing Page Hero Section --- */
 .hero {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Vertically center */
-  align-items: center; /* Horizontally center */
+  justify-content: center;
+  align-items: center;
   text-align: center;
   height: 100vh;
   padding: 0 20px;
@@ -372,14 +368,16 @@ body.landing.sidebar-collapsed main {
 }
 
 /* ======================================================================
-   5. Challenges Component Styles
+   Challenges Component Styles (from style.css)
    ====================================================================== */
-
-/* --- Challenges Container (Light Mode) --- */
 #challenges-container {
   margin-top: 2rem;
   padding: 1rem;
   border-top: 2px solid #ccc;
+}
+
+#challenges-container .next-button {
+  margin-bottom: 2rem;
 }
 
 .challenge {
@@ -414,7 +412,6 @@ body.landing.sidebar-collapsed main {
   font-size: 0.9em;
 }
 
-/* --- Challenges Component (Dark Mode) --- */
 [data-theme="dark"] #challenges-container {
   border-top: 2px solid #444;
 }
@@ -429,7 +426,6 @@ body.landing.sidebar-collapsed main {
   color: var(--text-color);
 }
 
-/* Status Colors */
 .challenge.completed .status-indicator,
 .challenge.completed .challenge-message {
   color: green;
@@ -445,17 +441,14 @@ body.landing.sidebar-collapsed main {
   color: yellow;
 }
 
-/* Light mode pending (darker yellow) */
 [data-theme="light"] .challenge:not(.completed):not(.locked) .status-indicator,
 [data-theme="light"] .challenge:not(.completed):not(.locked) .challenge-message {
   color: #b58900;
 }
 
 /* ======================================================================
-   6. Prism (Syntax Highlighting) Styles
+   Prism (Syntax Highlighting) Styles (from style.css)
    ====================================================================== */
-
-/* --- Prism Code Block (Default) --- */
 pre[class*="language-"] {
   background: var(--rust-code-bg);
   padding: 1em;
@@ -473,9 +466,6 @@ pre[class*="language-"] {
   opacity: 0.9;
 }
 
-/* ======================================================================
-   7. Dark Mode Prism Overrides
-   ====================================================================== */
 [data-theme="dark"] pre[class*="language-"] {
   background: var(--rust-code-bg) !important;
   border: 1px solid var(--rust-secondary) !important;
@@ -490,7 +480,6 @@ pre[class*="language-"] {
   -moz-osx-font-smoothing: auto;
 }
 
-/* Token adjustments */
 [data-theme="dark"] .token.comment,
 [data-theme="dark"] .token.prolog,
 [data-theme="dark"] .token.doctype,
@@ -536,14 +525,12 @@ pre[class*="language-"] {
   color: #d7ba7d !important;
 }
 
-/* --- Inline Code Dark Mode Adjustments --- */
 [data-theme="dark"] :not(pre) > code[class*="language-"],
 [data-theme="dark"] code:not(pre) {
   background: var(--rust-code-bg);
   color: var(--code-text);
 }
 
-/* Exclude Monaco Editor from global dark mode font-smoothing adjustments */
 .monaco-editor, 
 .monaco-editor * {
   -webkit-font-smoothing: initial !important;
@@ -551,14 +538,14 @@ pre[class*="language-"] {
   text-rendering: auto !important;
 }
 
-/* Email verification overlay styles */
+/* Email verification overlay styles (from style.css) */
 .email-verification-message {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(38, 38, 37, 0.9); /* semi-transparent dark overlay */
+  background: rgba(38, 38, 37, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -598,4 +585,228 @@ pre[class*="language-"] {
 
 .email-verification-message .verification-buttons button:hover {
   background-color: #e65c00;
+}
+
+
+/* ======================================================================
+   2. Login Page Styles (from login.css)
+       Scoped to only apply on the login page (add class "login-page" to body)
+   ====================================================================== */
+body.login-page {
+  /* Login Page Background and Layout */
+  background: linear-gradient(135deg, #1a1a34, #262625);
+  font-family: "Fira Sans", sans-serif;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+body.login-page .login-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  width: 90%;
+  max-width: 350px;
+  text-align: center;
+}
+
+body.login-page .login-card h1 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  color: #262625;
+}
+
+body.login-page .login-card input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+body.login-page .login-card button {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #f74c00;
+  color: #fff;
+  transition: background 0.3s, transform 0.2s;
+}
+
+body.login-page .login-card button:hover {
+  background: #e65c00;
+  transform: translateY(-2px);
+}
+
+body.login-page .login-card hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 1.5rem 0;
+}
+
+body.login-page .google-btn {
+  background: #4285F4;
+}
+
+body.login-page .error-message {
+  color: #d9534f;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+body.login-page .email-verification-message {
+  background: rgba(38, 38, 37, 0.95);
+}
+
+body.login-page .email-verification-message .verification-content {
+  background: #333;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 100%;
+}
+
+body.login-page .email-verification-message h2 {
+  margin-top: 0;
+  color: #f74c00;
+  font-size: 1.75rem;
+}
+
+body.login-page .email-verification-message p {
+  margin: 1rem 0;
+  line-height: 1.4;
+}
+
+body.login-page .email-verification-message .verification-buttons button {
+  padding: 0.75rem 1rem;
+  margin: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #f74c00;
+  color: #fff;
+  transition: background 0.3s, transform 0.2s;
+}
+
+body.login-page .email-verification-message .verification-buttons button:hover {
+  background: #e65c00;
+  transform: translateY(-2px);
+}
+
+
+/* ======================================================================
+   3. Quiz Page Styles (from quiz.css)
+   ====================================================================== */
+
+/* Quiz Container */
+.quiz-container {
+  max-width: 500px; /* narrower container */
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border: 1px solid var(--rust-secondary);
+  border-radius: 10px;
+  background: var(--bg-color);
+  color: var(--text-color);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Question Style */
+.quiz-question {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 0.5rem 0 1rem;
+  padding: 0.75rem;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* Quiz Options */
+.quiz-options {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.quiz-options li {
+  margin: 0.5rem 0;
+}
+
+.quiz-option {
+  display: block;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--rust-secondary);
+  border-radius: 4px;
+  background: var(--bg-color);
+  color: var(--text-color);
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.3s, color 0.3s;
+}
+
+.quiz-option:hover {
+  background: var(--rust-secondary);
+  color: var(--sidebar-text);
+}
+
+/* Correct/Incorrect Feedback for Options */
+.quiz-option.correct {
+  background: lightgreen;
+}
+
+.quiz-option.incorrect {
+  background: #ffcccb;
+}
+
+/* Dark Mode Overrides for Correct/Incorrect Feedback */
+[data-theme="dark"] .quiz-option.correct {
+  background: #2e7d32;
+}
+
+[data-theme="dark"] .quiz-option.incorrect {
+  background: #c62828;
+}
+
+/* Feedback Message */
+.feedback {
+  margin: 1rem 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Next Button Styles */
+.next-button {
+  margin: 1.5rem auto 0;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  background: var(--rust-accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: block;
+  min-width: 220px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease, transform 0.2s ease;
+  text-align: center;
+}
+
+.next-button:hover {
+  background: #e65c00;
+  transform: scale(1.02);
+}
+
+[data-theme="dark"] .next-button:hover {
+  background: #e68e00;
 }
