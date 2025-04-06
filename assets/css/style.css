@@ -732,6 +732,12 @@ body.login-page .email-verification-message .verification-buttons button:hover {
   text-align: center;
 }
 
+[data-theme="dark"] .quiz-question {
+  background: var(--rust-code-bg);
+  border-color: #444;
+  color: var(--text-color);
+}
+
 /* Quiz Options */
 .quiz-options {
   list-style: none;
