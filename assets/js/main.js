@@ -100,6 +100,30 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 1000);
     });
   }
+
+  // ===== Subsection Display Management =====
+  // Get the current unit from data-unit attribute
+  const currentUnit = document.body.getAttribute("data-unit");
+  
+  // If we're on a specific unit page (not the index)
+  if (currentUnit) {
+    // Hide all subsections first
+    document.querySelectorAll('.chapters .subsections').forEach(subsection => {
+      subsection.style.display = 'none';
+    });
+    
+    // Show only subsections for the active unit
+    // Look for an anchor that contains the current unit in its href and has the active class
+    const activeChapter = document.querySelector(`.chapters .chapter a[href*="${currentUnit}"].active`);
+    if (activeChapter) {
+      const subsections = activeChapter.nextElementSibling;
+      if (subsections && subsections.classList.contains('subsections')) {
+        subsections.style.display = 'block';
+      }
+    } else {
+      // Fallback logic...
+    }
+  }
 });
 
 /**
