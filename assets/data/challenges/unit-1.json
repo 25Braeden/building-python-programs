@@ -1,0 +1,15 @@
+[
+    {
+      "id": 1,
+      "prompt": "Assign the value 42 to a variable named 'answer' and print it.",
+      "expectedOutput": "42",
+      "expectedVar": "answer"
+    },
+    {
+      "id": 2,
+      "prompt": "Create two variables, 'a' with value 10 and 'b' with value 5, add them, assign the result to 'result', and print it.",
+      "expectedOutput": "15",
+      "expectedVar": "result"
+    }
+  ]
+  

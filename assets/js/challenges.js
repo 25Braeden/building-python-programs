@@ -50,15 +50,22 @@ document.addEventListener("DOMContentLoaded", async function () {
       solved: savedChallenges.includes(challenge.id),
       check: async function () {
         try {
-          if (
-            challenge.expectedOutput ||
-            challenge.prompt.toLowerCase().includes("print")
-          ) {
+          // If the challenge specifies a variable to check, use that method.
+          if (challenge.expectedVar) {
+            const expected = challenge.expectedOutput || challenge.expected;
+            const variableName = challenge.expectedVar;
+            const value = await window.pyodide.globals.get(variableName);
+            return value != null && value.toString() === expected.toString();
+          }
+          // Fallback: if an expected output is defined or the prompt indicates printing, check the printed output.
+          else if (challenge.expectedOutput || challenge.prompt.toLowerCase().includes("print")) {
             const output = (window.capturedOutput || "")
               .replace(/\r?\n>>> /g, "")
               .trim();
             return output === (challenge.expectedOutput || "");
-          } else {
+          }
+          // Otherwise, try to extract a variable name from the prompt and check its value.
+          else {
             const varRegex = /variable\s+(?:named|called)\s+['"]([^'"]+)['"]/i;
             const match = challenge.prompt.match(varRegex);
             if (match && match[1]) {

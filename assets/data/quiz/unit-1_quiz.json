@@ -1,0 +1,35 @@
+{
+    "questions": [
+      {
+        "question": "Which of the following is a correct way to assign the value 10 to a variable?",
+        "options": [
+          "10 = x",
+          "x = 10",
+          "x := 10",
+          "x == 10"
+        ],
+        "correctAnswer": "x = 10"
+      },
+      {
+        "question": "What will be printed by the following code?\n\nx = 5\ny = 3\nprint(x * y)",
+        "options": [
+          "53",
+          "15",
+          "8",
+          "Error"
+        ],
+        "correctAnswer": "15"
+      },
+      {
+        "question": "How do you receive input from a user in Python?",
+        "options": [
+          "input()",
+          "scan()",
+          "read()",
+          "get()"
+        ],
+        "correctAnswer": "input()"
+      }
+    ]
+  }
+  
