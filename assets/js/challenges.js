@@ -50,24 +50,52 @@ document.addEventListener("DOMContentLoaded", async function () {
       solved: savedChallenges.includes(challenge.id),
       check: async function () {
         try {
-          if (
-            challenge.expectedOutput ||
-            challenge.prompt.toLowerCase().includes("print")
-          ) {
+          // Initialize condition flags.
+          let outputCheck = true;
+          let varCheck = true;
+          let patternCheck = true;
+          const conditions = [];
+          
+          // If an expected printed output is provided, check it.
+          if (challenge.expectedOutput) {
             const output = (window.capturedOutput || "")
               .replace(/\r?\n>>> /g, "")
               .trim();
-            return output === (challenge.expectedOutput || "");
+            outputCheck = (output === challenge.expectedOutput);
+            conditions.push(outputCheck);
+          }
+          
+          // If an expected variable is provided, check its value.
+          if (challenge.expectedVar) {
+            const expected = challenge.expectedOutput || challenge.expected;
+            const variableName = challenge.expectedVar;
+            const value = await window.pyodide.globals.get(variableName);
+            varCheck = (value != null && value.toString() === expected.toString());
+            conditions.push(varCheck);
+          }
+          
+          // If a required code pattern is provided, check that the code in the editor matches.
+          if (challenge.requiredPattern) {
+            const code = window.editor.getValue() || "";
+            const regex = new RegExp(challenge.requiredPattern, "s");
+            patternCheck = regex.test(code);
+            conditions.push(patternCheck);
+          }
+          
+          // If any conditions were defined, all must pass in the same run.
+          if (conditions.length > 0) {
+            return conditions.every(cond => cond === true);
+          }
+          
+          // Fallback: if no specific conditions are defined, use the previous regex-based approach.
+          const varRegex = /variable\s+(?:named|called)\s+['"]([^'"]+)['"]/i;
+          const match = challenge.prompt.match(varRegex);
+          if (match && match[1]) {
+            const variableName = match[1];
+            const value = await window.pyodide.globals.get(variableName);
+            return value.toString() === (challenge.expected || "");
           } else {
-            const varRegex = /variable\s+(?:named|called)\s+['"]([^'"]+)['"]/i;
-            const match = challenge.prompt.match(varRegex);
-            if (match && match[1]) {
-              const variableName = match[1];
-              const value = await window.pyodide.globals.get(variableName);
-              return value.toString() === (challenge.expected || "");
-            } else {
-              return false;
-            }
+            return false;
           }
         } catch (e) {
           console.error("Error in challenge check:", e);
