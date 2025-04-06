@@ -1,37 +1,28 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function() {
   // --- Initialize Monaco Editor via require.js ---
-  require.config({
-    paths: {
-      vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs",
-    },
-  });
-  require(["vs/editor/editor.main"], function () {
-    var editorInstance = monaco.editor.create(
-      document.getElementById("editor"),
-      {
-        value: '# Your python code here\nprint("Hello, World!")',
-        language: "python",
-        theme: "vs-dark",
-      }
-    );
-    window.editor = editorInstance; // Expose globally for splitter.js
+  require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs' } });
+  require(['vs/editor/editor.main'], function () {
+    var editorInstance = monaco.editor.create(document.getElementById('editor'), {
+      value: "# Your python code here\nprint(\"Hello, World!\")",
+      language: 'python',
+      theme: 'vs-dark'
+    });
+    window.editor = editorInstance;  // Expose globally for splitter.js
     console.log("Monaco Editor initialized");
   });
 
   // --- Initialize xterm.js Terminal ---
   function initTerminal() {
-    if (typeof Terminal === "undefined") {
-      console.error(
-        "Terminal library not loaded. Ensure xterm.js is loaded properly."
-      );
+    if (typeof Terminal === 'undefined') {
+      console.error('Terminal library not loaded. Ensure xterm.js is loaded properly.');
       return;
     }
     var terminalInstance = new Terminal({
       cursorBlink: true,
-      convertEol: true,
+      convertEol: true
     });
-    terminalInstance.open(document.getElementById("terminal"));
-    window.term = terminalInstance; // Expose globally if needed
+    terminalInstance.open(document.getElementById('terminal'));
+    window.term = terminalInstance;  // Expose globally if needed
     console.log("xterm Terminal initialized");
     showPrompt();
   }
@@ -40,12 +31,10 @@ document.addEventListener("DOMContentLoaded", function () {
   function outputToTerminal(text) {
     if (window.term) {
       window.term.write(text);
-      window.capturedOutput = (window.capturedOutput || "") + text;
     } else {
       console.error("Terminal not initialized");
     }
   }
-
   // Expose outputToTerminal so Pyodide can import it from 'js'
   window.outputToTerminal = outputToTerminal;
 
@@ -66,21 +55,19 @@ document.addEventListener("DOMContentLoaded", function () {
   // When Enter is pressed, if a Promise is waiting, resolve it with the current line.
   function setupTerminalInput() {
     let currentLine = "";
-    window.term.onKey((e) => {
+    window.term.onKey(e => {
       const ev = e.domEvent;
       const printable = !ev.altKey && !ev.ctrlKey && !ev.metaKey;
-      if (ev.keyCode === 13) {
-        // Enter key
+      if (ev.keyCode === 13) { // Enter key
         window.term.write("\r\n");
-        if (typeof window.inputResolve === "function") {
+        if (typeof window.inputResolve === 'function') {
           window.inputResolve(currentLine);
           window.inputResolve = undefined;
         } else {
           runReplCommand(currentLine);
         }
         currentLine = "";
-      } else if (ev.keyCode === 8) {
-        // Backspace
+      } else if (ev.keyCode === 8) { // Backspace
         if (currentLine.length > 0) {
           currentLine = currentLine.slice(0, -1);
           window.term.write("\b \b");
@@ -109,9 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // --- Initialize Pyodide and Bind IO ---
   async function initPyodide() {
     try {
-      window.pyodide = await loadPyodide({
-        indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.0/full/",
-      });
+      window.pyodide = await loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.25.0/full/" });
       console.log("Pyodide loaded");
       await window.pyodide.runPythonAsync(`
 import sys
@@ -140,32 +125,18 @@ builtins.input = py_input
   }
 
   // --- Run Code Button Handler ---
-  document.getElementById("runBtn").addEventListener("click", async function () {
+  document.getElementById('runBtn').addEventListener('click', async function() {
     if (window.term && typeof window.term.clear === "function") {
       window.term.clear();
     }
     let code = window.editor.getValue();
-
-    // Code to clear the Python global namespace
-    const clearingCode = `
-for key in list(globals().keys()):
-    if key not in (
-        '__builtins__', '__name__', '__doc__', '__package__',
-        'outputToTerminal', 'getTerminalInput', 'pyodide'
-    ):
-        del globals()[key]
-`;
-
     // Auto-wrap code in an async __main__ if it contains input()
     if (code.indexOf("input(") !== -1) {
       code = code.replace(/input\(/g, "await input(");
-      let indented = code.split("\n").map((line) => "    " + line).join("\n");
+      let indented = code.split("\n").map(line => "    " + line).join("\n");
       code = "async def __main__():\n" + indented + "\n\nawait __main__()";
     }
     try {
-      // Clear previous state
-      await window.pyodide.runPythonAsync(clearingCode);
-      // Execute the new code
       await window.pyodide.runPythonAsync(code);
     } catch (err) {
       outputToTerminal(err.message + "\r\n");
