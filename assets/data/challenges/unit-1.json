@@ -15,7 +15,7 @@
     },
     {
       "id": 3,
-      "prompt": "Concatenate the strings 'Hello' and 'World', assign the result to a variable named 'message', and print it.",
+      "prompt": "Concatenate the strings 'Hello' and 'World' (no spaces), assign the result to a variable named 'message', and print it.",
       "expectedOutput": "HelloWorld",
       "expectedVar": "message",
       "requiredPattern": "['\"]Hello['\"]\\s*\\+\\s*['\"]World['\"]"
