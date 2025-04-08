@@ -9,6 +9,16 @@
     <!-- Load Xterm.js CSS and JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.19.0/css/xterm.css" />
     <script src="https://cdn.jsdelivr.net/npm/xterm@4.19.0/lib/xterm.js"></script>
+    <script>
+      require.config({
+        paths: {
+          stackframe: "https://cdn.jsdelivr.net/npm/stackframe@1.0.7/stackframe.min"
+        }
+      });
+      define("stackframe", [], function () {
+        return {};
+      });
+    </script>    
     <!-- Load Monaco Editor's loader -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.min.js"></script>
     <script>
@@ -18,21 +28,7 @@
         }
       });
     </script>
-    <!-- (Optional) Stackframe dependency if used in unit-0.html -->
-    <script>
-      require.config({
-        paths: {
-          stackframe: "https://cdnjs.cloudflare.com/ajax/libs/stackframe/1.0.7/stackframe.min.js"
-        }
-      });
-    </script>
-    <script>
-      define("stackframe", [], function () {
-        return {};
-      });
-    </script>
     <!-- Load Prism CSS and JS for syntax highlighting -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-python.min.js"></script>
@@ -76,10 +72,9 @@
         <p>
           Variables are containers for storing data values. In Python, you don’t need to declare a type—just assign a value using the <code>=</code> operator.
         </p>
+        
         <h3>Assigning Variables</h3>
-        <p>
-          For example:
-        </p>
+        <p>For example:</p>
         <pre><code class="language-python">age = 25
 name = "Alice"
 print("Age:", age)
@@ -87,31 +82,60 @@ print("Name:", name)</code></pre>
         <p>
           Here, <code>age</code> holds the integer 25 and <code>name</code> holds the string "Alice."
         </p>
+      
+        <h3>Understanding Variable Types</h3>
+        <p>
+          Although Python is dynamically typed (you don’t need to explicitly declare a variable’s type), it’s important to know the common types you’ll be working with:
+        </p>
+        <ul>
+          <li>
+            <strong>Integers (int):</strong> Whole numbers without a decimal. For example: <code>42</code> or <code>-3</code>.
+          </li>
+          <li>
+            <strong>Floating Point Numbers (float):</strong> Numbers with a decimal point. For example: <code>3.14</code> or <code>-0.001</code>.
+          </li>
+          <li>
+            <strong>Strings (str):</strong> Sequences of characters enclosed in quotes. For example: <code>"Hello, World!"</code>.
+          </li>
+          <li>
+            <strong>Booleans (bool):</strong> Represent truth values, either <code>True</code> or <code>False</code>.
+          </li>
+        </ul>
+        <p>
+          You can check a variable’s type with the <code>type()</code> function:
+        </p>
+        <pre><code class="language-python">num = 10
+print(type(num))  # Output: &lt;class 'int'&gt;
+pi = 3.14
+print(type(pi))   # Output: &lt;class 'float'&gt;
+text = "Hello"
+print(type(text)) # Output: &lt;class 'str'&gt;
+is_student = True
+print(type(is_student))  # Output: &lt;class 'bool'&gt;</code></pre>
+      
         <h3>Using Variables in Expressions</h3>
         <p>
-          You can perform arithmetic and string operations with variables:
+          You can perform arithmetic operations with numbers and concatenate strings:
         </p>
-        <pre><code class="language-python"># Arithmetic with variables
-length = 10
+        <pre><code class="language-python">length = 10
 width = 5
 area = length * width
 print("Area:", area)
-
-# String concatenation
 greeting = "Hello, " + name + "!"
 print(greeting)</code></pre>
+            
         <h3>User Input and Variables</h3>
         <p>
           Get input from the user using <code>input()</code>:
         </p>
         <pre><code class="language-python">user_input = input("Enter your favorite color: ")
 print("Your favorite color is", user_input)</code></pre>
+            
         <h3>Challenge Time!</h3>
-        <p>
-          Try these challenges:
-        </p>
+        <p>Try these challenges to practice what you’ve learned:</p>
         <div id="challenges-container"></div>
       </section>
+                  
       <!-- Divider -->
       <div id="divider"></div>
       <!-- Code Area -->
