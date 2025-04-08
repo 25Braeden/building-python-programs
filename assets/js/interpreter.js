@@ -1,3 +1,4 @@
+// assets/js/interpreter.js
 document.addEventListener('DOMContentLoaded', function() {
   // --- Initialize Monaco Editor via require.js ---
   require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs' } });
@@ -31,6 +32,13 @@ document.addEventListener('DOMContentLoaded', function() {
   function outputToTerminal(text) {
     if (window.term) {
       window.term.write(text);
+      // Append to capturedOutput for challenge checking
+      if (!window.capturedOutput) {
+        window.capturedOutput = '';
+      }
+      window.capturedOutput += text;
+      // Log raw captured output for debugging
+      console.log("Raw Captured Output:", JSON.stringify(window.capturedOutput));
     } else {
       console.error("Terminal not initialized");
     }
@@ -129,6 +137,8 @@ builtins.input = py_input
     if (window.term && typeof window.term.clear === "function") {
       window.term.clear();
     }
+    // Reset capturedOutput before running the code
+    window.capturedOutput = "";
     let code = window.editor.getValue();
     // Auto-wrap code in an async __main__ if it contains input()
     if (code.indexOf("input(") !== -1) {

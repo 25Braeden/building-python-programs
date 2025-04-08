@@ -30,6 +30,7 @@
     "prompt": "Assign the boolean value True to a variable named 'is_python_fun' and print it.",
     "expectedOutput": "True",
     "expectedVar": "is_python_fun",
+    "expectedValue": true,
     "requiredPattern": "is_python_fun\\s*=\\s*True"
   },
   {
@@ -37,6 +38,7 @@
     "prompt": "Assign the float value 19.99 to a variable named 'price' and print a message in the format 'The price is 19.99'.",
     "expectedOutput": "The price is 19.99",
     "expectedVar": "price",
+    "expectedValue": 19.99,
     "requiredPattern": "price\\s*=\\s*19\\.99"
   }
 ]

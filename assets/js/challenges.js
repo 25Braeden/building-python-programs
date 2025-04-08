@@ -55,43 +55,52 @@ document.addEventListener("DOMContentLoaded", async function () {
           let varCheck = true;
           let patternCheck = true;
           const conditions = [];
-          
+
+          // Log challenge data for verification
+          console.log("Challenge Data:", challenge);
+
           // Check expected printed output.
           if (challenge.expectedOutput) {
             const output = (window.capturedOutput || "")
               .replace(/\r?\n>>> /g, "")
               .trim();
             outputCheck = (output === challenge.expectedOutput);
+            console.log("Output Check:", outputCheck, "Expected:", challenge.expectedOutput, "Got:", output);
             conditions.push(outputCheck);
           }
-          
+
           // Check expected variable value.
           if (challenge.expectedVar) {
-            const expected = challenge.expectedOutput || challenge.expected;
+            const expected = challenge.hasOwnProperty("expectedValue") ? challenge.expectedValue : challenge.expectedOutput;
             const variableName = challenge.expectedVar;
-            const value = await window.pyodide.globals.get(variableName);
-            varCheck = (value != null && value.toString() === expected.toString());
+            const pyValue = await window.pyodide.globals.get(variableName);
+            const value = pyValue?.toJs ? pyValue.toJs() : pyValue;
+            varCheck = (value === expected);
+            console.log("Variable Check:", varCheck, "Expected:", expected, "Got:", value);
             conditions.push(varCheck);
           }
-          
+
           // Check required code pattern.
           if (challenge.requiredPattern) {
             const code = window.editor.getValue() || "";
             const regex = new RegExp(challenge.requiredPattern, "s");
             patternCheck = regex.test(code);
+            console.log("Pattern Check:", patternCheck, "Pattern:", challenge.requiredPattern);
             conditions.push(patternCheck);
           }
-          
+
+          // Return true only if all conditions pass
           if (conditions.length > 0) {
             return conditions.every(cond => cond === true);
           }
-          
-          // Fallback check.
+
+          // Fallback check (unlikely needed).
           const varRegex = /variable\s+(?:named|called)\s+['"]([^'"]+)['"]/i;
           const match = challenge.prompt.match(varRegex);
           if (match && match[1]) {
             const variableName = match[1];
-            const value = await window.pyodide.globals.get(variableName);
+            const pyValue = await window.pyodide.globals.get(variableName);
+            const value = pyValue?.toJs ? pyValue.toJs() : pyValue;
             return value.toString() === (challenge.expected || "");
           } else {
             return false;
@@ -194,7 +203,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (runBtn) {
       runBtn.addEventListener("click", function () {
         window.capturedOutput = "";
-        setTimeout(checkChallenges, 500);
+        setTimeout(checkChallenges, 1000);
       });
     }
     renderChallenges();
