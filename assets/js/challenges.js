@@ -14,16 +14,17 @@ document.addEventListener("DOMContentLoaded", async function () {
   const unitId = document.body.dataset.unit;
   console.log("Unit ID:", unitId);
 
-  // Load configuration for the unit from the config JSON.
+  // Fetch configuration for the unit.
+  // If your unit-config.json is in the project root, change the path to "../unit-config.json"
   const configResponse = await fetch(`../assets/data/config/unit-config.json`);
   const configData = await configResponse.json();
-  const NEXT_BUTTON_TARGET = configData[unitId].next;
+  const NEXT_BUTTON_TARGET = configData[unitId] ? configData[unitId].next : null;
 
   try {
     const response = await fetch(`../assets/data/challenges/${unitId}.json`);
     const challengeData = await response.json();
 
-    // Wait for the authentication state to be ready.
+    // Wait for authentication state to be ready.
     let savedChallenges = [];
     const user = await new Promise(resolve => {
       onAuthStateChanged(auth, (user) => resolve(user));
@@ -50,49 +51,56 @@ document.addEventListener("DOMContentLoaded", async function () {
       solved: savedChallenges.includes(challenge.id),
       check: async function () {
         try {
-          // Initialize condition flags.
           let outputCheck = true;
           let varCheck = true;
           let patternCheck = true;
           const conditions = [];
-          
-          // If an expected printed output is provided, check it.
+
+          // Log challenge data for verification
+          console.log("Challenge Data:", challenge);
+
+          // Check expected printed output.
           if (challenge.expectedOutput) {
             const output = (window.capturedOutput || "")
               .replace(/\r?\n>>> /g, "")
               .trim();
             outputCheck = (output === challenge.expectedOutput);
+            console.log("Output Check:", outputCheck, "Expected:", challenge.expectedOutput, "Got:", output);
             conditions.push(outputCheck);
           }
-          
-          // If an expected variable is provided, check its value.
+
+          // Check expected variable value.
           if (challenge.expectedVar) {
-            const expected = challenge.expectedOutput || challenge.expected;
+            const expected = challenge.hasOwnProperty("expectedValue") ? challenge.expectedValue : challenge.expectedOutput;
             const variableName = challenge.expectedVar;
-            const value = await window.pyodide.globals.get(variableName);
-            varCheck = (value != null && value.toString() === expected.toString());
+            const pyValue = await window.pyodide.globals.get(variableName);
+            const value = pyValue?.toJs ? pyValue.toJs() : pyValue;
+            varCheck = (value === expected);
+            console.log("Variable Check:", varCheck, "Expected:", expected, "Got:", value);
             conditions.push(varCheck);
           }
-          
-          // If a required code pattern is provided, check that the code in the editor matches.
+
+          // Check required code pattern.
           if (challenge.requiredPattern) {
             const code = window.editor.getValue() || "";
             const regex = new RegExp(challenge.requiredPattern, "s");
             patternCheck = regex.test(code);
+            console.log("Pattern Check:", patternCheck, "Pattern:", challenge.requiredPattern);
             conditions.push(patternCheck);
           }
-          
-          // If any conditions were defined, all must pass in the same run.
+
+          // Return true only if all conditions pass
           if (conditions.length > 0) {
             return conditions.every(cond => cond === true);
           }
-          
-          // Fallback: if no specific conditions are defined, use the previous regex-based approach.
+
+          // Fallback check (unlikely needed).
           const varRegex = /variable\s+(?:named|called)\s+['"]([^'"]+)['"]/i;
           const match = challenge.prompt.match(varRegex);
           if (match && match[1]) {
             const variableName = match[1];
-            const value = await window.pyodide.globals.get(variableName);
+            const pyValue = await window.pyodide.globals.get(variableName);
+            const value = pyValue?.toJs ? pyValue.toJs() : pyValue;
             return value.toString() === (challenge.expected || "");
           } else {
             return false;
@@ -104,18 +112,16 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
     }));
 
-    // Helper function to update Firestore progress for a solved challenge.
+    // Save challenge progress helper.
     async function saveChallengeProgress(challengeId) {
       const user = auth.currentUser;
       if (!user) return;
       const uid = user.uid;
       const userDocRef = doc(db, "userProgress", uid);
-      // Ensure the document exists; if not, create it with an empty challenges object.
       const docSnap = await getDoc(userDocRef);
       if (!docSnap.exists()) {
         await setDoc(userDocRef, { challenges: {} });
       }
-      // Update the field for the current unit using arrayUnion (to avoid duplicates).
       await updateDoc(userDocRef, {
         [`challenges.${unitId}`]: arrayUnion(challengeId)
       });
@@ -127,7 +133,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       challenges.forEach((challenge, index) => {
         const challengeDiv = document.createElement("div");
         challengeDiv.className = "challenge";
-        // Lock challenge if the previous challenge isn't solved.
         if (index > 0 && !challenges[index - 1].solved) {
           challengeDiv.classList.add("locked");
         }
@@ -163,13 +168,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     async function checkChallenges() {
       for (let i = 0; i < challenges.length; i++) {
-        // Skip challenge if previous challenge is not solved.
         if (i > 0 && !challenges[i - 1].solved) continue;
         if (!challenges[i].solved) {
           const result = await challenges[i].check();
           if (result) {
             challenges[i].solved = true;
-            // Save challenge progress to Firestore.
             await saveChallengeProgress(challenges[i].id);
           }
         }
@@ -181,7 +184,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     function checkAllChallengesComplete() {
       if (challenges.every(challenge => challenge.solved)) {
         let nextButton = document.getElementById("nextBtn");
-        if (!nextButton) {
+        if (!nextButton && NEXT_BUTTON_TARGET) {
           nextButton = document.createElement("button");
           nextButton.id = "nextBtn";
           nextButton.textContent = "Next";
@@ -190,6 +193,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             window.location.href = NEXT_BUTTON_TARGET;
           });
           container.appendChild(nextButton);
+        } else if (!NEXT_BUTTON_TARGET) {
+          console.warn("No next target defined in configuration.");
         }
       }
     }
@@ -198,10 +203,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (runBtn) {
       runBtn.addEventListener("click", function () {
         window.capturedOutput = "";
-        setTimeout(checkChallenges, 500);
+        setTimeout(checkChallenges, 1000);
       });
     }
-    // Render challenges immediately and check if all are complete.
     renderChallenges();
     checkAllChallengesComplete();
   } catch (error) {
