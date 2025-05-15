@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "prompt": "Assign the value 42 to a variable named 'answer' and print it.",
+    "expectedOutput": "42",
+    "expectedVar": "answer",
+    "requiredPattern": "answer\\s*=\\s*42"
+  },
+  {
+    "id": 2,
+    "prompt": "Create two variables, 'a' with value 10 and 'b' with value 5, add them, assign the result to 'result', and print it.",
+    "expectedOutput": "15",
+    "expectedVar": "result",
+    "requiredPattern": "a\\s*\\+\\s*b"
+  },
+  {
+    "id": 3,
+    "prompt": "Concatenate the strings 'Hello' and 'World' (no spaces), assign the result to a variable named 'message', and print it.",
+    "expectedOutput": "HelloWorld",
+    "expectedVar": "message",
+    "requiredPattern": "['\"]Hello['\"]\\s*\\+\\s*['\"]World['\"]"
+  },
+  {
+    "id": 4,
+    "prompt": "Use input() to ask for the user's favorite color, assign it to a variable named 'color', and print a message in the format 'Your favorite color is <color>'.",
+    "requiredPattern": "(?=.*color\\s*=\\s*input\\s*\\()(?=.*print\\s*\\(.*color.*\\))"
+  },
+  {
+    "id": 5,
+    "prompt": "Assign the boolean value True to a variable named 'is_python_fun' and print it.",
+    "expectedOutput": "True",
+    "expectedVar": "is_python_fun",
+    "expectedValue": true,
+    "requiredPattern": "is_python_fun\\s*=\\s*True"
+  },
+  {
+    "id": 6,
+    "prompt": "Assign the float value 19.99 to a variable named 'price' and print a message in the format 'The price is 19.99'.",
+    "expectedOutput": "The price is 19.99",
+    "expectedVar": "price",
+    "expectedValue": 19.99,
+    "requiredPattern": "price\\s*=\\s*19\\.99"
+  }
+]
