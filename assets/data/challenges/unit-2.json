@@ -1,44 +1,32 @@
 [
   {
     "id": 1,
-    "prompt": "Assign the value 42 to a variable named 'answer' and print it.",
-    "expectedOutput": "42",
-    "expectedVar": "answer",
-    "requiredPattern": "answer\\s*=\\s*42"
+    "prompt": "Ask the user to input a number. If the number is greater than 10, print 'Big number!'.",
+    "requiredPattern": "(?=.*input\\s*\\()(?=.*if\\s+.*>\\s*10)(?=.*print\\s*\\(\\s*['\\\"]Big number!['\\\"]\\s*\\))"
   },
   {
     "id": 2,
-    "prompt": "Create two variables, 'a' with value 10 and 'b' with value 5, add them, assign the result to 'result', and print it.",
-    "expectedOutput": "15",
-    "expectedVar": "result",
-    "requiredPattern": "a\\s*\\+\\s*b"
+    "prompt": "Create a variable 'x' with the value 7. Use an if-else statement to print 'Even' if x is even, or 'Odd' if x is odd.",
+    "requiredPattern": "(?=.*x\\s*=\\s*7)(?=.*if\\s+x\\s*%\\s*2\\s*==\\s*0)(?=.*print\\s*\\(\\s*['\\\"]Even['\\\"]\\s*\\))(?=.*else\\s*:)(?=.*print\\s*\\(\\s*['\\\"]Odd['\\\"]\\s*\\))"
   },
   {
     "id": 3,
-    "prompt": "Concatenate the strings 'Hello' and 'World' (no spaces), assign the result to a variable named 'message', and print it.",
-    "expectedOutput": "HelloWorld",
-    "expectedVar": "message",
-    "requiredPattern": "['\"]Hello['\"]\\s*\\+\\s*['\"]World['\"]"
+    "prompt": "Use input() to ask the user for their age. If the age is 18 or older, print 'Adult'. Otherwise, print 'Minor'.",
+    "requiredPattern": "(?=.*input\\s*\\()(?=.*int\\s*\\()(?=.*if\\s+.*>=\\s*18)(?=.*print\\s*\\(\\s*['\\\"]Adult['\\\"]\\s*\\))(?=.*else)(?=.*print\\s*\\(\\s*['\\\"]Minor['\\\"]\\s*\\))"
   },
   {
     "id": 4,
-    "prompt": "Use input() to ask for the user's favorite color, assign it to a variable named 'color', and print a message in the format 'Your favorite color is <color>'.",
-    "requiredPattern": "(?=.*color\\s*=\\s*input\\s*\\()(?=.*print\\s*\\(.*color.*\\))"
+    "prompt": "Set a variable 'score' to 85. If score is 90 or above, print 'A'. If 80 or above, print 'B'. Otherwise, print 'C'.",
+    "requiredPattern": "(?=.*score\\s*=\\s*85)(?=.*if\\s+score\\s*>=\\s*90)(?=.*elif\\s+score\\s*>=\\s*80)(?=.*else)(?=.*print)"
   },
   {
     "id": 5,
-    "prompt": "Assign the boolean value True to a variable named 'is_python_fun' and print it.",
-    "expectedOutput": "True",
-    "expectedVar": "is_python_fun",
-    "expectedValue": true,
-    "requiredPattern": "is_python_fun\\s*=\\s*True"
+    "prompt": "Create two variables 'a' = 4 and 'b' = 9. Print 'Equal' if they are equal, otherwise print 'Not equal'.",
+    "requiredPattern": "(?=.*a\\s*=\\s*4)(?=.*b\\s*=\\s*9)(?=.*if\\s+a\\s*==\\s*b)(?=.*print\\s*\\(['\\\"]Equal['\\\"]\\))(?=.*else)(?=.*print\\s*\\(['\\\"]Not equal['\\\"]\\))"
   },
   {
     "id": 6,
-    "prompt": "Assign the float value 19.99 to a variable named 'price' and print a message in the format 'The price is 19.99'.",
-    "expectedOutput": "The price is 19.99",
-    "expectedVar": "price",
-    "expectedValue": 19.99,
-    "requiredPattern": "price\\s*=\\s*19\\.99"
+    "prompt": "Ask the user for a number. If it's divisible by both 3 and 5, print 'FizzBuzz'.",
+    "requiredPattern": "(?=.*input\\s*\\()(?=.*int\\s*\\()(?=.*if\\s+.*%\\s*3\\s*==\\s*0)(?=.*and)(?=.*%\\s*5\\s*==\\s*0)(?=.*print\\s*\\(['\\\"]FizzBuzz['\\\"]\\))"
   }
 ]

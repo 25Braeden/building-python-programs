@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "prompt": "Use a for loop to print the numbers 1 through 5.",
+    "expectedOutput": "1\n2\n3\n4\n5",
+    "requiredPattern": "for\\s+.*in\\s+range\\(1,\\s*6\\)"
+  },
+  {
+    "id": 2,
+    "prompt": "Create a list called 'fruits' with the items 'apple', 'banana', and 'cherry'. Use a for loop to print each fruit.",
+    "expectedOutput": "apple\nbanana\ncherry",
+    "requiredPattern": "(?=.*fruits\\s*=\\s*\\[.*apple.*banana.*cherry.*\\])(?=.*for\\s+.*in\\s+fruits)"
+  },
+  {
+    "id": 3,
+    "prompt": "Use a while loop to print the numbers from 1 to 3.",
+    "expectedOutput": "1\n2\n3",
+    "requiredPattern": "(?=.*while\\s+.*<=\\s*3)(?=.*print\\s*\\()(?=.*\\+=\\s*1)"
+  },
+  {
+    "id": 4,
+    "prompt": "Use a for loop with range() to print only the even numbers from 2 to 10.",
+    "expectedOutput": "2\n4\n6\n8\n10",
+    "requiredPattern": "range\\(2,\\s*11,\\s*2\\)"
+  },
+  {
+    "id": 5,
+    "prompt": "Create a list of numbers [1, 2, 3, 4]. Use a for loop to print the square of each number.",
+    "expectedOutput": "1\n4\n9\n16",
+    "requiredPattern": "(?=.*for\\s+.*in\\s+\\[1,\\s*2,\\s*3,\\s*4\\])(?=.*print\\s*\\(.*\\*.*\\))"
+  },
+  {
+    "id": 6,
+    "prompt": "Use a for loop and the range() function to print numbers from 10 down to 1.",
+    "expectedOutput": "10\n9\n8\n7\n6\n5\n4\n3\n2\n1",
+    "requiredPattern": "range\\(10,\\s*0,\\s*-1\\)"
+  }
+]
