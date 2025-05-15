@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "prompt": "Create a dictionary with keys 'name' and 'age'. Print the value of 'name'.",
+    "expectedOutput": "Alice",
+    "requiredPattern": "(?=.*\\{'name':\\s*'Alice',\\s*'age':\\s*\\d+\\})(?=.*print\\(.*\\['name'\\]\\))"
+  },
+  {
+    "id": 2,
+    "prompt": "Make a dictionary with 3 countries and their capitals. Print each country and capital.",
+    "expectedOutput": "France: Paris\nGermany: Berlin\nItaly: Rome",
+    "requiredPattern": "(?=.*for\\s+.*in\\s+.*\\.items\\(\\))(?=.*print\\(.*:.*\\))"
+  },
+  {
+    "id": 3,
+    "prompt": "Create a set with items 'a', 'b', and 'c'. Print the set.",
+    "expectedOutput": "{'a', 'b', 'c'}",
+    "requiredPattern": "(?=.*\\{\\s*'a',\\s*'b',\\s*'c'\\s*\\})(?=.*print)"
+  },
+  {
+    "id": 4,
+    "prompt": "Create an empty dictionary and add the key 'color' with value 'blue'. Print the dictionary.",
+    "expectedOutput": "{'color': 'blue'}",
+    "requiredPattern": "(?=.*\\{\\})(?=.*\\['color'\\]\\s*=\\s*'blue')(?=.*print)"
+  },
+  {
+    "id": 5,
+    "prompt": "Check if 'apple' is in the set {'apple', 'banana', 'cherry'}.",
+    "expectedOutput": "True",
+    "requiredPattern": "(?=.*'apple'\\s+in\\s+\\{.*apple.*\\})(?=.*print)"
+  },
+  {
+    "id": 6,
+    "prompt": "Create a dictionary of students and grades. Print only the grades.",
+    "expectedOutput": "90\n85\n78",
+    "requiredPattern": "(?=.*students\\s*=\\s*\\{.*\\})(?=.*for\\s+.*in\\s+students\\.values\\(\\))(?=.*print)"
+  }
+]

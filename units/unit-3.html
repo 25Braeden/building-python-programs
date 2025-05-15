@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Building Python Programs - Lesson 4: Loops in Python</title>
+
+    <!-- Load Pyodide -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+
+    <!-- Load Xterm.js CSS and JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.19.0/css/xterm.css" />
+    <script src="https://cdn.jsdelivr.net/npm/xterm@4.19.0/lib/xterm.js"></script>
+
+    <!-- Load Monaco Editor's loader -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.min.js"></script>
+    <script>
+      require.config({
+        paths: {
+          stackframe: "https://cdn.jsdelivr.net/npm/stackframe@1.0.7/stackframe.min",
+          vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs"
+        }
+      });
+      define("stackframe", [], function () {
+        return {};
+      });
+    </script>
+
+    <!-- Prism Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-python.min.js"></script>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600&family=Fira+Mono&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet" />
+
+    <!-- Firebase -->
+    <script type="module" src="../assets/js/firebase-init.js"></script>
+  </head>
+  <body data-unit="unit-3">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h1>Building Python Programs</h1>
+      </div>
+      <ul class="chapters">
+        <li class="chapter"><a href="../index.html">Introduction</a></li>
+        <li class="chapter">
+          <a href="unit-0.html">Lesson 1: Welcome to Python</a>
+          <ul class="subsections">
+            <li><a href="unit-0_1.html">Quiz: Python Basics</a></li>
+          </ul>
+        </li>
+        <li class="chapter">
+          <a href="unit-1.html">Lesson 2: Variables in Python</a>
+          <ul class="subsections">
+            <li><a href="unit-1_1.html">Quiz: Variables</a></li>
+          </ul>
+        </li>
+        <li class="chapter">
+          <a href="unit-2.html">Lesson 3: Control Flow in Python</a>
+          <ul class="subsections">
+            <li><a href="unit-2_1.html">Quiz: Control Flow</a></li>
+          </ul>
+        </li>
+        <li class="chapter">
+          <a href="unit-4.html">Lesson 4: Functions in Python</a>
+          <ul class="subsections">
+            <li><a href="unit-4_1.html">Quiz: Functions</a></li>
+          </ul>
+        </li>
+        <li class="chapter">
+          <a href="unit-5.html">Lesson 5: Lists and Loops</a>
+          <ul class="subsections">
+            <li><a href="unit-5_1.html">Quiz: Lists and Loops</a></li>
+          </ul>
+        </li>
+        <li class="chapter">
+          <a href="unit-6.html" class="active">Lesson 6: Dictionaries and File I/O</a>
+          <ul class="subsections">
+            <li><a href="unit-6_1.html">Quiz: Dictionaries & File I/O</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Toggle Buttons -->
+    <button class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+    <button class="theme-toggle" aria-label="Toggle theme">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 18c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-10v4m0 4h.01M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.3 11.3l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4"/>
+      </svg>
+    </button>
+
+    <!-- Main Content -->
+    <main>
+      <section id="lesson-content">
+        <h2>Lesson 4: Loops in Python</h2>
+        <p>
+          Loops allow you to repeat a block of code multiple times. Python supports two main types of loops: <code>for</code> loops and <code>while</code> loops.
+        </p>
+
+        <h3>For Loops</h3>
+        <p>Iterate over a sequence (like a list or range):</p>
+        <pre><code class="language-python">for i in range(5):
+    print(i)</code></pre>
+
+        <h3>While Loops</h3>
+        <pre><code class="language-python">x = 0
+while x < 5:
+    print(x)
+    x += 1</code></pre>
+
+        <h3>Loop Control Statements</h3>
+        <ul>
+          <li><code>break</code>: Exit the loop early</li>
+          <li><code>continue</code>: Skip the rest of the current iteration</li>
+        </ul>
+
+        <pre><code class="language-python">for i in range(10):
+    if i == 5:
+        break
+    print(i)</code></pre>
+
+        <pre><code class="language-python">for i in range(5):
+    if i == 2:
+        continue
+    print(i)</code></pre>
+
+        <h3>Nested Loops</h3>
+        <pre><code class="language-python">for i in range(3):
+    for j in range(2):
+        print(f"i={i}, j={j}")</code></pre>
+
+        <h3>Challenge Time!</h3>
+        <p>Try these challenges to test your understanding of loops in Python:</p>
+        <div id="challenges-container"></div>
+      </section>
+
+      <!-- Divider -->
+      <div id="divider"></div>
+
+      <!-- Code Area -->
+      <section id="code-area">
+        <div id="editor"></div>
+        <button id="runBtn" class="button">Run Code</button>
+        <div id="terminal" class="terminal"></div>
+      </section>
+    </main>
+
+    <!-- JS Scripts -->
+    <script type="module" src="../assets/js/main.js" defer></script>
+    <script src="../assets/js/splitter.js" defer></script>
+    <script src="../assets/js/interpreter.js" defer></script>
+    <script type="module" src="../assets/js/challenges.js" defer></script>
+  </body>
+</html>

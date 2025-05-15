@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "prompt": "Write a function called greet that prints 'Hello!'. Then call the function.",
+    "expectedOutput": "Hello!",
+    "requiredPattern": "(?=.*def\\s+greet\\(\\))(?=.*print\\(\\s*['\\\"]Hello!['\\\"]\\))(?=.*greet\\(\\))"
+  },
+  {
+    "id": 2,
+    "prompt": "Write a function called add that takes two parameters and returns their sum. Call it with 3 and 4.",
+    "expectedOutput": "7",
+    "requiredPattern": "(?=.*def\\s+add\\(.*\\))(?=.*return\\s+.*\\+.*)(?=.*print\\(\\s*add\\(3,\\s*4\\)\\s*\\))"
+  },
+  {
+    "id": 3,
+    "prompt": "Write a function named square that takes a number and returns its square. Print the square of 5.",
+    "expectedOutput": "25",
+    "requiredPattern": "(?=.*def\\s+square\\(.*\\))(?=.*return\\s+.*\\*.*)(?=.*print\\(\\s*square\\(5\\)\\s*\\))"
+  },
+  {
+    "id": 4,
+    "prompt": "Write a function called say_hello that takes a name and prints 'Hello, name!'. Call it with your name.",
+    "expectedOutput": "Hello, John!",
+    "requiredPattern": "(?=.*def\\s+say_hello\\(.*\\))(?=.*print\\(.*Hello.*\\+.*\\))(?=.*say_hello\\(['\\\"]John['\\\"]\\))"
+  },
+  {
+    "id": 5,
+    "prompt": "Define a function called is_even that returns True if a number is even, False otherwise. Test it with 6.",
+    "expectedOutput": "True",
+    "requiredPattern": "(?=.*def\\s+is_even\\(.*\\))(?=.*return\\s+.*%\\s*2\\s*==\\s*0)(?=.*print\\(\\s*is_even\\(6\\)\\s*\\))"
+  },
+  {
+    "id": 6,
+    "prompt": "Create a function called repeat_hello that prints 'Hello' 3 times using a loop. Call the function.",
+    "expectedOutput": "Hello\nHello\nHello",
+    "requiredPattern": "(?=.*def\\s+repeat_hello\\(\\))(?=.*for\\s+.*in\\s+range\\(3\\))(?=.*print\\(['\\\"]Hello['\\\"]\\))(?=.*repeat_hello\\(\\))"
+  }
+]
