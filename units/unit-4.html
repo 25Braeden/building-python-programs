@@ -68,25 +68,25 @@
           </ul>
         </li>
         <li class="chapter">
-          <a href="unit-3.html">Lesson 2: Control Flow in Python</a>
+          <a href="unit-3.html">Lesson 4: Control Flow in Python</a>
           <ul class="subsections">
             <li><a href="unit-3_3.html">Quiz: Control Flow</a></li>
           </ul>
         </li>
         <li class="chapter">
-          <a href="unit-4.html">Lesson 4: Functions in Python</a>
+          <a href="unit-4.html">Lesson 5: Functions in Python</a>
           <ul class="subsections">
             <li><a href="unit-4_4.html">Quiz: Functions</a></li>
           </ul>
         </li>
         <li class="chapter">
-          <a href="unit-5.html">Lesson 5: Lists and Loops</a>
+          <a href="unit-5.html">Lesson 6: Lists and Loops</a>
           <ul class="subsections">
             <li><a href="unit-5_5.html">Quiz: Lists and Loops</a></li>
           </ul>
         </li>
         <li class="chapter">
-          <a href="unit-6.html" class="active">Lesson 6: Dictionaries and File I/O</a>
+          <a href="unit-6.html" class="active">Lesson 7: Dictionaries and File I/O</a>
           <ul class="subsections">
             <li><a href="unit-6_6.html">Quiz: Dictionaries & File I/O</a></li>
           </ul>
@@ -103,45 +103,86 @@
     </button>
 
     <!-- Main Content -->
-    <main>
-      <section id="lesson-content">
-        <h2>Lesson 4: Functions in Python</h2>
-        <p>
-          Functions allow you to write reusable blocks of code. A function performs a specific task and can be reused multiple times in your programs.
-        </p>
+  <main>
+    <section id="lesson-content">
+      <h2>Lesson 4: Functions in Python</h2>
+      <p>
+        Functions are reusable blocks of code designed to perform a specific task. They help organize programs into manageable pieces, making your code cleaner, easier to read, and maintain.
+      </p>
 
-        <h3>Defining a Function</h3>
-        <p>Use the <code>def</code> keyword to define a function:</p>
-        <pre><code class="language-python">def greet():
-    print("Hello, world!")</code></pre>
+      <h3>Defining a Function</h3>
+      <p>
+        Use the <code>def</code> keyword followed by the function name and parentheses. Inside the parentheses, you can specify parameters (inputs). The function body contains the code to run.
+      </p>
+      <pre><code class="language-python">def greet():
+      print("Hello, world!")</code></pre>
 
-        <h3>Calling a Function</h3>
-        <pre><code class="language-python">greet()</code></pre>
+      <h3>Calling a Function</h3>
+      <p>
+        Once defined, you call (execute) the function by writing its name followed by parentheses:
+      </p>
+      <pre><code class="language-python">greet()</code></pre>
 
-        <h3>Function with Parameters</h3>
-        <pre><code class="language-python">def greet(name):
-    print("Hello, " + name + "!")
+      <h3>Functions with Parameters</h3>
+      <p>
+        Functions can accept inputs, called parameters, which allow you to pass different values each time you call the function.
+      </p>
+      <pre><code class="language-python">def greet(name):
+      print("Hello, " + name + "!")
 
-greet("Alice")</code></pre>
+  greet("Alice")
+  greet("Bob")</code></pre>
 
-        <h3>Return Values</h3>
-        <pre><code class="language-python">def add(a, b):
-    return a + b
+      <h3>Return Values</h3>
+      <p>
+        Functions can return a value back to the caller using the <code>return</code> keyword. This lets you use the result elsewhere in your program.
+      </p>
+      <pre><code class="language-python">def add(a, b):
+      return a + b
 
-result = add(3, 5)
-print(result)</code></pre>
+  result = add(3, 5)
+  print(result)  # Output: 8</code></pre>
 
-        <h3>Why Use Functions?</h3>
-        <ul>
-          <li>Code reuse and modularity</li>
-          <li>Improved readability</li>
-          <li>Easier debugging and maintenance</li>
-        </ul>
+      <h3>Why Use Functions?</h3>
+      <ul>
+        <li><strong>Code Reuse:</strong> Write once, use multiple times.</li>
+        <li><strong>Modularity:</strong> Break complex problems into smaller parts.</li>
+        <li><strong>Readability:</strong> Make your code easier to understand.</li>
+        <li><strong>Maintenance:</strong> Fix or update one place instead of many.</li>
+      </ul>
 
-        <h3>Challenge Time!</h3>
-        <p>Try these challenges to test your understanding of functions:</p>
-        <div id="challenges-container"></div>
-      </section>
+      <h3>Common Function Patterns</h3>
+      <p>Here are some useful function examples to try:</p>
+      <pre><code class="language-python">def is_even(number):
+      return number % 2 == 0
+
+  def factorial(n):
+      if n == 0:
+          return 1
+      else:
+          return n * factorial(n-1)</code></pre>
+
+      <h3>Challenge Time!</h3>
+      <p>Try these challenges to test your understanding of functions:</p>
+      <ol>
+        <li><strong>Create a function</strong> called <code>square</code> that returns the square of a number.</li>
+        <li><strong>Write a function</strong> named <code>max_of_two</code> that returns the larger of two numbers.</li>
+        <li><strong>Make a function</strong> called <code>count_vowels</code> that counts how many vowels are in a given string.</li>
+        <li><strong>Write a recursive function</strong> to compute the Fibonacci sequence up to <code>n</code> terms.</li>
+      </ol>
+      <div id="challenges-container"></div>
+    </section>
+
+  <!-- Divider -->
+  <div id="divider"></div>
+
+  <!-- Code Area -->
+  <section id="code-area">
+    <div id="editor"></div>
+    <button id="runBtn" class="button">Run Code</button>
+    <div id="terminal" class="terminal"></div>
+  </section>
+</main>
 
       <!-- Divider -->
       <div id="divider"></div>

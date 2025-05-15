@@ -68,25 +68,25 @@
           </ul>
         </li>
         <li class="chapter">
-          <a href="unit-3.html">Lesson 2: Control Flow in Python</a>
+          <a href="unit-3.html">Lesson 4: Control Flow in Python</a>
           <ul class="subsections">
             <li><a href="unit-3_3.html">Quiz: Control Flow</a></li>
           </ul>
         </li>
         <li class="chapter">
-          <a href="unit-4.html">Lesson 4: Functions in Python</a>
+          <a href="unit-4.html">Lesson 5: Functions in Python</a>
           <ul class="subsections">
             <li><a href="unit-4_4.html">Quiz: Functions</a></li>
           </ul>
         </li>
         <li class="chapter">
-          <a href="unit-5.html">Lesson 5: Lists and Loops</a>
+          <a href="unit-5.html">Lesson 6: Lists and Loops</a>
           <ul class="subsections">
             <li><a href="unit-5_5.html">Quiz: Lists and Loops</a></li>
           </ul>
         </li>
         <li class="chapter">
-          <a href="unit-6.html" class="active">Lesson 6: Dictionaries and File I/O</a>
+          <a href="unit-6.html" class="active">Lesson 7: Dictionaries and File I/O</a>
           <ul class="subsections">
             <li><a href="unit-6_6.html">Quiz: Dictionaries & File I/O</a></li>
           </ul>
@@ -103,45 +103,82 @@
     </button>
 
     <!-- Main Content -->
-    <main>
-      <section id="lesson-content">
-        <h2>Lesson 6: Dictionaries and File I/O</h2>
-        <p>
-          Dictionaries store data in key-value pairs. File I/O allows Python to read from and write to files.
-        </p>
+  <main>
+    <section id="lesson-content">
+      <h2>Lesson 6: Dictionaries and File I/O</h2>
+      <p>
+        In this lesson, you'll learn about dictionaries, a powerful Python data type that stores key-value pairs, and how to perform file input and output (I/O) to read from and write to files.
+      </p>
 
-        <h3>Creating a Dictionary</h3>
-        <pre><code class="language-python">person = {"name": "Alice", "age": 25}
-print(person["name"])</code></pre>
+      <h3>What is a Dictionary?</h3>
+      <p>
+        A dictionary stores data as pairs of <strong>keys</strong> and <strong>values</strong>. Each key is unique and is used to access its corresponding value.
+      </p>
 
-        <h3>Adding and Removing Keys</h3>
-        <pre><code class="language-python">person["city"] = "New York"
-del person["age"]</code></pre>
+      <h3>Creating and Accessing Dictionaries</h3>
+      <pre><code class="language-python">person = {"name": "Alice", "age": 25, "city": "New York"}
+  print(person["name"])  # Output: Alice
+  print(person.get("age"))  # Output: 25</code></pre>
 
-        <h3>Looping Through a Dictionary</h3>
-        <pre><code class="language-python">for key, value in person.items():
-    print(key, value)</code></pre>
+      <h3>Adding, Updating, and Removing Items</h3>
+      <pre><code class="language-python"># Add or update a key-value pair
+  person["email"] = "alice@example.com"
 
-        <h3>Writing to a File</h3>
-        <pre><code class="language-python">with open("output.txt", "w") as file:
-    file.write("Hello, world!")</code></pre>
+  # Remove an item by key
+  del person["age"]
 
-        <h3>Reading from a File</h3>
-        <pre><code class="language-python">with open("output.txt", "r") as file:
-    content = file.read()
-    print(content)</code></pre>
+  # Remove using pop() and get the removed value
+  email = person.pop("email")</code></pre>
 
-        <h3>Why Use Dictionaries and File I/O?</h3>
-        <ul>
-          <li>Efficient data storage with named keys</li>
-          <li>Useful for storing settings, user info, etc.</li>
-          <li>File I/O enables data persistence</li>
-        </ul>
+      <h3>Looping Through Dictionaries</h3>
+      <p>You can loop through keys, values, or key-value pairs:</p>
+      <pre><code class="language-python">for key in person:
+      print(key, person[key])
 
-        <h3>Challenge Time!</h3>
-        <p>Try these challenges to practice dictionaries and file handling:</p>
-        <div id="challenges-container"></div>
-      </section>
+  for key, value in person.items():
+      print(f"{key}: {value}")</code></pre>
+
+      <h3>Introduction to File I/O</h3>
+      <p>File I/O allows your program to save data to a file and read data from a file, which helps with data persistence.</p>
+
+      <h3>Writing to a File</h3>
+      <pre><code class="language-python">with open("data.txt", "w") as file:
+      file.write("Hello, world!\n")
+      file.write("This is a file output example.")</code></pre>
+
+      <h3>Reading from a File</h3>
+      <pre><code class="language-python">with open("data.txt", "r") as file:
+      content = file.read()
+      print(content)</code></pre>
+
+      <h3>Working with Files Line-by-Line</h3>
+      <pre><code class="language-python">with open("data.txt", "r") as file:
+      for line in file:
+          print(line.strip())</code></pre>
+
+      <h3>Why Use Dictionaries and File I/O?</h3>
+      <ul>
+        <li><strong>Dictionaries:</strong> Store and organize data using meaningful keys instead of just numbers.</li>
+        <li><strong>File I/O:</strong> Save data permanently so your program can access it later.</li>
+        <li>Useful for handling configuration, user data, logs, and more.</li>
+      </ul>
+
+      <h3>Challenge Time!</h3>
+      <p>Try these challenges to practice working with dictionaries and file I/O:</p>
+      <div id="challenges-container"></div>
+    </section>
+
+    <!-- Divider -->
+    <div id="divider"></div>
+
+    <!-- Code Area -->
+    <section id="code-area">
+      <div id="editor"></div>
+      <button id="runBtn" class="button">Run Code</button>
+      <div id="terminal" class="terminal"></div>
+    </section>
+  </main>
+
 
       <!-- Divider -->
       <div id="divider"></div>
