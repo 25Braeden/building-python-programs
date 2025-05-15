@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "prompt": "Create a list called nums with values [1, 2, 3] and print the second item.",
+    "expectedOutput": "2",
+    "requiredPattern": "(?=.*nums\\s*=\\s*\\[1,\\s*2,\\s*3\\])(?=.*print\\(\\s*nums\\[1\\]\\s*\\))"
+  },
+  {
+    "id": 2,
+    "prompt": "Create a list of 3 fruits and use a for loop to print each fruit.",
+    "expectedOutput": "apple\nbanana\ncherry",
+    "requiredPattern": "(?=.*fruits\\s*=\\s*\\[.*apple.*banana.*cherry.*\\])(?=.*for\\s+.*in\\s+fruits)(?=.*print)"
+  },
+  {
+    "id": 3,
+    "prompt": "Create a tuple called colors with 'red', 'green', 'blue'. Print the last item.",
+    "expectedOutput": "blue",
+    "requiredPattern": "(?=.*colors\\s*=\\s*\\(.*red.*green.*blue.*\\))(?=.*print\\(\\s*colors\\[-1\\]\\s*\\))"
+  },
+  {
+    "id": 4,
+    "prompt": "Make a list [2, 4, 6] and append the number 8. Print the list.",
+    "expectedOutput": "[2, 4, 6, 8]",
+    "requiredPattern": "(?=.*\\[2,\\s*4,\\s*6\\])(?=.*append\\(8\\))(?=.*print)"
+  },
+  {
+    "id": 5,
+    "prompt": "Create a list [10, 20, 30] and print its length.",
+    "expectedOutput": "3",
+    "requiredPattern": "(?=.*\\[10,\\s*20,\\s*30\\])(?=.*len\\()(?=.*print)"
+  },
+  {
+    "id": 6,
+    "prompt": "Create a tuple with the numbers 1 to 5. Use a for loop to print each number.",
+    "expectedOutput": "1\n2\n3\n4\n5",
+    "requiredPattern": "(?=.*\\(1,\\s*2,\\s*3,\\s*4,\\s*5\\))(?=.*for\\s+.*in\\s+.*)(?=.*print)"
+  }
+]

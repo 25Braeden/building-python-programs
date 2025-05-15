@@ -3,50 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Building Python Programs - Lesson 2: Variables in Python</title>
-    
+    <title>Building Python Programs - Lesson 3: Control Flow in Python</title>
+
     <!-- Load Pyodide -->
     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
-    
+
     <!-- Load Xterm.js CSS and JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.19.0/css/xterm.css" />
     <script src="https://cdn.jsdelivr.net/npm/xterm@4.19.0/lib/xterm.js"></script>
-    
-    <!-- Load Monaco Editor's loader first so that require is defined -->
+
+    <!-- Load Monaco Editor's loader -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.min.js"></script>
-    
-    <!-- After require is defined, configure module paths -->
     <script>
       require.config({
         paths: {
-          // Setup the stackframe module path and Monaco Editor 'vs' path together.
           stackframe: "https://cdn.jsdelivr.net/npm/stackframe@1.0.7/stackframe.min",
           vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs"
         }
       });
-      // Provide a stub definition for the stackframe module
       define("stackframe", [], function () {
         return {};
       });
     </script>
-    
-    <!-- Load Prism CSS and JS for syntax highlighting -->
+
+    <!-- Prism Syntax Highlighting -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-python.min.js"></script>
-    
+
     <!-- Main CSS -->
     <link rel="stylesheet" href="../assets/css/style.css" />
-    
-    <!-- Google Fonts -->
+
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600&family=Fira+Mono&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet" />
-    
-    <!-- Firebase Initialization -->
+
+    <!-- Firebase -->
     <script type="module" src="../assets/js/firebase-init.js"></script>
   </head>
-  <body data-unit="unit-1">
-    <!-- Sidebar Navigation -->
+  <body data-unit="unit-2">
+    <!-- Sidebar -->
     <nav id="sidebar">
       <div class="sidebar-header">
         <h1>Building Python Programs</h1>
@@ -97,7 +93,7 @@
         </li>
       </ul>
     </nav>
-    
+
     <!-- Toggle Buttons -->
     <button class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
     <button class="theme-toggle" aria-label="Toggle theme">
@@ -105,82 +101,62 @@
         <path d="M12 18c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-10v4m0 4h.01M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.3 11.3l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4"/>
       </svg>
     </button>
-    
-    <!-- Main Content: Lesson Content & Code Area -->
+
+    <!-- Main Content -->
     <main>
-      <!-- Lesson Content -->
       <section id="lesson-content">
-        <h2>Lesson 2: Variables in Python</h2>
+        <h2>Lesson 3: Control Flow in Python</h2>
         <p>
-          Variables are containers for storing data values. In Python, you don’t need to declare a type—just assign a value using the <code>=</code> operator.
+          Control flow allows you to write code that makes decisions and executes different blocks depending on certain conditions. Python uses <code>if</code>, <code>elif</code>, and <code>else</code> to handle conditional logic.
         </p>
-        
-        <h3>Assigning Variables</h3>
-        <p>For example:</p>
-        <pre><code class="language-python">age = 25
-name = "Alice"
-print("Age:", age)
-print("Name:", name)</code></pre>
-        <p>
-          Here, <code>age</code> holds the integer 25 and <code>name</code> holds the string "Alice."
-        </p>
-      
-        <h3>Understanding Variable Types</h3>
-        <p>
-          Although Python is dynamically typed (you don’t need to explicitly declare a variable’s type), it’s important to know the common types you’ll be working with:
-        </p>
+
+        <h3>If Statements</h3>
+        <p>Basic usage:</p>
+        <pre><code class="language-python">x = 10
+if x > 5:
+    print("x is greater than 5")</code></pre>
+
+        <h3>If-Else Statements</h3>
+        <pre><code class="language-python">x = 3
+if x > 5:
+    print("x is greater than 5")
+else:
+    print("x is not greater than 5")</code></pre>
+
+        <h3>If-Elif-Else Chain</h3>
+        <pre><code class="language-python">x = 7
+if x < 5:
+    print("Less than 5")
+elif x == 5:
+    print("Equal to 5")
+else:
+    print("Greater than 5")</code></pre>
+
+        <h3>Comparison Operators</h3>
         <ul>
-          <li>
-            <strong>Integers (int):</strong> Whole numbers without a decimal. For example: <code>42</code> or <code>-3</code>.
-          </li>
-          <li>
-            <strong>Floating Point Numbers (float):</strong> Numbers with a decimal point. For example: <code>3.14</code> or <code>-0.001</code>.
-          </li>
-          <li>
-            <strong>Strings (str):</strong> Sequences of characters enclosed in quotes. For example: <code>"Hello, World!"</code>.
-          </li>
-          <li>
-            <strong>Booleans (bool):</strong> Represent truth values, either <code>True</code> or <code>False</code>.
-          </li>
+          <li><code>==</code> Equal to</li>
+          <li><code>!=</code> Not equal to</li>
+          <li><code>&gt;</code> Greater than</li>
+          <li><code>&lt;</code> Less than</li>
+          <li><code>&gt;=</code> Greater than or equal to</li>
+          <li><code>&lt;=</code> Less than or equal to</li>
         </ul>
-        <p>
-          You can check a variable’s type with the <code>type()</code> function:
-        </p>
-        <pre><code class="language-python">num = 10
-print(type(num))  # Output: &lt;class 'int'&gt;
-pi = 3.14
-print(type(pi))   # Output: &lt;class 'float'&gt;
-text = "Hello"
-print(type(text)) # Output: &lt;class 'str'&gt;
-is_student = True
-print(type(is_student))  # Output: &lt;class 'bool'&gt;</code></pre>
-      
-        <h3>Using Variables in Expressions</h3>
-        <p>
-          You can perform arithmetic operations with numbers and concatenate strings:
-        </p>
-        <pre><code class="language-python">length = 10
-width = 5
-area = length * width
-print("Area:", area)
-greeting = "Hello, " + name + "!"
-print(greeting)</code></pre>
-            
-        <h3>User Input and Variables</h3>
-        <p>
-          Get input from the user using <code>input()</code>:
-        </p>
-        <pre><code class="language-python">user_input = input("Enter your favorite color: ")
-print("Your favorite color is", user_input)</code></pre>
-            
+
+        <h3>Boolean Logic</h3>
+        <p>Use <code>and</code>, <code>or</code>, and <code>not</code> to combine conditions:</p>
+        <pre><code class="language-python">x = 10
+y = 20
+if x > 5 and y > 15:
+    print("Both conditions are True")</code></pre>
+
         <h3>Challenge Time!</h3>
-        <p>Try these challenges to practice what you’ve learned:</p>
+        <p>Try these challenges to test your understanding of control flow:</p>
         <div id="challenges-container"></div>
       </section>
-                  
+
       <!-- Divider -->
       <div id="divider"></div>
-      
+
       <!-- Code Area -->
       <section id="code-area">
         <div id="editor"></div>
@@ -188,8 +164,8 @@ print("Your favorite color is", user_input)</code></pre>
         <div id="terminal" class="terminal"></div>
       </section>
     </main>
-    
-    <!-- External Scripts -->
+
+    <!-- JS Scripts -->
     <script type="module" src="../assets/js/main.js" defer></script>
     <script src="../assets/js/splitter.js" defer></script>
     <script src="../assets/js/interpreter.js" defer></script>
