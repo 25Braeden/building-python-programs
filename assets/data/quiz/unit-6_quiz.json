@@ -1,0 +1,85 @@
+{
+    "questions": [
+      {
+        "question": "How do you create a dictionary `person` with keys `name` and `age`?",
+        "options": [
+          "person = {name: 'Alice', age: 30}",
+          "person = ['name':'Alice', 'age':30]",
+          "person = {'name': 'Alice', 'age': 30}",
+          "person = ('name', 'Alice', 'age', 30)"
+        ],
+        "correctAnswer": "person = {'name': 'Alice', 'age': 30}"
+      },
+      {
+        "question": "What does `person.get('city', 'Unknown')` return if `city` isn’t a key?",
+        "options": [
+          "Raises KeyError",
+          "None",
+          "'Unknown'",
+          "'' (empty string)"
+        ],
+        "correctAnswer": "'Unknown'"
+      },
+      {
+        "question": "Which statement removes the key `age` from `person`?",
+        "options": [
+          "del person.age",
+          "pop(person, 'age')",
+          "del person['age']",
+          "person.remove('age')"
+        ],
+        "correctAnswer": "del person['age']"
+      },
+      {
+        "question": "How do you loop through keys and values in a dictionary `d`?",
+        "options": [
+          "for k, v in d.items():",
+          "for k, v in d:",
+          "for k in d.keys():",
+          "for v in d.values():"
+        ],
+        "correctAnswer": "for k, v in d.items():"
+      },
+      {
+        "question": "Which mode should you use to **append** text to an existing file?",
+        "options": [
+          "'r'",
+          "'w'",
+          "'a'",
+          "'x'"
+        ],
+        "correctAnswer": "'a'"
+      },
+      {
+        "question": "What does `file.read()` do after opening with `open('data.txt','r')`?",
+        "options": [
+          "Reads one line",
+          "Reads until EOF into a single string",
+          "Returns a list of lines",
+          "Raises ValueError"
+        ],
+        "correctAnswer": "Reads until EOF into a single string"
+      },
+      {
+        "question": "How do you read a file line by line?",
+        "options": [
+          "for line in open('data.txt'):",
+          "open('data.txt').lines()",
+          "file.readline() in a for-loop",
+          "for line in file:"
+        ],
+        "correctAnswer": "for line in file:"
+      },
+      {
+        "question": "What does the following code do?\n\n```python\nwith open('log.txt','w') as f:\n    f.write('Start')\n```",
+        "options": [
+          "Appends 'Start' to log.txt",
+          "Reads 'Start' from log.txt",
+          "Overwrites log.txt with 'Start'",
+          "Creates an error"
+        ],
+        "correctAnswer": "Overwrites log.txt with 'Start'"
+      }
+    ]
+  }
+  

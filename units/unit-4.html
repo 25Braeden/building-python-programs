@@ -3,22 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Building Python Programs - Lesson 4: Functions in Python</title>
+    <title>Building Python Programs – Lesson 5: Functions in Python</title>
 
     <!-- Load Pyodide -->
     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
 
-    <!-- Load Xterm.js CSS and JS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.19.0/css/xterm.css" />
+    <!-- Xterm.js -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/xterm@4.19.0/css/xterm.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/xterm@4.19.0/lib/xterm.js"></script>
 
-    <!-- Load Monaco Editor's loader -->
+    <!-- Monaco Editor loader & config -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.min.js"></script>
     <script>
       require.config({
         paths: {
-          stackframe: "https://cdn.jsdelivr.net/npm/stackframe@1.0.7/stackframe.min",
-          vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs"
+          vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs",
+          stackframe: "https://cdn.jsdelivr.net/npm/stackframe@1.0.7/dist/stackframe.min"
         }
       });
       define("stackframe", [], function () {
@@ -27,70 +30,40 @@
     </script>
 
     <!-- Prism Syntax Highlighting -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism.min.css"
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-python.min.js"></script>
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="../assets/css/style.css" />
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600&family=Fira+Mono&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet" />
-
-    <!-- Firebase -->
+    <!-- Firebase init -->
     <script type="module" src="../assets/js/firebase-init.js"></script>
   </head>
+
   <body data-unit="unit-4">
-    <!-- Sidebar -->
+    <!-- Sidebar Navigation -->
     <nav id="sidebar">
       <div class="sidebar-header">
         <h1>Building Python Programs</h1>
       </div>
       <ul class="chapters">
         <li class="chapter"><a href="../index.html">Introduction</a></li>
+        <li class="chapter"><a href="unit-0.html">Lesson 1: Welcome to Python</a></li>
+        <li class="chapter"><a href="unit-1.html">Lesson 2: Variables in Python</a></li>
+        <li class="chapter"><a href="unit-2.html">Lesson 3: Control Flow in Python</a></li>
+        <li class="chapter"><a href="unit-3.html">Lesson 4: Loops in Python</a></li>
         <li class="chapter">
-          <a href="unit-0.html">Lesson 1: Welcome to Python</a>
-          <ul class="subsections">
-            <li><a href="unit-0_1.html">Quiz: Python Basics</a></li>
-          </ul>
-        </li>
-        <li class="chapter">
-          <a href="unit-1.html">Lesson 2: Variables in Python</a>
-          <ul class="subsections">
-            <li><a href="unit-1_1.html">Quiz: Variables</a></li>
-          </ul>
-        </li>
-        <li class="chapter">
-          <a href="unit-2.html">Lesson 3: Control Flow in Python</a>
-          <ul class="subsections">
-            <li><a href="unit-2_2.html">Quiz: Control Flow</a></li>
-          </ul>
-        </li>
-        <li class="chapter">
-          <a href="unit-3.html">Lesson 4: Control Flow in Python</a>
-          <ul class="subsections">
-            <li><a href="unit-3_3.html">Quiz: Control Flow</a></li>
-          </ul>
-        </li>
-        <li class="chapter">
-          <a href="unit-4.html">Lesson 5: Functions in Python</a>
+          <a href="unit-4.html" class="active">Lesson 5: Functions in Python</a>
           <ul class="subsections">
             <li><a href="unit-4_4.html">Quiz: Functions</a></li>
           </ul>
         </li>
-        <li class="chapter">
-          <a href="unit-5.html">Lesson 6: Lists and Loops</a>
-          <ul class="subsections">
-            <li><a href="unit-5_5.html">Quiz: Lists and Loops</a></li>
-          </ul>
-        </li>
-        <li class="chapter">
-          <a href="unit-6.html" class="active">Lesson 7: Dictionaries and File I/O</a>
-          <ul class="subsections">
-            <li><a href="unit-6_6.html">Quiz: Dictionaries & File I/O</a></li>
-          </ul>
-        </li>
+        <li class="chapter"><a href="unit-5.html">Lesson 6: Lists and Loops</a></li>
+        <li class="chapter"><a href="unit-6.html">Lesson 7: Dictionaries and File I/O</a></li>
       </ul>
     </nav>
 
@@ -98,91 +71,88 @@
     <button class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
     <button class="theme-toggle" aria-label="Toggle theme">
       <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 18c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-10v4m0 4h.01M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.3 11.3l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4"/>
+        <path
+          d="M12 18c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-14c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z"
+        />
       </svg>
     </button>
 
     <!-- Main Content -->
-  <main>
-    <section id="lesson-content">
-      <h2>Lesson 5: Functions in Python</h2>
-      <p>
-        Functions are reusable blocks of code designed to perform a specific task. They help organize programs into manageable pieces, making your code cleaner, easier to read, and maintain.
-      </p>
+    <main>
+      <section id="lesson-content">
+        <h2>Lesson 5: Functions in Python</h2>
+        <p>
+          Functions are reusable blocks of code designed to perform a specific task.
+          They help organize programs into manageable pieces, making your code cleaner,
+          easier to read, and maintain.
+        </p>
 
-      <h3>Defining a Function</h3>
-      <p>
-        Use the <code>def</code> keyword followed by the function name and parentheses. Inside the parentheses, you can specify parameters (inputs). The function body contains the code to run.
-      </p>
-      <pre><code class="language-python">def greet():
-      print("Hello, world!")</code></pre>
+        <h3>Defining a Function</h3>
+        <p>
+          Use the <code>def</code> keyword followed by the function name and parentheses.
+          Inside the parentheses, you can specify parameters (inputs). The function body
+          contains the code to run.
+        </p>
+        <pre><code class="language-python">def greet():
+    print("Hello, world!")</code></pre>
 
-      <h3>Calling a Function</h3>
-      <p>
-        Once defined, you call (execute) the function by writing its name followed by parentheses:
-      </p>
-      <pre><code class="language-python">greet()</code></pre>
+        <h3>Calling a Function</h3>
+        <p>
+          Once defined, you call (execute) the function by writing its name followed by
+          parentheses:
+        </p>
+        <pre><code class="language-python">greet()</code></pre>
 
-      <h3>Functions with Parameters</h3>
-      <p>
-        Functions can accept inputs, called parameters, which allow you to pass different values each time you call the function.
-      </p>
-      <pre><code class="language-python">def greet(name):
-      print("Hello, " + name + "!")
+        <h3>Functions with Parameters</h3>
+        <p>
+          Functions can accept inputs, called parameters, which allow you to pass different
+          values each time you call the function.
+        </p>
+        <pre><code class="language-python">def greet(name):
+    print("Hello, " + name + "!")
 
-  greet("Alice")
-  greet("Bob")</code></pre>
+greet("Alice")
+greet("Bob")</code></pre>
 
-      <h3>Return Values</h3>
-      <p>
-        Functions can return a value back to the caller using the <code>return</code> keyword. This lets you use the result elsewhere in your program.
-      </p>
-      <pre><code class="language-python">def add(a, b):
-      return a + b
+        <h3>Return Values</h3>
+        <p>
+          Functions can return a value back to the caller using the <code>return</code> keyword.
+          This lets you use the result elsewhere in your program.
+        </p>
+        <pre><code class="language-python">def add(a, b):
+    return a + b
 
-  result = add(3, 5)
-  print(result)  # Output: 8</code></pre>
+result = add(3, 5)
+print(result)  # Output: 8</code></pre>
 
-      <h3>Why Use Functions?</h3>
-      <ul>
-        <li><strong>Code Reuse:</strong> Write once, use multiple times.</li>
-        <li><strong>Modularity:</strong> Break complex problems into smaller parts.</li>
-        <li><strong>Readability:</strong> Make your code easier to understand.</li>
-        <li><strong>Maintenance:</strong> Fix or update one place instead of many.</li>
-      </ul>
+        <h3>Common Function Patterns</h3>
+        <pre><code class="language-python">def is_even(number):
+    return number % 2 == 0
 
-      <h3>Common Function Patterns</h3>
-      <p>Here are some useful function examples to try:</p>
-      <pre><code class="language-python">def is_even(number):
-      return number % 2 == 0
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)</code></pre>
 
-  def factorial(n):
-      if n == 0:
-          return 1
-      else:
-          return n * factorial(n-1)</code></pre>
+        <h3>Why Use Functions?</h3>
+        <ul>
+          <li>Code reuse: write once, use multiple times.</li>
+          <li>Modularity: break complex problems into smaller parts.</li>
+          <li>Readability: make your code easier to understand.</li>
+          <li>Maintenance: fix or update one place instead of many.</li>
+        </ul>
 
-      <h3>Challenge Time!</h3>
-      <p>Try these challenges to test your understanding of functions:</p>
-      <ol>
-        <li><strong>Create a function</strong> called <code>square</code> that returns the square of a number.</li>
-        <li><strong>Write a function</strong> named <code>max_of_two</code> that returns the larger of two numbers.</li>
-        <li><strong>Make a function</strong> called <code>count_vowels</code> that counts how many vowels are in a given string.</li>
-        <li><strong>Write a recursive function</strong> to compute the Fibonacci sequence up to <code>n</code> terms.</li>
-      </ol>
-      <div id="challenges-container"></div>
-    </section>
-
-  <!-- Divider -->
-  <div id="divider"></div>
-
-  <!-- Code Area -->
-  <section id="code-area">
-    <div id="editor"></div>
-    <button id="runBtn" class="button">Run Code</button>
-    <div id="terminal" class="terminal"></div>
-  </section>
-</main>
+        <h3>Challenge Time!</h3>
+        <p>Try these challenges to test your understanding of functions:</p>
+        <ol>
+          <li>Create a function <code>square</code> that returns the square of a number.</li>
+          <li>Write a function <code>max_of_two</code> that returns the larger of two numbers.</li>
+          <li>Make a function <code>count_vowels</code> that counts vowels in a string.</li>
+          <li>Write a recursive function to compute the Fibonacci sequence up to <code>n</code> terms.</li>
+        </ol>
+        <div id="challenges-container"></div>
+      </section>
 
       <!-- Divider -->
       <div id="divider"></div>

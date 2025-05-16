@@ -3,22 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Building Python Programs - Lesson 6: Dictionaries and File I/O</title>
+    <title>Building Python Programs – Lesson 7: Dictionaries and File I/O</title>
 
     <!-- Load Pyodide -->
     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
 
-    <!-- Load Xterm.js CSS and JS -->
+    <!-- Xterm.js -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.19.0/css/xterm.css" />
     <script src="https://cdn.jsdelivr.net/npm/xterm@4.19.0/lib/xterm.js"></script>
 
-    <!-- Load Monaco Editor's loader -->
+    <!-- Monaco Editor loader & config -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.min.js"></script>
     <script>
       require.config({
         paths: {
-          stackframe: "https://cdn.jsdelivr.net/npm/stackframe@1.0.7/stackframe.min",
-          vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs"
+          vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs",
+          stackframe: "https://cdn.jsdelivr.net/npm/stackframe@1.0.7/dist/stackframe.min"
         }
       });
       define("stackframe", [], function () {
@@ -34,57 +34,24 @@
     <!-- Main CSS -->
     <link rel="stylesheet" href="../assets/css/style.css" />
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600&family=Fira+Mono&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet" />
-
-    <!-- Firebase -->
+    <!-- Firebase init -->
     <script type="module" src="../assets/js/firebase-init.js"></script>
   </head>
+
   <body data-unit="unit-6">
-    <!-- Sidebar -->
+    <!-- Sidebar Navigation -->
     <nav id="sidebar">
       <div class="sidebar-header">
         <h1>Building Python Programs</h1>
       </div>
       <ul class="chapters">
         <li class="chapter"><a href="../index.html">Introduction</a></li>
-        <li class="chapter">
-          <a href="unit-0.html">Lesson 1: Welcome to Python</a>
-          <ul class="subsections">
-            <li><a href="unit-0_1.html">Quiz: Python Basics</a></li>
-          </ul>
-        </li>
-        <li class="chapter">
-          <a href="unit-1.html">Lesson 2: Variables in Python</a>
-          <ul class="subsections">
-            <li><a href="unit-1_1.html">Quiz: Variables</a></li>
-          </ul>
-        </li>
-        <li class="chapter">
-          <a href="unit-2.html">Lesson 3: Control Flow in Python</a>
-          <ul class="subsections">
-            <li><a href="unit-2_2.html">Quiz: Control Flow</a></li>
-          </ul>
-        </li>
-        <li class="chapter">
-          <a href="unit-3.html">Lesson 4: Control Flow in Python</a>
-          <ul class="subsections">
-            <li><a href="unit-3_3.html">Quiz: Control Flow</a></li>
-          </ul>
-        </li>
-        <li class="chapter">
-          <a href="unit-4.html">Lesson 5: Functions in Python</a>
-          <ul class="subsections">
-            <li><a href="unit-4_4.html">Quiz: Functions</a></li>
-          </ul>
-        </li>
-        <li class="chapter">
-          <a href="unit-5.html">Lesson 6: Lists and Loops</a>
-          <ul class="subsections">
-            <li><a href="unit-5_5.html">Quiz: Lists and Loops</a></li>
-          </ul>
-        </li>
+        <li class="chapter"><a href="unit-0.html">Lesson 1: Welcome to Python</a></li>
+        <li class="chapter"><a href="unit-1.html">Lesson 2: Variables in Python</a></li>
+        <li class="chapter"><a href="unit-2.html">Lesson 3: Control Flow in Python</a></li>
+        <li class="chapter"><a href="unit-3.html">Lesson 4: Loops in Python</a></li>
+        <li class="chapter"><a href="unit-4.html">Lesson 5: Functions in Python</a></li>
+        <li class="chapter"><a href="unit-5.html">Lesson 6: Lists and Loops</a></li>
         <li class="chapter">
           <a href="unit-6.html" class="active">Lesson 7: Dictionaries and File I/O</a>
           <ul class="subsections">
@@ -98,87 +65,81 @@
     <button class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
     <button class="theme-toggle" aria-label="Toggle theme">
       <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 18c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-10v4m0 4h.01M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.3 11.3l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4"/>
+        <path d="M12 18c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-14c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z"/>
       </svg>
     </button>
 
-    <!-- Main Content -->
-  <main>
-    <section id="lesson-content">
-      <h2>Lesson 7: Dictionaries and File I/O</h2>
-      <p>
-        In this lesson, you'll learn about dictionaries, a powerful Python data type that stores key-value pairs, and how to perform file input and output (I/O) to read from and write to files.
-      </p>
+    <main>
+      <section id="lesson-content">
+        <h2>Lesson 7: Dictionaries and File I/O</h2>
+        <p>
+          In this lesson, you'll learn about dictionaries—a powerful Python data type
+          that stores key-value pairs—and how to perform file input/output (I/O) to
+          read from and write to files.
+        </p>
 
-      <h3>What is a Dictionary?</h3>
-      <p>
-        A dictionary stores data as pairs of <strong>keys</strong> and <strong>values</strong>. Each key is unique and is used to access its corresponding value.
-      </p>
+        <h3>What is a Dictionary?</h3>
+        <p>
+          A dictionary stores data as pairs of <strong>keys</strong> and
+          <strong>values</strong>. Each key is unique and is used to access its
+          corresponding value.
+        </p>
 
-      <h3>Creating and Accessing Dictionaries</h3>
-      <pre><code class="language-python">person = {"name": "Alice", "age": 25, "city": "New York"}
-  print(person["name"])  # Output: Alice
-  print(person.get("age"))  # Output: 25</code></pre>
+        <h3>Creating and Accessing Dictionaries</h3>
+        <pre><code class="language-python">person = {"name": "Alice", "age": 25, "city": "New York"}
+print(person["name"])       # Output: Alice
+print(person.get("age"))    # Output: 25</code></pre>
 
-      <h3>Adding, Updating, and Removing Items</h3>
-      <pre><code class="language-python"># Add or update a key-value pair
-  person["email"] = "alice@example.com"
+        <h3>Adding, Updating, and Removing Items</h3>
+        <pre><code class="language-python"># Add or update a key-value pair
+person["email"] = "alice@example.com"
 
-  # Remove an item by key
-  del person["age"]
+# Remove an item by key
+del person["age"]
 
-  # Remove using pop() and get the removed value
-  email = person.pop("email")</code></pre>
+# Remove using pop() and get the removed value
+email = person.pop("email")</code></pre>
 
-      <h3>Looping Through Dictionaries</h3>
-      <p>You can loop through keys, values, or key-value pairs:</p>
-      <pre><code class="language-python">for key in person:
-      print(key, person[key])
+        <h3>Looping Through Dictionaries</h3>
+        <p>You can loop through keys, values, or key-value pairs:</p>
+        <pre><code class="language-python">for key in person:
+    print(key, person[key])
 
-  for key, value in person.items():
-      print(f"{key}: {value}")</code></pre>
+for key, value in person.items():
+    print(f"{key}: {value}")</code></pre>
 
-      <h3>Introduction to File I/O</h3>
-      <p>File I/O allows your program to save data to a file and read data from a file, which helps with data persistence.</p>
+        <h3>Introduction to File I/O</h3>
+        <p>
+          File I/O allows your program to save data to a file and read data from a
+          file, which helps with data persistence.
+        </p>
 
-      <h3>Writing to a File</h3>
-      <pre><code class="language-python">with open("data.txt", "w") as file:
-      file.write("Hello, world!\n")
-      file.write("This is a file output example.")</code></pre>
+        <h3>Writing to a File</h3>
+        <pre><code class="language-python">with open("data.txt", "w") as file:
+    file.write("Hello, world!\n")
+    file.write("This is a file output example.")</code></pre>
 
-      <h3>Reading from a File</h3>
-      <pre><code class="language-python">with open("data.txt", "r") as file:
-      content = file.read()
-      print(content)</code></pre>
+        <h3>Reading from a File</h3>
+        <pre><code class="language-python">with open("data.txt", "r") as file:
+    content = file.read()
+    print(content)</code></pre>
 
-      <h3>Working with Files Line-by-Line</h3>
-      <pre><code class="language-python">with open("data.txt", "r") as file:
-      for line in file:
-          print(line.strip())</code></pre>
+        <h3>Working with Files Line-by-Line</h3>
+        <pre><code class="language-python">with open("data.txt", "r") as file:
+    for line in file:
+        print(line.strip())</code></pre>
 
-      <h3>Why Use Dictionaries and File I/O?</h3>
-      <ul>
-        <li><strong>Dictionaries:</strong> Store and organize data using meaningful keys instead of just numbers.</li>
-        <li><strong>File I/O:</strong> Save data permanently so your program can access it later.</li>
-        <li>Useful for handling configuration, user data, logs, and more.</li>
-      </ul>
+        <h3>Why Use Dictionaries and File I/O?</h3>
+        <ul>
+          <li><strong>Dictionaries:</strong> Store and organize data using meaningful keys instead of just numbers.</li>
+          <li><strong>File I/O:</strong> Save data permanently so your program can access it later.</li>
+          <li>Useful for handling configuration, user data, logs, and more.</li>
+        </ul>
 
-      <h3>Challenge Time!</h3>
-      <p>Try these challenges to practice working with dictionaries and file I/O:</p>
-      <div id="challenges-container"></div>
-    </section>
-
-    <!-- Divider -->
-    <div id="divider"></div>
-
-    <!-- Code Area -->
-    <section id="code-area">
-      <div id="editor"></div>
-      <button id="runBtn" class="button">Run Code</button>
-      <div id="terminal" class="terminal"></div>
-    </section>
-  </main>
-
+        <h3>Challenge Time!</h3>
+        <p>Try these challenges to practice working with dictionaries and file I/O:</p>
+        <div id="challenges-container"></div>
+      </section>
 
       <!-- Divider -->
       <div id="divider"></div>

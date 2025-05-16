@@ -3,23 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Building Python Programs - Lesson 3: Control Flow in Python</title>
+    <title>Building Python Programs – Lesson 3: Control Flow in Python</title>
 
     <!-- Load Pyodide -->
     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
 
-    <!-- Load Xterm.js CSS and JS -->
+    <!-- Xterm.js -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.19.0/css/xterm.css" />
     <script src="https://cdn.jsdelivr.net/npm/xterm@4.19.0/lib/xterm.js"></script>
 
-    <!-- Load Monaco Editor's loader -->
+    <!-- Monaco Editor loader & config -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.min.js"></script>
     <script>
       require.config({
-        paths: {
-          stackframe: "https://cdn.jsdelivr.net/npm/stackframe@1.0.7/stackframe.min",
-          vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs"
-        }
+        vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs",
+        stackframe: "https://cdn.jsdelivr.net/npm/stackframe@1.0.7/dist/stackframe.min"
       });
       define("stackframe", [], function () {
         return {};
@@ -34,63 +32,30 @@
     <!-- Main CSS -->
     <link rel="stylesheet" href="../assets/css/style.css" />
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600&family=Fira+Mono&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet" />
-
-    <!-- Firebase -->
+    <!-- Firebase init -->
     <script type="module" src="../assets/js/firebase-init.js"></script>
   </head>
+
   <body data-unit="unit-2">
-    <!-- Sidebar -->
+    <!-- Sidebar Navigation -->
     <nav id="sidebar">
       <div class="sidebar-header">
         <h1>Building Python Programs</h1>
       </div>
       <ul class="chapters">
         <li class="chapter"><a href="../index.html">Introduction</a></li>
-        <li class="chapter">
-          <a href="unit-0.html">Lesson 1: Welcome to Python</a>
-          <ul class="subsections">
-            <li><a href="unit-0_1.html">Quiz: Python Basics</a></li>
-          </ul>
-        </li>
-        <li class="chapter">
-          <a href="unit-1.html">Lesson 2: Variables in Python</a>
-          <ul class="subsections">
-            <li><a href="unit-1_1.html">Quiz: Variables</a></li>
-          </ul>
-        </li>
+        <li class="chapter"><a href="unit-0.html">Lesson 1: Welcome to Python</a></li>
+        <li class="chapter"><a href="unit-1.html">Lesson 2: Variables in Python</a></li>
         <li class="chapter">
           <a href="unit-2.html" class="active">Lesson 3: Control Flow in Python</a>
           <ul class="subsections">
             <li><a href="unit-2_2.html">Quiz: Control Flow</a></li>
           </ul>
         </li>
-        <li class="chapter">
-          <a href="unit-3.html">Lesson 4: Control Flow in Python</a>
-          <ul class="subsections">
-            <li><a href="unit-3_3.html">Quiz: Control Flow</a></li>
-          </ul>
-        </li>
-        <li class="chapter">
-          <a href="unit-4.html">Lesson 5: Functions in Python</a>
-          <ul class="subsections">
-            <li><a href="unit-4_4.html">Quiz: Functions</a></li>
-          </ul>
-        </li>
-        <li class="chapter">
-          <a href="unit-5.html">Lesson 6: Lists and Loops</a>
-          <ul class="subsections">
-            <li><a href="unit-5_5.html">Quiz: Lists and Loops</a></li>
-          </ul>
-        </li>
-        <li class="chapter">
-          <a href="unit-6.html">Lesson 7: Dictionaries and File I/O</a>
-          <ul class="subsections">
-            <li><a href="unit-6_6.html">Quiz: Dictionaries & File I/O</a></li>
-          </ul>
-        </li>
+        <li class="chapter"><a href="unit-3.html">Lesson 4: Loops in Python</a></li>
+        <li class="chapter"><a href="unit-4.html">Lesson 5: Functions in Python</a></li>
+        <li class="chapter"><a href="unit-5.html">Lesson 6: Lists and Loops</a></li>
+        <li class="chapter"><a href="unit-6.html">Lesson 7: Dictionaries and File I/O</a></li>
       </ul>
     </nav>
 
@@ -98,59 +63,62 @@
     <button class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
     <button class="theme-toggle" aria-label="Toggle theme">
       <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 18c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-10v4m0 4h.01M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.3 11.3l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4"/>
+        <path d="M12 18c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-14c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z"/>
       </svg>
     </button>
 
-    <!-- Main Content -->
     <main>
       <section id="lesson-content">
         <h2>Lesson 3: Control Flow in Python</h2>
         <p>
-          Control flow allows you to write code that makes decisions and executes different blocks depending on certain conditions. Python uses <code>if</code>, <code>elif</code>, and <code>else</code> to handle conditional logic.
+          Control flow lets you make decisions and execute different blocks of code
+          based on conditions. Python uses <code>if</code>, <code>elif</code>, and
+          <code>else</code> statements along with Boolean expressions.
         </p>
 
-        <h3>If Statements</h3>
-        <p>Basic usage:</p>
+        <h3><code>if</code> Statements</h3>
         <pre><code class="language-python">x = 10
 if x > 5:
     print("x is greater than 5")</code></pre>
 
-        <h3>If-Else Statements</h3>
-        <pre><code class="language-python">x = 3
-if x > 5:
-    print("x is greater than 5")
+        <h3><code>if</code>–<code>else</code></h3>
+        <pre><code class="language-python">if x % 2 == 0:
+    print("even")
 else:
-    print("x is not greater than 5")</code></pre>
+    print("odd")</code></pre>
 
-        <h3>If-Elif-Else Chain</h3>
-        <pre><code class="language-python">x = 7
-if x < 5:
-    print("Less than 5")
-elif x == 5:
-    print("Equal to 5")
+        <h3><code>if</code>–<code>elif</code>–<code>else</code></h3>
+        <pre><code class="language-python">if x > 0:
+    print("positive")
+elif x < 0:
+    print("negative")
 else:
-    print("Greater than 5")</code></pre>
+    print("zero")</code></pre>
 
-        <h3>Comparison Operators</h3>
-        <ul>
-          <li><code>==</code> Equal to</li>
-          <li><code>!=</code> Not equal to</li>
-          <li><code>&gt;</code> Greater than</li>
-          <li><code>&lt;</code> Less than</li>
-          <li><code>&gt;=</code> Greater than or equal to</li>
-          <li><code>&lt;=</code> Less than or equal to</li>
-        </ul>
+        <h3>Logical Operators</h3>
+        <pre><code class="language-python">age = 20
+if age >= 18 and age < 21:
+    print("adult but under 21")
 
-        <h3>Boolean Logic</h3>
-        <p>Use <code>and</code>, <code>or</code>, and <code>not</code> to combine conditions:</p>
-        <pre><code class="language-python">x = 10
-y = 20
-if x > 5 and y > 15:
-    print("Both conditions are True")</code></pre>
+if not (age < 0):
+    print("age is non-negative")</code></pre>
+
+        <h3>Nested Conditions</h3>
+        <pre><code class="language-python">num = 7
+if num > 0:
+    if num % 2 == 1:
+        print("positive odd")
+    else:
+        print("positive even")</code></pre>
 
         <h3>Challenge Time!</h3>
-        <p>Try these challenges to test your understanding of control flow:</p>
+        <p>Try these exercises to test your control-flow skills:</p>
+        <ol>
+          <li>Ask the user for a number and print “positive”, “negative”, or “zero”.</li>
+          <li>Check if a given year is a leap year.</li>
+          <li>Prompt for two numbers and print the larger one.</li>
+          <li>Prompt for a grade (0–100) and print A/B/C/D/F using <code>if</code>–<code>elif</code>.</li>
+        </ol>
         <div id="challenges-container"></div>
       </section>
 
