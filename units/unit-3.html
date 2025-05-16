@@ -1,9 +1,10 @@
+<!-- unit-3.html -->
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Building Python Programs – Lesson 2: Variables in Python</title>
+    <title>Building Python Programs – Lesson 4: Loops in Python</title>
 
     <!-- Load Pyodide -->
     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
@@ -19,10 +20,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.min.js"></script>
     <script>
       require.config({
-        vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs",
-        stackframe: "https://cdn.jsdelivr.net/npm/stackframe@1.0.7/dist/stackframe.min"
+        paths: {
+          vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs",
+          stackframe: "https://cdn.jsdelivr.net/npm/stackframe@1.0.7/dist/stackframe.min"
+        }
       });
-      define("stackframe", [], function () { return {}; });
+      define("stackframe", [], function () {
+        return {};
+      });
     </script>
 
     <!-- Prism Syntax Highlighting -->
@@ -36,11 +41,21 @@
     <!-- Main CSS -->
     <link rel="stylesheet" href="../assets/css/style.css" />
 
-    <!-- Firebase init -->
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600&family=Fira+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Firebase -->
     <script type="module" src="../assets/js/firebase-init.js"></script>
   </head>
 
-  <body data-unit="unit-1">
+  <body data-unit="unit-3">
     <!-- Sidebar Navigation -->
     <nav id="sidebar">
       <div class="sidebar-header">
@@ -48,17 +63,15 @@
       </div>
       <ul class="chapters">
         <li class="chapter"><a href="../index.html">Introduction</a></li>
+        <li class="chapter"><a href="unit-0.html">Lesson 1: Welcome to Python</a></li>
+        <li class="chapter"><a href="unit-1.html">Lesson 2: Variables in Python</a></li>
+        <li class="chapter"><a href="unit-2.html">Lesson 3: Control Flow in Python</a></li>
         <li class="chapter">
-          <a href="unit-0.html">Lesson 1: Welcome to Python</a>
-        </li>
-        <li class="chapter">
-          <a href="unit-1.html" class="active">Lesson 2: Variables in Python</a>
+          <a href="unit-3.html" class="active">Lesson 4: Loops in Python</a>
           <ul class="subsections">
-            <li><a href="unit-1_1.html">Quiz: Variables</a></li>
+            <li><a href="unit-3_3.html">Quiz: Loops in Python</a></li>
           </ul>
         </li>
-        <li class="chapter"><a href="unit-2.html">Lesson 3: Control Flow in Python</a></li>
-        <li class="chapter"><a href="unit-3.html">Lesson 4: Loops in Python</a></li>
         <li class="chapter"><a href="unit-4.html">Lesson 5: Functions in Python</a></li>
         <li class="chapter"><a href="unit-5.html">Lesson 6: Lists and Loops</a></li>
         <li class="chapter"><a href="unit-6.html">Lesson 7: Dictionaries and File I/O</a></li>
@@ -75,57 +88,48 @@
       </svg>
     </button>
 
+    <!-- Main Content -->
     <main>
       <section id="lesson-content">
-        <h2>Lesson 2: Variables in Python</h2>
+        <h2>Lesson 4: Loops in Python</h2>
         <p>
-          Variables are containers for storing data values. In Python, you don’t
-          need to declare a type—just assign a value using the <code>=</code> operator.
+          Loops are a fundamental concept in programming that let you repeat a block
+          of code multiple times without writing it over and over. In Python, you
+          have <code>for</code> loops (for iterating sequences) and
+          <code>while</code> loops (running until a condition is false).
         </p>
 
-        <h3>Assigning Variables</h3>
-        <p>For example:</p>
-        <pre><code class="language-python">age = 25
-name = "Alice"
-print("Age:", age)
-print("Name:", name)</code></pre>
-        <p>
-          Here, <code>age</code> holds the integer 25 and <code>name</code> holds
-          the string "Alice."
-        </p>
+        <h3>For Loops</h3>
+        <p>Example: Print numbers 0 to 4 with <code>for</code> and <code>range()</code>. Copy/paste all the examples below so you can see their outputs.</p>
+        <pre><code class="language-python">for i in range(5):
+    print(i)</code></pre>
 
-        <h3>Understanding Variable Types</h3>
-        <p>Common types include:</p>
-        <ul>
-          <li><strong>int</strong>: Whole numbers, e.g. <code>42</code>.</li>
-          <li><strong>float</strong>: Decimal numbers, e.g. <code>3.14</code>.</li>
-          <li><strong>str</strong>: Text in quotes, e.g. <code>"Hello"</code>.</li>
-          <li><strong>bool</strong>: <code>True</code> or <code>False</code>.</li>
-        </ul>
-        <pre><code class="language-python">num = 10
-print(type(num))     # &lt;class 'int'&gt;
-pi = 3.14
-print(type(pi))      # &lt;class 'float'&gt;
-text = "Hello"
-print(type(text))    # &lt;class 'str'&gt;
-is_student = True
-print(type(is_student))  # &lt;class 'bool'&gt;</code></pre>
+        <h3>While Loops</h3>
+        <p>Example: Print numbers 0 to 4 with a <code>while</code> loop.</p>
+        <pre><code class="language-python">x = 0
+while x < 5:
+    print(x)
+    x += 1</code></pre>
 
-        <h3>Using Variables in Expressions</h3>
-        <pre><code class="language-python">length = 10
-width = 5
-area = length * width
-print("Area:", area)
+        <h3>Loop Control</h3>
+        <p>Use <code>break</code> and <code>continue</code> to adjust flow:</p>
+        <pre><code class="language-python">for i in range(10):
+    if i == 5:
+        break
+    print(i)
 
-greeting = "Hello, " + name + "!"
-print(greeting)</code></pre>
+for j in range(5):
+    if j == 2:
+        continue
+    print(j)</code></pre>
 
-        <h3>User Input</h3>
-        <pre><code class="language-python">user_input = input("Enter your favorite color: ")
-print("Your favorite color is", user_input)</code></pre>
+        <h3>Nested Loops</h3>
+        <pre><code class="language-python">for i in range(3):
+    for j in range(2):
+        print(f"i={i}, j={j}")</code></pre>
 
         <h3>Challenge Time!</h3>
-        <p>Try these challenges to practice what you’ve learned:</p>
+        <p>Try these challenges to test your understanding of loops in Python:</p>
         <div id="challenges-container"></div>
       </section>
 

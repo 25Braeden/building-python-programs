@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Building Python Programs – Lesson 6: Lists and Loops</title>
+
+    <!-- Load Pyodide -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+
+    <!-- Xterm.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.19.0/css/xterm.css" />
+    <script src="https://cdn.jsdelivr.net/npm/xterm@4.19.0/lib/xterm.js"></script>
+
+    <!-- Monaco Editor loader & config -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.min.js"></script>
+    <script>
+      // Ensure Monaco’s dependencies load correctly
+      require.config({
+        paths: {
+          vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs",
+          // point at the real stackframe.min (so it can fetch stackframe.min.js)
+          stackframe: "https://cdn.jsdelivr.net/npm/stackframe@1.0.7/dist/stackframe.min"
+        }
+      });
+      // Provide a stub in case something still asks for it
+      define("stackframe", [], function () {
+        return {};
+      });
+    </script>
+
+    <!-- Prism Syntax Highlighting -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-python.min.js"></script>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css" />
+
+    <!-- Firebase init -->
+    <script type="module" src="../assets/js/firebase-init.js"></script>
+  </head>
+
+  <body data-unit="unit-5">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h1>Building Python Programs</h1>
+      </div>
+      <ul class="chapters">
+        <li class="chapter"><a href="../index.html">Introduction</a></li>
+        <li class="chapter"><a href="unit-0.html">Lesson 1: Welcome to Python</a></li>
+        <li class="chapter"><a href="unit-1.html">Lesson 2: Variables in Python</a></li>
+        <li class="chapter"><a href="unit-2.html">Lesson 3: Control Flow in Python</a></li>
+        <li class="chapter"><a href="unit-3.html">Lesson 4: Control Flow in Python</a></li>
+        <li class="chapter"><a href="unit-4.html">Lesson 5: Functions in Python</a></li>
+        <li class="chapter">
+          <a href="unit-5.html" class="active">Lesson 6: Lists and Loops</a>
+          <ul class="subsections">
+            <li><a href="unit-5_5.html">Quiz: Lists and Loops</a></li>
+          </ul>
+        </li>
+        <li class="chapter"><a href="unit-6.html">Lesson 7: Dictionaries and File I/O</a></li>
+      </ul>
+    </nav>
+
+    <!-- Toggle buttons -->
+    <button class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+    <button class="theme-toggle" aria-label="Toggle theme">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M12 18c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-14c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z"
+        />
+      </svg>
+    </button>
+
+    <main>
+      <section id="lesson-content">
+        <h2>Lesson 6: Lists and Loops</h2>
+        <p>
+          Lists are a fundamental way to store multiple values in one variable.
+          Loops allow you to automate repetitive tasks, especially useful when
+          working with collections like lists.
+        </p>
+
+        <h3>Creating a List</h3>
+        <p>Lists use square brackets <code>[]</code>, with comma-separated items.</p>
+        <pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
+print(fruits)</code></pre>
+
+        <h3>Accessing Elements</h3>
+        <pre><code class="language-python">print(fruits[0])  # apple
+print(fruits[-1])  # cherry</code></pre>
+
+        <h3>Modifying Lists</h3>
+        <pre><code class="language-python">fruits[1] = "blueberry"
+fruits.append("orange")
+print(fruits)</code></pre>
+
+        <h3>Looping with <code>for</code></h3>
+        <pre><code class="language-python">for fruit in fruits:
+    print(fruit)</code></pre>
+
+        <h3>Looping with <code>while</code></h3>
+        <pre><code class="language-python">i = 0
+while i < len(fruits):
+    print(fruits[i])
+    i += 1</code></pre>
+
+        <h3>Challenge Time!</h3>
+        <p>Try these exercises to practice your skills with lists and loops:</p>
+        <ol>
+          <li>Create a list of your favorite movies and print each one with a <code>for</code> loop.</li>
+          <li>Write a function that returns the sum of a list of numbers using a <code>while</code> loop.</li>
+          <li>Remove all even numbers from a list using a loop.</li>
+          <li>Ask the user to enter names until they type “done,” then print them all.</li>
+        </ol>
+        <div id="challenges-container"></div>
+      </section>
+
+      <!-- Divider -->
+      <div id="divider"></div>
+
+      <!-- Code Area -->
+      <section id="code-area">
+        <div id="editor"></div>
+        <button id="runBtn" class="button">Run Code</button>
+        <div id="terminal" class="terminal"></div>
+      </section>
+    </main>
+
+    <!-- Scripts -->
+    <script type="module" src="../assets/js/main.js" defer></script>
+    <script src="../assets/js/splitter.js" defer></script>
+    <script src="../assets/js/interpreter.js" defer></script>
+    <script type="module" src="../assets/js/challenges.js" defer></script>
+  </body>
+</html>

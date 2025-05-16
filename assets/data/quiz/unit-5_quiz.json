@@ -1,0 +1,45 @@
+{
+    "questions": [
+      {
+        "question": "Which of the following correctly appends an element 5 to the end of the list my_list?",
+        "options": [
+          "my_list.add(5)",
+          "my_list.append(5)",
+          "add(my_list, 5)",
+          "my_list.push(5)"
+        ],
+        "correctAnswer": "my_list.append(5)"
+      },
+      {
+        "question": "Given numbers = [1, 2, 3], what does numbers[1] evaluate to?",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "Error"
+        ],
+        "correctAnswer": "2"
+      },
+      {
+        "question": "What does [1, 2] * 3 produce?",
+        "options": [
+          "[1, 2, 1, 2, 1, 2]",
+          "[3, 3]",
+          "[1, 2, 3]",
+          "Error"
+        ],
+        "correctAnswer": "[1, 2, 1, 2, 1, 2]"
+      },
+      {
+        "question": "Which keyword creates a loop that runs as long as a condition is true?",
+        "options": [
+          "for",
+          "while",
+          "loop",
+          "repeat"
+        ],
+        "correctAnswer": "while"
+      }
+    ]
+  }
+  

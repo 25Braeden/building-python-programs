@@ -1,14 +1,18 @@
 <!doctype html>
-<html lang="en" data-unit="unit-1_1" data-quiz="unit-1_quiz.json">
+<html lang="en" data-unit="unit-4_4" data-quiz="unit-4_quiz.json">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Unit 1 Quiz: Variables</title>
+    <title>Unit 4 Quiz: Functions in Python</title>
+
+    <!-- Main CSS -->
     <link rel="stylesheet" href="../assets/css/style.css" />
+    <!-- jsPDF (optional) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Firebase Initialization -->
     <script type="module" src="../assets/js/firebase-init.js"></script>
   </head>
-  <body data-unit="unit-1_1">
+  <body data-unit="unit-4_4">
     <!-- Sidebar Navigation -->
     <nav id="sidebar">
       <div class="sidebar-header">
@@ -17,39 +21,39 @@
       <ul class="chapters">
         <li class="chapter"><a href="../index.html">Introduction</a></li>
         <li class="chapter"><a href="unit-0.html">Lesson 1: Welcome to Python</a></li>
-        <li class="chapter">
-          <a href="unit-1.html" class="active">Lesson 2: Variables in Python</a>
-          <ul class="subsections">
-            <li><a href="unit-1_1.html" class="active">Quiz: Variables</a></li>
-          </ul>
-        </li>
+        <li class="chapter"><a href="unit-1.html">Lesson 2: Variables in Python</a></li>
         <li class="chapter"><a href="unit-2.html">Lesson 3: Control Flow in Python</a></li>
         <li class="chapter"><a href="unit-3.html">Lesson 4: Loops in Python</a></li>
-        <li class="chapter"><a href="unit-4.html">Lesson 5: Functions in Python</a></li>
+        <li class="chapter">
+          <a href="unit-4.html">Lesson 5: Functions in Python</a>
+          <ul class="subsections">
+            <li><a href="unit-4_4.html" class="active">Quiz: Functions</a></li>
+          </ul>
+        </li>
         <li class="chapter"><a href="unit-5.html">Lesson 6: Lists and Loops</a></li>
         <li class="chapter"><a href="unit-6.html">Lesson 7: Dictionaries and File I/O</a></li>
       </ul>
     </nav>
-    
+
     <!-- Toggle Buttons -->
     <button class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
     <button class="theme-toggle" aria-label="Toggle theme">
       <svg viewBox="0 0 24 24" fill="currentColor">
-        <path
-          d="M12 18c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-10v4m0 4h.01M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.3 11.3l1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4"
-        />
+        <path d="M12 18c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-14c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z"/>
       </svg>
     </button>
-    <!-- Main Quiz Content -->
+
+    <!-- Quiz Container -->
     <main>
-      <div class="quiz-container">
+      <div class="quiz-container" id="quiz-container">
         <div class="quiz-question" id="quiz-question"></div>
         <ul class="quiz-options" id="quiz-options"></ul>
         <div class="feedback" id="quiz-feedback"></div>
         <button id="nextBtn" class="next-button">Next</button>
       </div>
     </main>
-    <!-- External Scripts -->
+
+    <!-- Scripts -->
     <script type="module" src="../assets/js/main.js" defer></script>
     <script type="module" src="../assets/js/quiz.js" defer></script>
   </body>

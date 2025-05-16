@@ -1,0 +1,50 @@
+{
+    "questions": [
+      {
+        "question": "What does the following code print?\n\n```python\nx = 10\nif x > 5:\n    print(\"Greater\")\nelse:\n    print(\"Not Greater\")\n```",
+        "options": ["Greater", "Not Greater", "10", "Error"],
+        "correctAnswer": "Greater"
+      },
+      {
+        "question": "What does this code output?\n\n```python\nx = 5\nif x > 5:\n    print(\"A\")\nelif x == 5:\n    print(\"B\")\nelse:\n    print(\"C\")\n```",
+        "options": ["A", "B", "C", "Error"],
+        "correctAnswer": "B"
+      },
+      {
+        "question": "What is printed?\n\n```python\nx = 3\nif x > 0 and x < 5:\n    print(\"Yes\")\nelse:\n    print(\"No\")\n```",
+        "options": ["Yes", "No", "3", "Error"],
+        "correctAnswer": "Yes"
+      },
+      {
+        "question": "What will be the output?\n\n```python\na = False\nif not a:\n    print(\"True\")\nelse:\n    print(\"False\")\n```",
+        "options": ["True", "False", "FalseTrue", "Error"],
+        "correctAnswer": "True"
+      },
+      {
+        "question": "What does this code print?\n\n```python\nx = 0\nif x or 5:\n    print(\"OK\")\nelse:\n    print(\"Fail\")\n```",
+        "options": ["OK", "Fail", "0", "Error"],
+        "correctAnswer": "OK"
+      },
+      {
+        "question": "Given:\n\n```python\nnum = 7\nif num > 0:\n    if num % 2 == 0:\n        print(\"Even\")\n    else:\n        print(\"Odd\")\n```  \nWhat prints?",
+        "options": ["Even", "Odd", "7", "Error"],
+        "correctAnswer": "Odd"
+      },
+      {
+        "question": "Which keyword skips the rest of this iteration and moves to the next?",
+        "options": ["break", "continue", "skip", "pass"],
+        "correctAnswer": "continue"
+      },
+      {
+        "question": "Which statement correctly checks if `age` is between 18 and 30 inclusive?",
+        "options": [
+          "if age >= 18 and age <= 30:",
+          "if 18 <= age <= 30:",
+          "if age in range(18, 31):",
+          "All of the above"
+        ],
+        "correctAnswer": "All of the above"
+      }
+    ]
+  }
+  
