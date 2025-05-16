@@ -12,13 +12,30 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.19.0/css/xterm.css" />
     <script src="https://cdn.jsdelivr.net/npm/xterm@4.19.0/lib/xterm.js"></script>
 
-    <!-- Monaco Editor loader -->
+    <!-- Monaco Editor loader & config -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs/loader.min.js"></script>
+    <script>
+      // Ensure Monaco’s dependencies load correctly
+      require.config({
+        paths: {
+          vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.40.0/min/vs",
+          // point at the real stackframe.min (so it can fetch stackframe.min.js)
+          stackframe: "https://cdn.jsdelivr.net/npm/stackframe@1.0.7/dist/stackframe.min"
+        }
+      });
+      // Provide a stub in case something still asks for it
+      define("stackframe", [], function () {
+        return {};
+      });
+    </script>
 
-    <!-- Prism for syntax highlighting -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <!-- Prism Syntax Highlighting -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-python.min.js"></script>
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="../assets/css/style.css" />
@@ -50,10 +67,14 @@
       </ul>
     </nav>
 
-    <!-- Toggles -->
+    <!-- Toggle buttons -->
     <button class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
     <button class="theme-toggle" aria-label="Toggle theme">
-      <svg viewBox="0 0 24 24"><path d="M12 18c-3.3 0-6-2.7-6-6…"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M12 18c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-14c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z"
+        />
+      </svg>
     </button>
 
     <main>
@@ -66,12 +87,11 @@
         </p>
 
         <h3>Creating a List</h3>
-        <p>Lists use square brackets <code>[]</code>, with items separated by commas.</p>
+        <p>Lists use square brackets <code>[]</code>, with comma-separated items.</p>
         <pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
 print(fruits)</code></pre>
 
         <h3>Accessing Elements</h3>
-        <p>You can index into a list (zero-based):</p>
         <pre><code class="language-python">print(fruits[0])  # apple
 print(fruits[-1])  # cherry</code></pre>
 
@@ -80,7 +100,7 @@ print(fruits[-1])  # cherry</code></pre>
 fruits.append("orange")
 print(fruits)</code></pre>
 
-        <h3>Looping Over Lists with <code>for</code></h3>
+        <h3>Looping with <code>for</code></h3>
         <pre><code class="language-python">for fruit in fruits:
     print(fruit)</code></pre>
 
@@ -90,32 +110,14 @@ while i < len(fruits):
     print(fruits[i])
     i += 1</code></pre>
 
-        <h3>Common List Methods</h3>
-        <ul>
-          <li><code>append(item)</code></li>
-          <li><code>remove(item)</code></li>
-          <li><code>insert(index, item)</code></li>
-          <li><code>pop()</code></li>
-          <li><code>len(list)</code></li>
-        </ul>
-
-        <h3>Why Use Lists and Loops?</h3>
-        <ul>
-          <li>Store multiple values easily.</li>
-          <li>Automate repetitive tasks with loops.</li>
-          <li>Build more complex programs by combining these features.</li>
-        </ul>
-
         <h3>Challenge Time!</h3>
         <p>Try these exercises to practice your skills with lists and loops:</p>
         <ol>
-          <li>Create a list of your favorite movies and print each movie with a <code>for</code> loop.</li>
-          <li>Write a function that sums a list of numbers using a <code>while</code> loop.</li>
+          <li>Create a list of your favorite movies and print each one with a <code>for</code> loop.</li>
+          <li>Write a function that returns the sum of a list of numbers using a <code>while</code> loop.</li>
           <li>Remove all even numbers from a list using a loop.</li>
-          <li>Ask the user to enter names until they type “done,” then print all the names entered.</li>
+          <li>Ask the user to enter names until they type “done,” then print them all.</li>
         </ol>
-
-        <!-- This is where challenges.js will render your interactive challenges -->
         <div id="challenges-container"></div>
       </section>
 
